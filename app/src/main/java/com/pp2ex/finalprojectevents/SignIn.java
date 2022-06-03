@@ -26,14 +26,12 @@ public class SignIn extends AppCompatActivity{
 
         enterEmail = (EditText) findViewById(R.id.et_email);
         enterPassword = (EditText) findViewById(R.id.et_password);
-
-        logIn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                String email = enterEmail.getText().toString();
-                String password = enterPassword.getText().toString();
-                Intent goMainMenu = new Intent(SignIn.this, MainActivity.class);
-                startActivity(goMainMenu);
-            }
+        //TODO: check if email is already in use
+        logIn.setOnClickListener(v -> {
+            String email = enterEmail.getText().toString();
+            String password = enterPassword.getText().toString();
+            Intent goMainMenu = new Intent(SignIn.this, MainActivity.class);
+            startActivity(goMainMenu);
         });
 
         back.setOnClickListener(v -> {

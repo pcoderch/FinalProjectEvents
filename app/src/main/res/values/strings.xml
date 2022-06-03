@@ -6,7 +6,8 @@
     <string name="backArrow">back arrow image</string>
     <string name="SignUp">Sing Up</string>
     <string name="SignIn">Sing In</string>
-    <string name="e_username">Enter username</string>
+    <string name="e_firstName">Enter your Name</string>
+    <string name="e_lastName">Enter your Last Name</string>
     <string name="e_email">Enter a valid email</string>
     <string name="e_password">Enter password</string>
     <string name="e_confirm_password">Confirm password</string>

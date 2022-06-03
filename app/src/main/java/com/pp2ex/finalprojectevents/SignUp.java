@@ -14,7 +14,8 @@ import android.widget.TextView;
 import java.util.Objects;
 
 public class SignUp extends AppCompatActivity{
-    private EditText enterUsername;
+    private EditText enterFirstName;
+    private EditText enterLastName;
     private EditText enterEmail;
     private EditText enterPassword;
     private EditText confirmPassword;
@@ -28,28 +29,36 @@ public class SignUp extends AppCompatActivity{
         final Button createAccount = findViewById(R.id.createAccount);
         final ImageButton back = findViewById(R.id.arrowBackSignUp);
 
-        enterUsername = (EditText) findViewById(R.id.et_username);
+        enterFirstName = (EditText) findViewById(R.id.et_firstName);
+        enterLastName = (EditText) findViewById(R.id.et_lastName);
         enterEmail = (EditText) findViewById(R.id.et_email);
         enterPassword = (EditText) findViewById(R.id.et_password);
         confirmPassword = (EditText) findViewById(R.id.et_confirm_password);
 
-        createAccount.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                String username = enterUsername.getText().toString();
-                String email = enterEmail.getText().toString();
-                String password = enterPassword.getText().toString();
-                String confirmedPassword = confirmPassword.getText().toString();
-                if (password.equals(confirmedPassword)) {
-                    //user.setPassword(password);
-                    enterPassword.setTextColor(getResources().getColor(R.color.black));
-                    confirmPassword.setTextColor(getResources().getColor(R.color.black));
+        createAccount.setOnClickListener(v -> {
+            String firstName = enterFirstName.getText().toString();
+            String lastName = enterLastName.getText().toString();
+            String email = enterEmail.getText().toString();
+            String password = enterPassword.getText().toString();
+            String confirmedPassword = confirmPassword.getText().toString();
+            //TODO: check if email is already in use
+            if (password.equals(confirmedPassword)) {
+                enterPassword.setTextColor(getResources().getColor(R.color.black));
+                confirmPassword.setTextColor(getResources().getColor(R.color.black));
+                if (user.verifyEmailChar(email) && user.verifyPasswordChar(password)) {
+                    enterEmail.setTextColor(getResources().getColor(R.color.black));
+                    user.setName(firstName);
+                    user.setLastName(lastName);
+                    user.setEmail(email);
+                    user.setPassword(password);
                     Intent goMainMenu = new Intent(SignUp.this, MainActivity.class);
                     startActivity(goMainMenu);
+                } else {
+                    enterEmail.setTextColor(getResources().getColor(R.color.red));
                 }
-                else {
-                    enterPassword.setTextColor(getResources().getColor(R.color.red));
-                    confirmPassword.setTextColor(getResources().getColor(R.color.red));
-                }
+            } else {
+                enterPassword.setTextColor(getResources().getColor(R.color.red));
+                confirmPassword.setTextColor(getResources().getColor(R.color.red));
             }
         });
         back.setOnClickListener(v -> {

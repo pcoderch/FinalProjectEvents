@@ -25,13 +25,28 @@
     </TextView>
 
     <EditText
-        android:id="@+id/et_username"
+        android:id="@+id/et_firstName"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
-        android:hint="@string/e_username"
+        android:hint="@string/e_firstName"
+        android:padding="15dp"
+        android:textSize="15sp"
+        android:autofillHints=""
+        android:backgroundTint="@color/black"
+        android:inputType="textPersonName">
+    </EditText>
+
+    <EditText
+        android:id="@+id/et_lastName"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:hint="@string/e_lastName"
         android:padding="15dp"
         android:textSize="15sp"
         android:autofillHints=""
