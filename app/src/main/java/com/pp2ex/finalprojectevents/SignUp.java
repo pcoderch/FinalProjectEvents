@@ -26,7 +26,7 @@ public class SignUp extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_up);
         final Button createAccount = findViewById(R.id.createAccount);
-        final ImageButton back = findViewById(R.id.arrowBack);
+        final ImageButton back = findViewById(R.id.arrowBackSignUp);
 
         enterUsername = (EditText) findViewById(R.id.et_username);
         enterEmail = (EditText) findViewById(R.id.et_email);

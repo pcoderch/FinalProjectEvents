@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <ImageButton
-        android:id="@+id/arrowBack"
+        android:id="@+id/arrowBackSignUp"
         android:layout_marginTop="20dp"
         android:layout_width="86dp"
         android:layout_height="58dp"

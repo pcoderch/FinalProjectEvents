@@ -22,7 +22,7 @@ public class SignIn extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_in);
         final Button logIn = findViewById(R.id.login);
-        final ImageButton back = findViewById(R.id.arrowBack);
+        final ImageButton back = findViewById(R.id.arrowBackSignIn);
 
         enterEmail = (EditText) findViewById(R.id.et_email);
         enterPassword = (EditText) findViewById(R.id.et_password);
