@@ -30,7 +30,7 @@ public class SignIn extends AppCompatActivity{
         logIn.setOnClickListener(v -> {
             String email = enterEmail.getText().toString();
             String password = enterPassword.getText().toString();
-            Intent goMainMenu = new Intent(SignIn.this, MainActivity.class);
+            Intent goMainMenu = new Intent(SignIn.this, MainMenu.class);
             startActivity(goMainMenu);
         });
 

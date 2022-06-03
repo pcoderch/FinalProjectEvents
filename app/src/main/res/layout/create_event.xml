@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:stretchColumns="1">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:ignore="UselessParent">
+
+            <ImageButton
+                android:id="@+id/arrowBackCreateEvent"
+                android:layout_marginTop="20dp"
+                android:layout_width="86dp"
+                android:layout_height="58dp"
+                app:srcCompat="@drawable/backarrow_foreground"
+                android:contentDescription="@string/backArrow"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="@string/create_event"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="20dp"
+                android:textSize="45sp"
+                android:textStyle="italic">
+            </TextView>
+
+            <EditText
+                android:id="@+id/et_eventName"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:hint="@string/event_name"
+                android:padding="15dp"
+                android:textSize="15sp"
+                android:autofillHints=""
+                android:backgroundTint="@color/black"
+                android:inputType="textPersonName">
+            </EditText>
+
+            <EditText
+                android:id="@+id/et_event_description"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:hint="@string/event_description"
+                android:padding="15dp"
+                android:textSize="15sp"
+                android:autofillHints=""
+                android:backgroundTint="@color/black"
+                android:inputType="textPersonName">
+            </EditText>
+
+            <EditText
+                android:id="@+id/et_event_capacity"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:hint="@string/event_capacity"
+                android:padding="15dp"
+                android:textSize="15sp"
+                android:autofillHints=""
+                android:backgroundTint="@color/black"
+                android:inputType="textEmailAddress">
+            </EditText>
+
+            <EditText
+                android:id="@+id/et_event_location"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:hint="@string/event_location"
+                android:padding="15dp"
+                android:textSize="15sp"
+                android:autofillHints=""
+                android:backgroundTint="@color/black"
+                android:inputType="textPassword">
+            </EditText>
+
+            <EditText
+                android:id="@+id/et_event_category"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:hint="@string/event_category"
+                android:padding="15dp"
+                android:textSize="15sp"
+                android:autofillHints=""
+                android:backgroundTint="@color/black"
+                android:inputType="textPassword">
+            </EditText>
+
+            <EditText
+                android:id="@+id/et_event_image"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:hint="@string/event_image"
+                android:padding="15dp"
+                android:textSize="15sp"
+                android:autofillHints=""
+                android:backgroundTint="@color/black"
+                android:inputType="textPassword">
+            </EditText>
+
+            <Button
+                android:id="@+id/create_event_button"
+                android:layout_width="260dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginStart="70dp"
+                android:backgroundTint="@color/black"
+                android:text="@string/create_event_button">
+            </Button>
+
+        </LinearLayout>
+    </TableLayout>
+</ScrollView>
