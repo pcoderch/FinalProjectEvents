@@ -10,6 +10,7 @@ import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
+    // test
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Objects.requireNonNull(getSupportActionBar()).hide();
