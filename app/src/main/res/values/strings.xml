@@ -23,5 +23,9 @@
     <string name="event_category">Event Category</string>
     <string name="event_capacity">Event Capacity</string>
     <string name="create_event_button">Create Event</string>
+    <string name="buttonCancel">CANCEL</string>
+    <string name="buttonLogout">LOG OUT</string>
+    <string name="byeview">Come back soon for more unforgettable events ;)</string>
+    <string name="textViewLogout">ARE YOU SURE YOU WANT TO LOG OUT?</string>
 
 </resources>
