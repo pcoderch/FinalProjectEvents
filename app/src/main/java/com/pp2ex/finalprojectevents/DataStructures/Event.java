@@ -1,4 +1,4 @@
-package com.pp2ex.finalprojectevents;
+package com.pp2ex.finalprojectevents.DataStructures;
 
 public class Event {
     private int id;

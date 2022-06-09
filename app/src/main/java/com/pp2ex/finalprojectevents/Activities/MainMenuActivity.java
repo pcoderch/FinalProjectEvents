@@ -1,4 +1,4 @@
-package com.pp2ex.finalprojectevents;
+package com.pp2ex.finalprojectevents.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,7 +7,9 @@ import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class MainMenu extends AppCompatActivity {
+import com.pp2ex.finalprojectevents.R;
+
+public class MainMenuActivity extends AppCompatActivity {
 
 
     @Override

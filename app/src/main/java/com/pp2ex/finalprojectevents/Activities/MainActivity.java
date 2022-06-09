@@ -1,10 +1,12 @@
-package com.pp2ex.finalprojectevents;
+package com.pp2ex.finalprojectevents.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+
+import com.pp2ex.finalprojectevents.R;
 
 import java.util.Objects;
 
@@ -19,11 +21,11 @@ public class MainActivity extends AppCompatActivity {
         final Button signInButton = findViewById(R.id.ButtonSignIn);
 
         signUpButton.setOnClickListener(v -> {
-            Intent SignUpTask = new Intent(MainActivity.this, SignUp.class);
+            Intent SignUpTask = new Intent(MainActivity.this, SignUpActivity.class);
             startActivity(SignUpTask);
         });
         signInButton.setOnClickListener(v -> {
-            Intent SignInTask = new Intent(MainActivity.this, SignIn.class);
+            Intent SignInTask = new Intent(MainActivity.this, SignInActivity.class);
             startActivity(SignInTask);
         });
     }
