@@ -1,11 +1,13 @@
 package com.pp2ex.finalprojectevents.DataStructures;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class Event {
     private int id;
     private String name;
     private int ownerId;
     private String description;
-    private String date;
     private String startDate;
     private String endDate;
     private int numOfParticipants;
@@ -15,12 +17,9 @@ public class Event {
     private String comments;
     private int rating; // 0 - 10
 
-    public Event(int id, String name, int ownerId, String description, String date, String startDate, String endDate, int numOfParticipants, String image, String location, String type, String comments, int rating) {
-        this.id = id;
+    public Event (String name, String description, String startDate, String endDate, int numOfParticipants, String image, String location, String type) {
         this.name = name;
-        this.ownerId = ownerId;
         this.description = description;
-        this.date = date;
         this.startDate = startDate;
         this.endDate = endDate;
         this.numOfParticipants = numOfParticipants;
@@ -28,7 +27,6 @@ public class Event {
         this.location = location;
         this.type = type;
         this.comments = comments;
-        this.rating = rating;
     }
 
     // Getters
@@ -36,7 +34,6 @@ public class Event {
     public String getName() { return name; }
     public int getOwnerId() { return ownerId; }
     public String getDescription() { return description; }
-    public String getDate() { return date; }
     public String getStartDate() { return startDate; }
     public String getEndDate() { return endDate; }
     public int getNumOfParticipants() { return numOfParticipants; }
@@ -51,7 +48,6 @@ public class Event {
     public void setName(String name) { this.name = name; }
     public void setOwnerId(int ownerId) { this.ownerId = ownerId; }
     public void setDescription(String description) { this.description = description; }
-    public void setDate(String date) { this.date = date; }
     public void setStartDate(String startDate) { this.startDate = startDate; }
     public void setEndDate(String endDate) { this.endDate = endDate; }
     public void setNumOfParticipants(int numOfParticipants) { this.numOfParticipants = numOfParticipants; }
@@ -61,4 +57,23 @@ public class Event {
     public void setComments(String comments) { this.comments = comments; }
     public void setRating(int rating) { this.rating = rating; }
 
+    public JSONObject toJSON() {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("name", name);
+            jsonObject.put("description", description);
+            jsonObject.put("startDate", startDate);
+            jsonObject.put("endDate", endDate);
+            jsonObject.put("numOfParticipants", numOfParticipants);
+            jsonObject.put("image", image);
+            jsonObject.put("location", location);
+            jsonObject.put("type", type);
+            jsonObject.put("comments", comments);
+            jsonObject.put("rating", rating);
+        } catch (JSONException e) {
+            System.out.println("Error: " + e);
+            e.printStackTrace();
+        }
+        return jsonObject;
+    }
 }

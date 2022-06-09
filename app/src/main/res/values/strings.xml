@@ -30,5 +30,9 @@
     <string name="loginError">Wrong email or password!</string>
     <string name="registerError">Wrong email or password</string>
     <string name="passwordError">Password does not match</string>
+    <string name="event_end_date">Event Ending Date</string>
+    <string name="event_start_date">Event Starting Date</string>
+    <string name="create_event_success">Event Created Successfully!</string>
+    <string name="create_event_fail">Error! Can\'t create the event</string>
 
 </resources>
