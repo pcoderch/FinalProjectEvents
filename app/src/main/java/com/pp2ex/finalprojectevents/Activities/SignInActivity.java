@@ -17,6 +17,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.pp2ex.finalprojectevents.API.MethodsAPI;
 import com.pp2ex.finalprojectevents.API.VolleySingleton;
+import com.pp2ex.finalprojectevents.DataStructures.User;
 import com.pp2ex.finalprojectevents.R;
 
 import org.json.JSONException;
@@ -60,10 +61,16 @@ public class SignInActivity extends AppCompatActivity{
                         @Override
                         public void onResponse(JSONObject response) {
                             System.out.println("Response: " + response);
+                            try {
+                                String token = response.getString("accessToken");
+                                System.out.println("token: " + token);
+                                setUser(token, email);
+                            } catch (JSONException | AuthFailureError e) {
+                                e.printStackTrace();
+                            }
                         }
                     }, error -> {
-                        // TODO: Handle error
-                        System.out.println("Error: " + error);
+                        Toast.makeText(SignInActivity.this, R.string.loginError, Toast.LENGTH_SHORT).show();
                     });
 
             // Access the RequestQueue through your singleton class.
@@ -76,4 +83,36 @@ public class SignInActivity extends AppCompatActivity{
 
         });
     }
-}
+
+    public void setUser(String token, String email) throws AuthFailureError {
+        String url = MethodsAPI.URL_GET_USER + "?s=" + email;
+        System.out.println("URL: " + url);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        System.out.println("Response: " + response);
+                        User user = null;
+                        try {
+                            user = User.getUserFromJson(response);
+                            User.setAuthenticatedUser(user);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        System.out.println("user: " + user);
+                    } }, error -> {
+                    Toast.makeText(SignInActivity.this, "Error: " + error, Toast.LENGTH_SHORT).show();
+                } ) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + token);
+                return headers;
+            }
+        };
+        VolleySingleton.getInstance(this).addToRequestQueue(stringRequest);
+    }
+
+
+    }
+

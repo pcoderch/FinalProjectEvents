@@ -4,8 +4,8 @@
     <string name="ButtonSignUp">SIGN UP</string>
     <string name="startBackground">mainPageBackground</string>
     <string name="backArrow">back arrow image</string>
-    <string name="SignUp">Sing Up</string>
-    <string name="SignIn">Sing In</string>
+    <string name="SignUp">Sign Up</string>
+    <string name="SignIn">Sign In</string>
     <string name="e_firstName">Enter your Name</string>
     <string name="e_lastName">Enter your Last Name</string>
     <string name="e_email">Enter a valid email</string>
@@ -27,5 +27,6 @@
     <string name="buttonLogout">LOG OUT</string>
     <string name="byeView">Come back soon for more unforgettable events ;)</string>
     <string name="textViewLogout">ARE YOU SURE YOU WANT TO LOG OUT?</string>
+    <string name="loginError">Wrong email or password!</string>
 
 </resources>
