@@ -1,65 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#96D8EC">
-
-    <Button
-        android:id="@+id/buttonCancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/buttonCancel"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.273"
-        app:layout_constraintStart_toEndOf="@+id/buttonLogout"
-        tools:layout_editor_absoluteY="358dp" />
-
-    <Button
-        android:id="@+id/buttonLogout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:text="@string/buttonLogout"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="358dp" />
-
-    <TextView
-        android:id="@+id/byeview"
-        android:layout_width="168dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="52dp"
-        android:singleLine="false"
-        android:text="@string/byeview"
-        android:textAlignment="center"
-        android:textStyle="italic"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonLogout"
-        app:layout_constraintVertical_bias="0.016" />
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/textViewLogout"
-        android:layout_width="232dp"
-        android:layout_height="125dp"
-        android:autoText="false"
-        android:background="#002196F3"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
         android:text="@string/textViewLogout"
         android:textAlignment="center"
-        android:textColor="#6F44BD"
-        android:textColorHighlight="#151414"
-        android:textColorHint="#0B0B0B"
+        android:layout_gravity="center"
+        android:paddingTop="200dp"
+        android:textColor="@color/black"
         android:textSize="34sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/buttonLogout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.795" />
+        android:textStyle="bold" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/buttonCancel"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="45dp"
+            android:backgroundTint="@color/black"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:text="@string/buttonCancel"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/buttonLogout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:backgroundTint="@color/black"
+            android:layout_marginStart="45dp"
+            android:textColor="@color/white"
+            android:text="@string/buttonLogout"
+            android:textSize="20sp"
+            style="?android:attr/buttonBarButtonStyle" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/byeView"
+        android:layout_width="168dp"
+        android:layout_height="32dp"
+        android:layout_gravity="center"
+        android:singleLine="false"
+        android:text="@string/byeView"
+        android:textAlignment="center"
+        android:textStyle="italic" />
+
+</LinearLayout>
