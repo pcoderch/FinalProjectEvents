@@ -17,14 +17,7 @@ public class VolleySingleton {
     }
 
     public static synchronized VolleySingleton getInstance(Context context) {
-        if (mInstance == null) {
-            mInstance = new VolleySingleton(context);
-        }
-        return mInstance;
-    }
-
-    public static RequestQueue newRequestQueue(SignInActivity signInActivity) {
-        return VolleySingleton.getInstance(signInActivity).getRequestQueue();
+        return mInstance == null ? new VolleySingleton(context) : mInstance;
     }
 
     public RequestQueue getRequestQueue() {

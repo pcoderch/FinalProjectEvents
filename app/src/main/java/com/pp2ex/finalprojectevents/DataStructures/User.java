@@ -34,6 +34,21 @@ public class User {
         return new User(id, name, lastName, email, password, image);
     }
 
+    public static JSONObject registerUserJson(String name, String lastName, String email, String password, String image) throws JSONException {
+        JSONObject jsonBody = new JSONObject();
+        try {
+            jsonBody.put("name", name);
+            jsonBody.put("last_name", lastName);
+            jsonBody.put("email", email);
+            jsonBody.put("password", password);
+            jsonBody.put("image", image);
+        } catch (JSONException e) {
+            System.out.println("Error2: " + e);
+            e.printStackTrace();
+        }
+        return jsonBody;
+    }
+
     public String getEmail() { return email; }
     public String getPassword() { return password; }
     public String getImage() { return image; }

@@ -6,9 +6,18 @@ import android.content.Intent;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Response;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.pp2ex.finalprojectevents.API.MethodsAPI;
+import com.pp2ex.finalprojectevents.API.VolleySingleton;
 import com.pp2ex.finalprojectevents.DataStructures.User;
 import com.pp2ex.finalprojectevents.R;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Objects;
 
@@ -40,24 +49,46 @@ public class SignUpActivity extends AppCompatActivity{
             String email = enterEmail.getText().toString();
             String password = enterPassword.getText().toString();
             String confirmedPassword = confirmPassword.getText().toString();
-            //TODO: check if email is already in use
             if (password.equals(confirmedPassword)) {
                 enterPassword.setTextColor(getResources().getColor(R.color.black));
                 confirmPassword.setTextColor(getResources().getColor(R.color.black));
-                if (user.verifyEmailChar(email) && user.verifyPasswordChar(password)) {
-                    enterEmail.setTextColor(getResources().getColor(R.color.black));
-                    user.setName(firstName);
-                    user.setLastName(lastName);
-                    user.setEmail(email);
-                    user.setPassword(password);
-                    Intent goMainMenu = new Intent(SignUpActivity.this, MainActivity.class);
-                    startActivity(goMainMenu);
-                } else {
-                    enterEmail.setTextColor(getResources().getColor(R.color.red));
+
+                String url = MethodsAPI.URL_REGISTER;
+                JSONObject jsonBody = null;
+                try {
+                    jsonBody = User.registerUserJson(firstName, lastName, email, password, "imagepp");
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
+                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
+                        (url, jsonBody, new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                enterPassword.setTextColor(getResources().getColor(R.color.black));
+                                confirmPassword.setTextColor(getResources().getColor(R.color.black));
+                                enterEmail.setTextColor(getResources().getColor(R.color.black));
+                                System.out.println("Response: " + response);
+                                try {
+                                    String token = response.getString("accessToken");
+                                    System.out.println("token: " + token);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                Intent goSignIn = new Intent(SignUpActivity.this, SignInActivity.class);
+                                startActivity(goSignIn);
+                            }
+                        }, error -> {
+                            enterEmail.setTextColor(getResources().getColor(R.color.red));
+                            enterPassword.setTextColor(getResources().getColor(R.color.red));
+                            confirmPassword.setTextColor(getResources().getColor(R.color.red));
+                            Toast.makeText(SignUpActivity.this, R.string.registerError, Toast.LENGTH_SHORT).show();
+                        });
+
+                VolleySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
             } else {
                 enterPassword.setTextColor(getResources().getColor(R.color.red));
                 confirmPassword.setTextColor(getResources().getColor(R.color.red));
+                Toast.makeText(SignUpActivity.this, R.string.passwordError, Toast.LENGTH_SHORT).show();
             }
         });
         back.setOnClickListener(v -> {

@@ -73,7 +73,6 @@ public class SignInActivity extends AppCompatActivity{
                         Toast.makeText(SignInActivity.this, R.string.loginError, Toast.LENGTH_SHORT).show();
                     });
 
-            // Access the RequestQueue through your singleton class.
             VolleySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
         });
 
@@ -114,5 +113,5 @@ public class SignInActivity extends AppCompatActivity{
     }
 
 
-    }
+}
 

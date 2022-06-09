@@ -28,5 +28,7 @@
     <string name="byeView">Come back soon for more unforgettable events ;)</string>
     <string name="textViewLogout">ARE YOU SURE YOU WANT TO LOG OUT?</string>
     <string name="loginError">Wrong email or password!</string>
+    <string name="registerError">Wrong email or password</string>
+    <string name="passwordError">Password does not match</string>
 
 </resources>
