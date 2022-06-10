@@ -31,7 +31,7 @@
                 android:textAlignment="center"
                 android:textColor="#0D94FF"
                 android:textSize="45sp"
-                android:textStyle="bold"></TextView>
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/et_event_name"

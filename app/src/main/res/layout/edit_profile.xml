@@ -22,10 +22,10 @@
         android:textAlignment="center"
         android:textColor="#009688"
         android:textSize="45sp"
-        android:textStyle="bold"></TextView>
+        android:textStyle="bold" />
 
     <EditText
-        android:id="@+id/firstName"
+        android:id="@+id/editProfileName"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_marginTop="20dp"
@@ -41,7 +41,7 @@
     </EditText>
 
     <EditText
-        android:id="@+id/lastName"
+        android:id="@+id/editProfileLastName"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_marginTop="20dp"
@@ -57,7 +57,7 @@
     </EditText>
 
     <EditText
-        android:id="@+id/email"
+        android:id="@+id/editProfileEmail"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_marginTop="20dp"
@@ -73,7 +73,7 @@
     </EditText>
 
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/editProfilePassword"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_marginStart="20dp"
@@ -86,10 +86,10 @@
         android:padding="15dp"
         android:textColor="@color/verde"
         android:textColorHint="#757575"
-        android:textSize="15sp"></EditText>
+        android:textSize="15sp" />
 
     <EditText
-        android:id="@+id/confirm_password"
+        android:id="@+id/editProfileConfirmPassword"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:layout_marginStart="20dp"
@@ -102,10 +102,10 @@
         android:padding="15dp"
         android:textColor="@color/verde"
         android:textColorHint="#757575"
-        android:textSize="15sp"></EditText>
+        android:textSize="15sp" />
 
     <Button
-        android:id="@+id/saveChanges"
+        android:id="@+id/editProfileSaveChanges"
         android:layout_width="260dp"
         android:layout_height="60dp"
         android:layout_marginTop="40dp"

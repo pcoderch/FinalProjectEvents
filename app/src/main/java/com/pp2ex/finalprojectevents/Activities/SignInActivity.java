@@ -57,17 +57,15 @@ public class SignInActivity extends AppCompatActivity{
             System.out.println("URL: " + url);
             System.out.println("email: " + email + " password: " + password);
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
-                    (url, jsonBody, new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            System.out.println("Response: " + response);
-                            try {
-                                String token = response.getString("accessToken");
-                                System.out.println("token: " + token);
-                                setUser(token, email);
-                            } catch (JSONException | AuthFailureError e) {
-                                e.printStackTrace();
-                            }
+                    (url, jsonBody, response -> {
+                        System.out.println("Response: " + response);
+                        try {
+                            String token = response.getString("accessToken");
+                            System.out.println("token: " + token);
+                            setUser(token, email);
+                        } catch (JSONException | AuthFailureError e) {
+                            System.out.println("Error: " + e);
+                            e.printStackTrace();
                         }
                     }, error -> {
                         Toast.makeText(SignInActivity.this, R.string.loginError, Toast.LENGTH_SHORT).show();
@@ -101,7 +99,7 @@ public class SignInActivity extends AppCompatActivity{
                             e.printStackTrace();
                         }
                         //System.out.println("user: " + user);
-                        Intent goCreateEvent = new Intent(SignInActivity.this, CreateEventActivity.class);
+                        Intent goCreateEvent = new Intent(SignInActivity.this, EditProfileActivity.class);
                         startActivity(goCreateEvent);
                     } }, error -> {
                     Toast.makeText(SignInActivity.this, "Error: " + error, Toast.LENGTH_SHORT).show();
