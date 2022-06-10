@@ -3,6 +3,7 @@ package com.pp2ex.finalprojectevents.Activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.pp2ex.finalprojectevents.API.MethodsAPI;
 import com.pp2ex.finalprojectevents.API.VolleySingleton;
@@ -44,9 +45,10 @@ public class EditProfileActivity extends AppCompatActivity {
             if (password.equals(confirmedPassword)) {
                 enterPassword.setTextColor(getResources().getColor(R.color.black));
                 confirmPassword.setTextColor(getResources().getColor(R.color.black));
+                JSONObject jsonBody = getInfoInJson(firstName, lastName, email, password);
+                System.out.println("JSON :" + jsonBody);
                 String url = MethodsAPI.URL_EDIT_PROFILE;
-                JSONObject jsonBody = User.editProfileJson(firstName, lastName, email, password, "image.png"); //TODO: CHANGE THIS TO THE REAL IMAGE
-                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, jsonBody, response -> {
+                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, jsonBody, response -> {
                     System.out.println("response: " + response);
                     Toast.makeText(getApplicationContext(), "Profile updated successfully", Toast.LENGTH_LONG).show();
                     finish();
@@ -68,6 +70,35 @@ public class EditProfileActivity extends AppCompatActivity {
         });
     }
 
+    private JSONObject getInfoInJson(String firstName, String lastName, String email, String password) {
+        JSONObject jsonBody = new JSONObject();
+        if (!firstName.equals(User.getAuthenticatedUser().getName())) {
+            try {
+                jsonBody.put("name", firstName);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } if (!lastName.equals(User.getAuthenticatedUser().getLastName())) {
+            try {
+                jsonBody.put("lastName", lastName);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } if (!email.equals(User.getAuthenticatedUser().getEmail())) {
+            try {
+                jsonBody.put("email", email);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            jsonBody.put("password", password);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return jsonBody;
+    }
+
     private void initializeTextFields() {
         enterFirstName = (EditText) findViewById(R.id.editProfileName);
         enterLastName = (EditText) findViewById(R.id.editProfileLastName);
@@ -78,7 +109,5 @@ public class EditProfileActivity extends AppCompatActivity {
         enterFirstName.setText(User.getAuthenticatedUser().getName());
         enterLastName.setText(User.getAuthenticatedUser().getLastName());
         enterEmail.setText(User.getAuthenticatedUser().getEmail());
-        enterPassword.setText(User.getAuthenticatedUser().getPassword());
-        confirmPassword.setText(User.getAuthenticatedUser().getPassword());
     }
 }
