@@ -15,7 +15,7 @@ public class MainMenuActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.create_event);
+        //setContentView(R.layout.create_event);
         //TODO: change view to the main menu view with the buttons to create event and view events
     }
 

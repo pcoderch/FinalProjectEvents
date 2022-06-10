@@ -61,15 +61,13 @@ public class Event {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("name", name);
-            jsonObject.put("description", description);
-            jsonObject.put("startDate", startDate);
-            jsonObject.put("endDate", endDate);
-            jsonObject.put("numOfParticipants", numOfParticipants);
             jsonObject.put("image", image);
             jsonObject.put("location", location);
+            jsonObject.put("description", description);
+            jsonObject.put("eventStart_date", startDate);
+            jsonObject.put("eventEnd_date", endDate);
+            jsonObject.put("n_participators", numOfParticipants);
             jsonObject.put("type", type);
-            jsonObject.put("comments", comments);
-            jsonObject.put("rating", rating);
         } catch (JSONException e) {
             System.out.println("Error: " + e);
             e.printStackTrace();

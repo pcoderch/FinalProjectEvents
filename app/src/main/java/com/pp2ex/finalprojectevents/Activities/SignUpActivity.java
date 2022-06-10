@@ -52,11 +52,11 @@ public class SignUpActivity extends AppCompatActivity{
             if (password.equals(confirmedPassword)) {
                 enterPassword.setTextColor(getResources().getColor(R.color.black));
                 confirmPassword.setTextColor(getResources().getColor(R.color.black));
-
+                //TODO: implement the image set here
                 String url = MethodsAPI.URL_REGISTER;
                 JSONObject jsonBody = null;
                 try {
-                    jsonBody = User.registerUserJson(firstName, lastName, email, password, "imagepp");
+                    jsonBody = User.registerUserJson(firstName, lastName, email, password, "imagepp"); //TODO: change 'imagepp' to the image
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

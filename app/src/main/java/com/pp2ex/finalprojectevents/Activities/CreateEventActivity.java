@@ -3,8 +3,11 @@ package com.pp2ex.finalprojectevents.Activities;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.pp2ex.finalprojectevents.API.MethodsAPI;
+import com.pp2ex.finalprojectevents.API.VolleySingleton;
 import com.pp2ex.finalprojectevents.DataStructures.Event;
 import com.pp2ex.finalprojectevents.DataStructures.User;
 import com.pp2ex.finalprojectevents.R;
@@ -35,7 +38,7 @@ public class CreateEventActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         Objects.requireNonNull(getSupportActionBar()).hide();
         super.onCreate(savedInstanceState);
-        super.onBackPressed();
+        //super.onBackPressed();
         setContentView(R.layout.create_event);
         final Button createEvent = findViewById(R.id.create_event_button);
         final ImageButton goBack = findViewById(R.id.arrowBackCreateEvent);
@@ -55,20 +58,28 @@ public class CreateEventActivity extends AppCompatActivity {
         createEvent.setOnClickListener(v -> {
             Event newEvent = new Event(enterEventName.getText().toString(), enterEventDescription.getText().toString(),enterEventStartDate.getText().toString(), enterEventEndDate.getText().toString(), Integer.parseInt(enterEventCapacity.getText().toString()), enterEventLocation.getText().toString(), enterEventCategory.getText().toString(),  enterEventImage.getText().toString());
             JSONObject eventJSON = newEvent.toJSON();
+            System.out.println("Event JSON: " + eventJSON);
+            System.out.println("User auth: " + User.getAuthenticatedUser().getToken());
             String url = MethodsAPI.URL_CREATE_EVENT;
-            JsonObjectRequest request = new JsonObjectRequest(url, eventJSON, response -> {
-                Toast.makeText(this, R.string.create_event_success, Toast.LENGTH_LONG).show();
-                finish();
-            }, error -> {
-                Toast.makeText(this, R.string.create_event_fail, Toast.LENGTH_LONG).show();
-            } ) {
+            System.out.println("URL: " + url);
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, eventJSON, new Response.Listener<JSONObject>() {
                 @Override
-                public Map<String, String> getHeaders() throws AuthFailureError {
-                    HashMap<String, String> headers = new HashMap<>();
-                    headers.put("Authorization", "Bearer " + User.getAuthenticatedUser().getToken());
-                    return headers;
-                }
-            };
+                public void onResponse(JSONObject response) {
+                    System.out.println("Response: " + response);
+                    Toast.makeText(CreateEventActivity.this, R.string.create_event_success, Toast.LENGTH_SHORT).show();
+                    finish();
+                }}, error -> {
+                    System.out.println("Error: " + error);
+                    Toast.makeText(CreateEventActivity.this, R.string.create_event_fail, Toast.LENGTH_LONG).show();
+                } ) {
+                    @Override
+                    public Map<String, String> getHeaders() throws AuthFailureError {
+                        HashMap<String, String> headers = new HashMap<>();
+                        headers.put("Authorization", "Bearer " + User.getAuthenticatedUser().getToken());
+                        return headers;
+                    }
+                };
+            VolleySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
         });
     }
 }

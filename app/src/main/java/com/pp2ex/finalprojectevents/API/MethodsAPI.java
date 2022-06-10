@@ -1,7 +1,5 @@
 package com.pp2ex.finalprojectevents.API;
 
-import androidx.annotation.RequiresApi;
-
 public interface MethodsAPI {
     String URL_BASE = "http://puigmal.salle.url.edu/api/v2/";
     String URL_LOGIN = URL_BASE + "login";
