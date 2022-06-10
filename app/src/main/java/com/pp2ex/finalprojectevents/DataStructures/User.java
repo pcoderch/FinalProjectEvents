@@ -11,6 +11,9 @@ public class User {
     private String password;
     private String image;
     private String token;
+    private int eventsCount;
+    private int friendsCount;
+    private int owns;
     private static User authenticatedUser;
 
     public User(int id, String name, String lastName, String email, String password, String image) {
@@ -49,6 +52,8 @@ public class User {
         return jsonBody;
     }
 
+    //Getters
+    public int getId() {return id;}
     public String getEmail() { return email; }
     public String getPassword() { return password; }
     public String getImage() { return image; }
@@ -56,7 +61,12 @@ public class User {
     public String getLastName() { return lastName; }
     public String getToken() { return token; }
     public static User getAuthenticatedUser() { return authenticatedUser; }
+    public int getEventsCount() { return eventsCount; }
+    public int getFriendsCount() { return friendsCount; }
+    public int getOwns() { return owns; }
 
+    //Setters
+    public void setId(int id) { this.id = id; }
     public void setEmail(String email) { this.email = email; }
     public void setPassword(String password) { this.password = password; }
     public void setImage(String image) { this.image = image; }
@@ -64,7 +74,9 @@ public class User {
     public void setLastName(String lastName) { this.lastName = lastName; }
     public void setToken(String token) { this.token = token; }
     public static void setAuthenticatedUser(User authenticatedUser) { User.authenticatedUser = authenticatedUser; }
-
+    public void setEventsCount(int eventsCount) { this.eventsCount = eventsCount; }
+    public void setFriendsCount(int friendsCount) { this.friendsCount = friendsCount; }
+    public void setOwns(int owns) { this.owns = owns; }
 
     public boolean verifyEmailChar(String email) {
         return email.contains("@") && email.contains(".");

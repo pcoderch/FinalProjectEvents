@@ -75,9 +75,8 @@ public class SignInActivity extends AppCompatActivity{
         });
 
             back.setOnClickListener(v -> {
-            Intent goMainMenu = new Intent(SignInActivity.this, MainActivity.class);
-            startActivity(goMainMenu);
-
+                Intent goMainMenu = new Intent(SignInActivity.this, MainActivity.class);
+                startActivity(goMainMenu);
         });
     }
 
@@ -99,8 +98,11 @@ public class SignInActivity extends AppCompatActivity{
                             e.printStackTrace();
                         }
                         //System.out.println("user: " + user);
-                        Intent goCreateEvent = new Intent(SignInActivity.this, EditProfileActivity.class);
-                        startActivity(goCreateEvent);
+                        Intent goProfile = new Intent(SignInActivity.this, ProfileActivity.class);
+                        goProfile.putExtra("email", "adrian@openevents.com");
+                        goProfile.putExtra("id", 1283);
+                        //Intent goCreateEvent = new Intent(SignInActivity.this, CreateEventActivity.class);
+                        startActivity(goProfile);
                     } }, error -> {
                     Toast.makeText(SignInActivity.this, "Error: " + error, Toast.LENGTH_SHORT).show();
                 } ) {
