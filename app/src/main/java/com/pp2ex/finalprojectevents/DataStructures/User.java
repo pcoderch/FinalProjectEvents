@@ -49,20 +49,6 @@ public class User {
         return jsonBody;
     }
 
-    public static JSONObject editProfileJson(String firstName, String lastName, String email, String password, String image) {
-        JSONObject jsonBody = new JSONObject();
-        try {
-            jsonBody.put("name", firstName);
-            jsonBody.put("last_name", lastName);
-            jsonBody.put("email", email);
-            jsonBody.put("password", password);
-            jsonBody.put("image", image);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return jsonBody;
-    }
-
     public String getEmail() { return email; }
     public String getPassword() { return password; }
     public String getImage() { return image; }
