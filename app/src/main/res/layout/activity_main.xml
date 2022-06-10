@@ -43,9 +43,9 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginTop="620dp"
-        android:layout_width="411dp"
+        android:layout_width="match_parent"
         android:layout_height="111dp"
+        android:layout_marginTop="620dp"
         android:background="@color/white"
         android:paddingTop="24dp"
         tools:ignore="UselessParent">

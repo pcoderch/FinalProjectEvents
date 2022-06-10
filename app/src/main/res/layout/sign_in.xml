@@ -30,7 +30,7 @@
         android:id="@+id/et_email"
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
         android:hint="@string/e_email"
@@ -60,7 +60,7 @@
         android:id="@+id/login"
         android:layout_width="260dp"
         android:layout_height="60dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="70dp"
         android:layout_marginStart="70dp"
         android:backgroundTint="@color/black"
         android:text="@string/login">
