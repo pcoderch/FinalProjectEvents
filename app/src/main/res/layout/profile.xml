@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -17,6 +17,7 @@
             android:orientation="vertical">
 
             <ImageView
+                android:contentDescription="@string/firstName"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_gravity="center_horizontal"
@@ -28,22 +29,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/firstName"
-                android:textColor="@color/azul_oscuro"
+                android:textColor="@color/black"
                 android:textStyle="bold"
                 android:textSize="21sp"/>
         </LinearLayout>
         <androidx.cardview.widget.CardView
-            android:layout_width="400dp"
-            android:layout_height="1200dp"
+            android:layout_width="350dp"
+            android:layout_height="120dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="275dp">
             <LinearLayout
+                android:baselineAligned="false"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
                 android:weightSum="3">
                 <LinearLayout
                     android:gravity="center"
+                    android:outlineProvider="@color/black"
                     android:orientation="vertical"
                     android:layout_width="0dp"
                     android:layout_weight="1"
@@ -51,14 +54,15 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Events"
+                        android:text="@string/Events"
+                        android:textColor="@color/black"
                         android:textSize="20sp"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingTop="10dp"
-                        android:text="47"
+                        android:text="@string/numEventsBeenTo"
                         android:textColor="@color/azul_claro"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -72,12 +76,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Users"
+                        android:text="@string/Users"
+                        android:textColor="@color/black"
                         android:textSize="20sp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="322"
+                        android:text="@string/UserConnections"
                         android:textStyle="bold"
                         android:textSize="20sp"
                         android:paddingTop="10dp"
@@ -92,12 +97,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Owns"
+                        android:text="@string/Owns"
+                        android:textColor="@color/black"
                         android:textSize="20sp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="5"
+                        android:text="@string/numEventsOwns"
                         android:textStyle="bold"
                         android:textSize="20sp"
                         android:paddingTop="10dp"
@@ -113,7 +119,59 @@
         android:orientation="vertical"
         android:layout_gravity="center"
         android:layout_marginTop="45dp">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="UseCompoundDrawables">
+            <ImageView
+                android:contentDescription="@string/email"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@drawable/ic_baseline_email_24"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="@string/email"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_gravity="center_vertical"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal"
+            android:paddingLeft="25dp"
+            android:paddingRight="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:ignore="UseCompoundDrawables">
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:contentDescription="@string/goChat"
+                android:src="@drawable/ic_baseline_forum_24"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="@string/goChat"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_gravity="center_vertical"/>
+        </LinearLayout>
 
     </LinearLayout>
-
+    <Button
+        android:layout_marginTop="45dp"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/addConnection"
+        android:textStyle="bold"
+        android:backgroundTint="@color/azul_claro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 </LinearLayout>

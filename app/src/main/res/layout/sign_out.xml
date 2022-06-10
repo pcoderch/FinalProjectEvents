@@ -33,7 +33,7 @@
             android:backgroundTint="@color/black"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
-            android:text="@string/buttonCancel"
+            android:text="@android:string/cancel"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="20sp" />
