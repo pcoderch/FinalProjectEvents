@@ -34,5 +34,11 @@
     <string name="event_start_date">Event Starting Date</string>
     <string name="create_event_success">Event Created Successfully!</string>
     <string name="create_event_fail">Error! Can\'t create the event</string>
-
+    <string name="edit_profile_title">EDIT PROFILE</string>
+    <string name="firstName">Name</string>
+    <string name="lastName">Last Name</string>
+    <string name="email">Email</string>
+    <string name="password">Enter NEW password</string>
+    <string name="confirm_password">Confirm NEW password</string>
+    <string name="saveChanges">SAVE CHANGES</string>
 </resources>
