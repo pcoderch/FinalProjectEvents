@@ -56,5 +56,8 @@
     <string name="disconnect">DISCONNECT</string>
     <string name="borrarChat">ERRASE CHAT</string>
     <string name="lastmessage">Insert Last Message</string>
-    <string name="borrarChat">ERRASE CHAT</string>
+    <string name="pending">Pending</string>
+    <string name="error">Error!</string>
+    <string name="requestSent">Friend Request Sent</string>
+    <string name="removeConnection">Remove Connection</string>
 </resources>

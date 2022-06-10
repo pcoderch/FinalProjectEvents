@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ListAdapter;
 
 import com.pp2ex.finalprojectevents.R;
 
@@ -31,20 +32,5 @@ public class MainActivity extends AppCompatActivity {
             Intent SignInTask = new Intent(MainActivity.this, SignInActivity.class);
             startActivity(SignInTask);
         });
-
-        init();
-    }
-
-    public void init() {
-        elements = new ArrayList<>();
-        elements.add(new RequestList("#775447", "Pedro", "pedrito@gmail.com"));
-        elements.add(new RequestList("#999447", "Elena", "helenita@gmail.com"));
-        elements.add(new RequestList("#762447", "Mire", "mireyota@gmail.com"));
-
-        LsitAdapter listAdapter = new ListAdapter(elements, this);
-        RecyclerView recyclerView = findViewById(R.id.listRecyclerView);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(listAdapter);
     }
 }

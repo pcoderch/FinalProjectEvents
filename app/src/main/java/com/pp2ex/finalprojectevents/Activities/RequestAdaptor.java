@@ -1,21 +1,26 @@
-package com.pp2ex.finalprojectevents.Activities;
+/*package com.pp2ex.finalprojectevents.Activities;
 
+import android.content.Context;
 import android.graphics.PorterDuff;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.pp2ex.finalprojectevents.R;
+
 
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.List;
 
 public class RequestAdaptor extends RecyclerView.Adapter<ListAdapter.ViewHolder> {
     private List<RequestList> nData;
     private LayoutInflater nInflater;
     private Context context;
 
-    public ListAdapter(List<RequestList> itemList, Context context){
+    public void ListAdapter(List<RequestList> itemList, Context context){
         this.nInflater = LayoutInflater.from(context);
         this.context = context;
         this.nData = itemList;
@@ -55,3 +60,4 @@ public class RequestAdaptor extends RecyclerView.Adapter<ListAdapter.ViewHolder>
         }
     }
 }
+*/

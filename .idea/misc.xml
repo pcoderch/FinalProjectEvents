@@ -3,35 +3,28 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/34672/.android/FinalProjectEvents/app/src/main/res/drawable/gradientbackground.xml" value="0.2165" />
-        <entry key="..\:/Users/34672/.android/FinalProjectEvents/app/src/main/res/drawable/ic_baseline_cancel_24.xml" value="0.144" />
-        <entry key="..\:/Users/34672/.android/FinalProjectEvents/app/src/main/res/drawable/ic_baseline_check_circle_outline_24.xml" value="0.144" />
-        <entry key="..\:/Users/34672/.android/FinalProjectEvents/app/src/main/res/drawable/ic_baseline_email_24.xml" value="0.144" />
-        <entry key="..\:/Users/34672/.android/FinalProjectEvents/app/src/main/res/drawable/ic_baseline_forum_24.xml" value="0.144" />
-        <entry key="..\:/Users/34672/.android/FinalProjectEvents/app/src/main/res/layout/activity_main.xml" value="0.1703125" />
-        <entry key="..\:/Users/34672/.android/FinalProjectEvents/app/src/main/res/layout/chats.xml" value="0.17798913043478262" />
-        <entry key="..\:/Users/34672/.android/FinalProjectEvents/app/src/main/res/layout/connection_element.xml" value="0.1658119658119658" />
-        <entry key="..\:/Users/34672/.android/FinalProjectEvents/app/src/main/res/layout/create_event.xml" value="0.234375" />
-        <entry key="..\:/Users/34672/.android/FinalProjectEvents/app/src/main/res/layout/edit_profile.xml" value="0.264" />
-        <entry key="..\:/Users/34672/.android/FinalProjectEvents/app/src/main/res/layout/element_chat.xml" value="0.17798913043478262" />
-        <entry key="..\:/Users/34672/.android/FinalProjectEvents/app/src/main/res/layout/events.xml" value="0.20208333333333334" />
-        <entry key="..\:/Users/34672/.android/FinalProjectEvents/app/src/main/res/layout/follower_request.xml" value="0.17798913043478262" />
-        <entry key="..\:/Users/34672/.android/FinalProjectEvents/app/src/main/res/layout/list_my_friends.xml" value="0.17798913043478262" />
-        <entry key="..\:/Users/34672/.android/FinalProjectEvents/app/src/main/res/layout/my_friend.xml" value="0.17798913043478262" />
-        <entry key="..\:/Users/34672/.android/FinalProjectEvents/app/src/main/res/layout/profile.xml" value="0.209375" />
-        <entry key="..\:/Users/34672/.android/FinalProjectEvents/app/src/main/res/layout/request.xml" value="0.264" />
-        <entry key="..\:/Users/34672/.android/FinalProjectEvents/app/src/main/res/layout/sign_in.xml" value="0.234375" />
-        <entry key="..\:/Users/34672/.android/FinalProjectEvents/app/src/main/res/layout/sign_out.xml" value="0.264" />
-        <entry key="..\:/Users/34672/.android/FinalProjectEvents/app/src/main/res/layout/sign_up.xml" value="0.234375" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.34375" />
-        <entry key="app/src/main/res/layout/create_event.xml" value="0.34375" />
-        <entry key="app/src/main/res/layout/create_event_try.xml" value="0.3473731884057971" />
-        <entry key="app/src/main/res/layout/sign_in.xml" value="0.27355072463768115" />
-        <entry key="app/src/main/res/layout/sign_up.xml" value="0.228125" />
+        <entry key="..\:/Users/Rukii/Documents/pc/LaSalle/2nd Year/Pr Prog II/finalProject/FinalProjectEvents/app/src/main/res/layout/activity_create_event2.xml" value="0.12771739130434784" />
+        <entry key="..\:/Users/Rukii/Documents/pc/LaSalle/2nd Year/Pr Prog II/finalProject/FinalProjectEvents/app/src/main/res/layout/activity_main.xml" value="0.3374094202898551" />
+        <entry key="..\:/Users/Rukii/Documents/pc/LaSalle/2nd Year/Pr Prog II/finalProject/FinalProjectEvents/app/src/main/res/layout/create_event.xml" value="0.3374094202898551" />
+        <entry key="..\:/Users/Rukii/Documents/pc/LaSalle/2nd Year/Pr Prog II/finalProject/FinalProjectEvents/app/src/main/res/layout/edit_profile.xml" value="0.3374094202898551" />
+        <entry key="..\:/Users/Rukii/Documents/pc/LaSalle/2nd Year/Pr Prog II/finalProject/FinalProjectEvents/app/src/main/res/layout/profile.xml" value="0.25" />
+        <entry key="..\:/Users/Rukii/Documents/pc/LaSalle/2nd Year/Pr Prog II/finalProject/FinalProjectEvents/app/src/main/res/layout/sign_in.xml" value="0.3374094202898551" />
+        <entry key="..\:/Users/Rukii/Documents/pc/LaSalle/2nd Year/Pr Prog II/finalProject/FinalProjectEvents/app/src/main/res/layout/sign_out.xml" value="0.3374094202898551" />
+        <entry key="..\:/Users/Rukii/Documents/pc/LaSalle/2nd Year/Pr Prog II/finalProject/FinalProjectEvents/app/src/main/res/layout/sign_up.xml" value="0.3374094202898551" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.2341262817382813" />
+        <entry key="app/src/main/res/layout/create_event.xml" value="0.4822455285409543" />
+        <entry key="app/src/main/res/layout/element_chat.xml" value="0.2419158889167577" />
+        <entry key="app/src/main/res/layout/element_my_friend.xml" value="0.12537993920972645" />
+        <entry key="app/src/main/res/layout/element_request.xml" value="0.12537993920972645" />
+        <entry key="app/src/main/res/layout/list_chats.xml" value="0.3188735915534765" />
+        <entry key="app/src/main/res/layout/list_follower_request.xml" value="0.12537993920972645" />
+        <entry key="app/src/main/res/layout/list_my_friends.xml" value="0.12537993920972645" />
+        <entry key="app/src/main/res/layout/profile.xml" value="0.19630192502532928" />
+        <entry key="app/src/main/res/layout/sign_in.xml" value="0.12537993920972645" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
