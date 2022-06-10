@@ -19,9 +19,11 @@
         android:layout_height="60dp"
         android:text="@string/SignIn"
         android:layout_marginTop="10dp"
-        android:layout_marginStart="20dp"
         android:textSize="45sp"
-        android:textStyle="italic">
+        android:textStyle="bold"
+        android:textColor="@color/verde"
+        android:textAlignment="center">
+
     </TextView>
 
     <EditText

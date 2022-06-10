@@ -24,10 +24,10 @@
             android:layout_height="60dp"
             android:text="@string/SignUp"
             android:layout_marginTop="20dp"
-            android:gravity="center"
+            android:layout_marginStart="40dp"
             android:textSize="45sp"
             android:textStyle="bold"
-            android:textColor="@color/teal_flojo"
+            android:textColor="@color/verde"
             >
         </TextView>
     </LinearLayout>

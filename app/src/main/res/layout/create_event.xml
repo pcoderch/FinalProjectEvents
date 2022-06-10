@@ -29,7 +29,7 @@
                 android:layout_marginTop="10dp"
                 android:text="@string/create_event"
                 android:textAlignment="center"
-                android:textColor="#0D94FF"
+                android:textColor="@color/verde"
                 android:textSize="45sp"
                 android:textStyle="bold" />
 
