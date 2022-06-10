@@ -7,7 +7,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="FOLLOWERS"
+        android:text="@string/followRequest"
         android:textSize="30dp"
         android:textColor="@color/black"
         android:textAlignment="center"

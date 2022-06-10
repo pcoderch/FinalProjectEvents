@@ -50,4 +50,11 @@
     <string name="numEventsBeenTo">77</string>
     <string name="numEventsOwns">55</string>
     <string name="UserConnections">123</string>
+    <string name="myConnections">MY CONNECTIONS</string>
+    <string name="followRequest">REQUESTS</string>
+    <string name="chatsList">ALL CHATS</string>
+    <string name="disconnect">DISCONNECT</string>
+    <string name="borrarChat">ERRASE CHAT</string>
+    <string name="lastmessage">Insert Last Message</string>
+    <string name="borrarChat">ERRASE CHAT</string>
 </resources>
