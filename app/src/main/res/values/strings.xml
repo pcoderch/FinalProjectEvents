@@ -11,6 +11,7 @@
     <string name="e_email">Enter a valid email</string>
     <string name="e_password">Enter password</string>
     <string name="e_confirm_password">Confirm password</string>
+    <string name="e_profilepic">Enter URL link to Profile Pic</string>
     <string name="create_account">CREATE ACCOUNT</string>
     <string name="login">LOG IN</string>
     <string name="next">NEXT</string>
