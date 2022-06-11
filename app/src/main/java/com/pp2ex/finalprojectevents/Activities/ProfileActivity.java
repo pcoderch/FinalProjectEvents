@@ -4,8 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,6 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
+import com.pp2ex.finalprojectevents.API.BitMapImage;
 import com.pp2ex.finalprojectevents.API.MethodsAPI;
 import com.pp2ex.finalprojectevents.API.VolleySingleton;
 import com.pp2ex.finalprojectevents.DataStructures.User;
@@ -30,7 +34,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    //private ImageView profilePicture = findViewById(R.id.profileImage);
+    private AsyncTask<String, Void, Bitmap> profilePicture;
     private TextView eventsCount;
     private TextView friendsCount;
     private TextView owns;
@@ -49,8 +53,10 @@ public class ProfileActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String emailInt = intent.getStringExtra("email");
         int id = intent.getIntExtra("id", 0);
+        String imageURL = intent.getStringExtra("image");
         isFriend = false;
         friends = new ArrayList<>();
+        profilePicture = new BitMapImage(findViewById(R.id.profileImage)).execute(imageURL);
         eventsCount = findViewById(R.id.eventsNumber);
         friendsCount = findViewById(R.id.usersNumber);
         owns = findViewById(R.id.ownsNumber);

@@ -79,5 +79,6 @@
     <string name="write_message">Wrtie message</string>
     <string name="send_message">Send</string>
     <string name="timeChat">10:00</string>
+    <string name="newImage">Image URL</string>
 
 </resources>

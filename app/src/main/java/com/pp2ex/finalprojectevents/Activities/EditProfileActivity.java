@@ -28,6 +28,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private EditText enterEmail;
     private EditText enterPassword;
     private EditText confirmPassword;
+    private EditText enterImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,12 +41,13 @@ public class EditProfileActivity extends AppCompatActivity {
             String firstName = enterFirstName.getText().toString();
             String lastName = enterLastName.getText().toString();
             String email = enterEmail.getText().toString();
+            String image = enterImage.getText().toString();
             String password = enterPassword.getText().toString();
             String confirmedPassword = confirmPassword.getText().toString();
             if (password.equals(confirmedPassword)) {
                 enterPassword.setTextColor(getResources().getColor(R.color.black));
                 confirmPassword.setTextColor(getResources().getColor(R.color.black));
-                JSONObject jsonBody = getInfoInJson(firstName, lastName, email, password);
+                JSONObject jsonBody = getInfoInJson(firstName, lastName, email, password, image);
                 System.out.println("JSON :" + jsonBody);
                 String url = MethodsAPI.URL_EDIT_PROFILE;
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, jsonBody, response -> {
@@ -68,9 +70,11 @@ public class EditProfileActivity extends AppCompatActivity {
                 confirmPassword.setTextColor(getResources().getColor(R.color.red));
             }
         });
+
+        back.setOnClickListener(v -> finish());
     }
 
-    private JSONObject getInfoInJson(String firstName, String lastName, String email, String password) {
+    private JSONObject getInfoInJson(String firstName, String lastName, String email, String password, String image) {
         JSONObject jsonBody = new JSONObject();
         if (!firstName.equals(User.getAuthenticatedUser().getName())) {
             try {
@@ -78,15 +82,24 @@ public class EditProfileActivity extends AppCompatActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } if (!lastName.equals(User.getAuthenticatedUser().getLastName())) {
+        }
+        if (!lastName.equals(User.getAuthenticatedUser().getLastName())) {
             try {
                 jsonBody.put("lastName", lastName);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        } if (!email.equals(User.getAuthenticatedUser().getEmail())) {
+        }
+        if (!email.equals(User.getAuthenticatedUser().getEmail())) {
             try {
                 jsonBody.put("email", email);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        if (image.equals(User.getAuthenticatedUser().getImage())) {
+            try {
+                jsonBody.put("image", image);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -103,11 +116,13 @@ public class EditProfileActivity extends AppCompatActivity {
         enterFirstName = (EditText) findViewById(R.id.editProfileName);
         enterLastName = (EditText) findViewById(R.id.editProfileLastName);
         enterEmail = (EditText) findViewById(R.id.editProfileEmail);
+        enterImage = (EditText) findViewById(R.id.editProfileImage);
         enterPassword = (EditText) findViewById(R.id.editProfilePassword);
         confirmPassword = (EditText) findViewById(R.id.editProfileConfirmPassword);
 
         enterFirstName.setText(User.getAuthenticatedUser().getName());
         enterLastName.setText(User.getAuthenticatedUser().getLastName());
         enterEmail.setText(User.getAuthenticatedUser().getEmail());
+        enterImage.setText(User.getAuthenticatedUser().getImage());
     }
 }

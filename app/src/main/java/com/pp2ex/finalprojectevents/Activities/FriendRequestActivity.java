@@ -2,13 +2,16 @@ package com.pp2ex.finalprojectevents.Activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.media.Image;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +24,7 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
+import com.pp2ex.finalprojectevents.API.BitMapImage;
 import com.pp2ex.finalprojectevents.API.MethodsAPI;
 import com.pp2ex.finalprojectevents.API.VolleySingleton;
 import com.pp2ex.finalprojectevents.DataStructures.User;
@@ -129,6 +133,7 @@ public class FriendRequestActivity extends AppCompatActivity {
         private final TextView emailTextViewRequest;
         private final ImageButton acceptButton;
         private final ImageButton rejectButton;
+        private AsyncTask<String, Void, Bitmap> profileImageView;
 
         public FriendHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.element_request, parent, false));
@@ -143,6 +148,7 @@ public class FriendRequestActivity extends AppCompatActivity {
             this.user = user;
             nameTextViewRequest.setText(user.getName());
             emailTextViewRequest.setText(user.getEmail());
+            profileImageView = new BitMapImage(findViewById(R.id.IconImageViewRequest)).execute(user.getImage());
             acceptButton.setOnClickListener(v -> {
                 acceptRequest(user.getId());
             });

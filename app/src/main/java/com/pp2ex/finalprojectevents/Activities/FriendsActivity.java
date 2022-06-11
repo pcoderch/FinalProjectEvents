@@ -145,6 +145,7 @@ public class FriendsActivity extends AppCompatActivity {
             Intent showProfile = new Intent(getApplicationContext(), ProfileActivity.class);
             showProfile.putExtra("email", user.getEmail());
             showProfile.putExtra("id", user.getId());
+            showProfile.putExtra("image", user.getImage());
             startActivity(showProfile);
         }
 
