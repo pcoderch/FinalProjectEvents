@@ -40,7 +40,7 @@ public class MethodsAPI {
         return URL_FRIENDS + "/" + id;
     }
 
-    public static String getLastMessage(int id) {
+    public static String getMessages(int id) {
         return URL_MESSAGES + "/" + id;
     }
 }

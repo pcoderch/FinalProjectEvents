@@ -24,6 +24,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.pp2ex.finalprojectevents.API.BitMapImage;
 import com.pp2ex.finalprojectevents.API.MethodsAPI;
 import com.pp2ex.finalprojectevents.API.VolleySingleton;
+import com.pp2ex.finalprojectevents.DataStructures.Message;
 import com.pp2ex.finalprojectevents.DataStructures.User;
 import com.pp2ex.finalprojectevents.R;
 
@@ -36,43 +37,46 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ChatActivity extends AppCompatActivity {
+public class InsideChatActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private ArrayList<User> chats;
+    private ArrayList<Message> messages;
     private ChatsAdaptor adapter;
+    private static String userName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_chats);
+        int id = getIntent().getIntExtra("id", 0);
+        userName = getIntent().getStringExtra("name");
         recyclerView = findViewById(R.id.chatsList);
-        chats = new ArrayList<>();
-        adapter = new ChatsAdaptor(chats);
+        messages = new ArrayList<>();
+        adapter = new ChatsAdaptor(messages);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        getChats();
+        getMessages(id);
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private void addUser(User user) {
-        chats.add(user);
+    private void addMessage(Message message) {
+        messages.add(message);
         adapter.notifyDataSetChanged();
     }
 
-    private void getChats() {
-        String url = MethodsAPI.URL_CHATS;
-        chats = new ArrayList<>();
+    private void getMessages(int idOfUser) {
+        String url = MethodsAPI.getMessages(idOfUser);
+        messages = new ArrayList<>();
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, response -> {
             for (int i = 0; i < response.length(); i++) {
                 System.out.println(response);
                 try {
                     JSONObject jsonObject = response.getJSONObject(i);
                     int id = jsonObject.getInt("id");
-                    String name = jsonObject.getString("name");
-                    String lastName = jsonObject.getString("last_name");
-                    String email = jsonObject.getString("email");
-                    String image = jsonObject.getString("image");
-                    User user = new User(id, name, lastName, email, "", image);
-                    addUser(user);
+                    String content = jsonObject.getString("content");
+                    int user_id_send = jsonObject.getInt("user_id_send");
+                    int user_id_recived = jsonObject.getInt("user_id_recived");
+                    String timeStamp = jsonObject.getString("timeStamp");
+                    Message message = new Message(id, content, user_id_send, user_id_recived, timeStamp);
+                    addMessage(message);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -100,10 +104,10 @@ public class ChatActivity extends AppCompatActivity {
     }
     private class ChatsAdaptor extends RecyclerView.Adapter<FriendHolder> {
 
-        private final ArrayList<User> userList;
+        private final ArrayList<Message> messageList;
 
-        private ChatsAdaptor(ArrayList<User> userList) {
-            this.userList = userList;
+        private ChatsAdaptor(ArrayList<Message> userList) {
+            this.messageList = userList;
         }
 
         @NonNull
@@ -115,38 +119,37 @@ public class ChatActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(FriendHolder holder, int position) {
-            User user = userList.get(position);
-            holder.bind(user);
+            Message message = messageList.get(position);
+            holder.bind(message);
         }
 
         @Override
         public int getItemCount() {
-            return userList.size();
+            return messageList.size();
         }
     }
 
     private class FriendHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private User user;
-        private final TextView nameTextView;
+        private Message message;
+        private final TextView nameOfUserTextView;
         private final TextView lastMessageTextView;
         private final TextView timestampTextView;
         private AsyncTask<String, Void, Bitmap> imageView;
 
 
         public FriendHolder(LayoutInflater inflater, ViewGroup parent) {
-            super(inflater.inflate(R.layout.element_chat, parent, false));
+
+            super(inflater.inflate(R.layout.element_c, parent, false));
             itemView.setOnClickListener(this);
-            nameTextView = itemView.findViewById(R.id.nameTextViewChat);
+            nameOfUserTextView = itemView.findViewById(R.id.chatOtherUserName);
             lastMessageTextView = itemView.findViewById(R.id.lastMessageTextViewChat);
             timestampTextView = itemView.findViewById(R.id.timeTextViewChat);
         }
 
-        public void bind(User user) {
-            this.user = user;
-            nameTextView.setText(user.getName());
-            getLastMessage(user.getId());
-            imageView = new BitMapImage((ImageView) itemView.findViewById(R.id.iconImageViewChat)).execute(user.getImage());
+        public void bind(Message message) {
+            this.message = message;
+            nameOfUserTextView.setText(userName);
         }
 
         @Override
