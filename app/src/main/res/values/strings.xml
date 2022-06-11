@@ -67,4 +67,5 @@
     <string name="friends">FRIENDS</string>
     <string name="request_accepted">Request Accepted</string>
     <string name="request_rejected">Friend Request Rejected</string>
+    <string name="search">Search</string>
 </resources>
