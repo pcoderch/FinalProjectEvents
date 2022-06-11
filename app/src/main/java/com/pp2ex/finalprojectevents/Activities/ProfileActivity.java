@@ -2,6 +2,7 @@ package com.pp2ex.finalprojectevents.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -22,6 +23,7 @@ import com.pp2ex.finalprojectevents.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -36,7 +38,10 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView email;
     private String emailToShow;
     private Button addConnection;
+    private ArrayList<User> friends;
+    private boolean isFriend;
 
+    @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +49,8 @@ public class ProfileActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String emailInt = intent.getStringExtra("email");
         int id = intent.getIntExtra("id", 0);
+        isFriend = false;
+        friends = new ArrayList<>();
         eventsCount = findViewById(R.id.eventsNumber);
         friendsCount = findViewById(R.id.usersNumber);
         owns = findViewById(R.id.ownsNumber);
@@ -55,8 +62,13 @@ public class ProfileActivity extends AppCompatActivity {
         getEventsCount(id);
         getFriendsCount(id);
         getOwns(id);
+        getFriends(id);
         addConnection.setOnClickListener(v -> {
-            sendFriendRequest(id);
+            if(isFriend) {
+                Toast.makeText(ProfileActivity.this, R.string.alreadyFriends, Toast.LENGTH_SHORT).show();
+            } else {
+                sendFriendRequest(id);
+            }
         });
         goToChat.setOnClickListener(v -> {
             Intent intent1 = new Intent(ProfileActivity.this, ChatActivity.class);
@@ -68,6 +80,89 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
+    private void removeFriend(int id) {
+        System.out.println("Id: " + id);
+        String url = MethodsAPI.removeFriend(id);
+        @SuppressLint("ResourceAsColor") StringRequest request = new StringRequest(Request.Method.DELETE, url, response -> {
+            System.out.println("Friend deleted");
+            Toast.makeText(ProfileActivity.this, R.string.removedFriend, Toast.LENGTH_SHORT).show();
+            addConnection.setText(R.string.addConnection);
+            addConnection.setBackgroundColor(R.color.azul_claro);
+            isFriend = false;
+        }, error -> {
+            Toast.makeText(ProfileActivity.this, R.string.errorRemovingFriend, Toast.LENGTH_SHORT).show();
+        } ) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + User.getAuthenticatedUser().getToken());
+                return headers;
+            }
+        };
+        VolleySingleton.getInstance(this).addToRequestQueue(request);
+        getOwns(id);
+    }
+
+    private void addFriendToList(User user) {
+        friends.add(user);
+    }
+
+    @SuppressLint({"ResourceAsColor", "UseCompatLoadingForDrawables"})
+    private void setIfNecessaryUpdate(int id) {
+        System.out.println("ID if necessary: " + id);
+        if(updateIfFriend(id)){
+            System.out.println("Is friend");
+            addConnection.setText(R.string.friends);
+            addConnection.setBackgroundColor(R.color.verde);
+            isFriend = true;
+        }
+    }
+
+    @SuppressLint("ResourceAsColor")
+    private boolean updateIfFriend(int id) {
+        for (User user : friends) {
+            System.out.println("idddd: " + user.getId());
+            if (user.getId() == id) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void getFriends(int idUserToShow) {
+        String url = MethodsAPI.URL_FRIENDS;
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, response -> {
+            for (int i = 0; i < response.length(); i++) {
+                System.out.println("myyyyFriend: " + response);
+                try {
+                    JSONObject jsonObject = response.getJSONObject(i);
+                    int id = jsonObject.getInt("id");
+                    String name = jsonObject.getString("name");
+                    String lastName = jsonObject.getString("last_name");
+                    String email = jsonObject.getString("email");
+                    String image = jsonObject.getString("image");
+                    User user = new User(id, name, lastName, email, "", image);
+                    System.out.println("added " + user);
+                    friends.add(user);
+                    addFriendToList(user);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            setIfNecessaryUpdate(idUserToShow);
+        }, error -> {
+            Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT).show();
+        } ) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + User.getAuthenticatedUser().getToken());
+                return headers;
+            }
+        };
+        VolleySingleton.getInstance(this).addToRequestQueue(request);
+    }
+
     private void sendFriendRequest(int id) {
         String url = MethodsAPI.sendFriendRequest(id);
         System.out.println("URL: " + url);
@@ -75,12 +170,12 @@ public class ProfileActivity extends AppCompatActivity {
                 response -> {
                     try {
                         JSONObject jsonObject = new JSONObject(response);
-                        String message = jsonObject.getString("error");
-                        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-                    } catch (JSONException e) {
+                        String message = jsonObject.getString("id");
                         System.out.println("Response friend request: " + response);
                         Toast.makeText(ProfileActivity.this, R.string.requestSent, Toast.LENGTH_SHORT).show();
                         addConnection.setText(R.string.pending);
+                    } catch (JSONException e) {
+                        Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT).show();
                         e.printStackTrace();
                     }
                 }, error -> {

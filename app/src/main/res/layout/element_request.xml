@@ -43,7 +43,7 @@
                 android:layout_marginLeft="4dp"
                 android:layout_toRightOf="@+id/IconImageView">
                 <TextView
-                    android:id="@+id/nameTextView"
+                    android:id="@+id/nameTextViewRequest"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="2dp"
@@ -52,7 +52,7 @@
                     android:textSize="24dp"
                     android:textStyle="bold"/>
                 <TextView
-                    android:id="@+id/emailTextView"
+                    android:id="@+id/emailTextViewRequest"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="@string/email"
@@ -69,7 +69,7 @@
                 android:orientation="horizontal">
 
                 <ImageButton
-                    android:id="@+id/accept"
+                    android:id="@+id/acceptRequest"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_baseline_check_circle_outline_24" />

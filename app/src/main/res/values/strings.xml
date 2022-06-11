@@ -60,4 +60,11 @@
     <string name="error">Error!</string>
     <string name="requestSent">Friend Request Sent</string>
     <string name="removeConnection">Remove Connection</string>
+    <string name="removeFriend">REMOVE CONNECTION</string>
+    <string name="removedFriend">Friend removed</string>
+    <string name="errorRemovingFriend">Error removing friend!</string>
+    <string name="alreadyFriends">Already Friends!</string>
+    <string name="friends">FRIENDS</string>
+    <string name="request_accepted">Request Accepted</string>
+    <string name="request_rejected">Friend Request Rejected</string>
 </resources>

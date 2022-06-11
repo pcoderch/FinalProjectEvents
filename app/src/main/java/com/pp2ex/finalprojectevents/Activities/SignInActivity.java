@@ -97,12 +97,12 @@ public class SignInActivity extends AppCompatActivity{
                             System.out.println("Error: " + e);
                             e.printStackTrace();
                         }
-                        //System.out.println("user: " + user);
-                        Intent goProfile = new Intent(SignInActivity.this, ProfileActivity.class);
+                        /*Intent goProfile = new Intent(SignInActivity.this, ProfileActivity.class);
                         goProfile.putExtra("email", "adrian@openevents.com");
                         goProfile.putExtra("id", 1283);
-                        //Intent goCreateEvent = new Intent(SignInActivity.this, CreateEventActivity.class);
-                        startActivity(goProfile);
+                        startActivity(goProfile);*/
+                        Intent goFriends = new Intent(SignInActivity.this, FriendRequestActivity.class);
+                        startActivity(goFriends);
                     } }, error -> {
                     Toast.makeText(SignInActivity.this, "Error: " + error, Toast.LENGTH_SHORT).show();
                 } ) {
