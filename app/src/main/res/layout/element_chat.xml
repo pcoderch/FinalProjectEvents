@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cv"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -18,10 +19,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="6dp">
+            android:padding="6dp"
+            tools:ignore="UselessParent">
 
             <ImageView
-                android:id="@+id/IconImageView"
+                android:id="@+id/iconImageViewChat"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:layout_alignParentStart="true"
@@ -30,7 +32,7 @@
                 android:paddingLeft="14dp"
                 android:paddingRight="14dp"
                 app:srcCompat="@drawable/hola"
-                android:layout_alignParentLeft="true"/>
+                android:contentDescription="TODO" />
             <LinearLayout
                 android:id="@+id/LinearLayout"
                 android:layout_width="wrap_content"
@@ -38,25 +40,24 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="2dp"
-                android:layout_toEndOf="@+id/IconImageView"
-                android:orientation="vertical"
-                android:layout_marginLeft="4dp"
-                android:layout_toRightOf="@+id/IconImageView">
+                android:layout_toEndOf="@+id/iconImageViewChat"
+                android:orientation="vertical">
                 <TextView
-                    android:id="@+id/nameTextView"
+                    android:id="@+id/nameTextViewChat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="2dp"
                     android:text="@string/firstName"
                     android:textColor="@color/black"
-                    android:textSize="24dp"
+                    android:textSize="24sp"
                     android:textStyle="bold"/>
+
                 <TextView
-                    android:id="@+id/emailTextView"
-                    android:layout_width="100dp"
+                    android:id="@+id/lastMessageTextViewChat"
+                    android:layout_width="match_parent"
                     android:layout_height="25dp"
                     android:text="@string/lastmessage"
-                    android:textSize="18dp"/>
+                    android:textSize="18sp" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -66,14 +67,17 @@
                 android:layout_gravity="center"
                 android:paddingLeft="14dp"
                 android:paddingRight="14dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                tools:ignore="RelativeOverlap">
 
-                <Button
+                <TextView
+                    android:id="@+id/timeTextViewChat"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="@string/borrarChat"
-                    android:textStyle="bold"
-                    android:backgroundTint="@color/pink"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="2dp"
+                    android:text="@string/timeChat"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"/>
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>

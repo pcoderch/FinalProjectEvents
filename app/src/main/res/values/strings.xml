@@ -69,5 +69,15 @@
     <string name="request_rejected">Friend Request Rejected</string>
     <string name="search">Search</string>
     <string name="chat_userName">Pablo Perez</string>
+    <string name="chat_date">10 june</string>
+    <string name="user_icon">User Icon</string>
+    <string name="message">Message</string>
+    <string name="hourOfSend">8:00</string>
+    <string name="userNameChat">John Grady Cole</string>
+    <string name="myMessageText">This is a Message</string>
+    <string name="sendHourMe">10:00</string>
+    <string name="write_message">Wrtie message</string>
+    <string name="send_message">Send</string>
+    <string name="timeChat">10:00</string>
 
 </resources>
