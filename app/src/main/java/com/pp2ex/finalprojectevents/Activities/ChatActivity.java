@@ -151,11 +151,10 @@ public class ChatActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View view) {
-            Intent showProfile = new Intent(getApplicationContext(), ProfileActivity.class);
-            showProfile.putExtra("email", user.getEmail());
-            showProfile.putExtra("id", user.getId());
-            showProfile.putExtra("image", user.getImage());
-            startActivity(showProfile);
+            Intent gotToChat = new Intent(getApplicationContext(), InsideChatActivity.class);
+            gotToChat.putExtra("name", user.getName());
+            gotToChat.putExtra("id", user.getId());
+            startActivity(gotToChat);
         }
 
         private String getContentMessage(String content) {
@@ -171,15 +170,6 @@ public class ChatActivity extends AppCompatActivity {
                 return "";
             } else {
                 return lastMessageOfAll.substring(11, 16);
-            }
-        }
-
-        private Drawable LoadImageFromWebOperations(String url) {
-            try {
-                InputStream is = (InputStream) new URL(url).getContent();
-                return Drawable.createFromStream(is, "src name");
-            } catch (Exception e) {
-                return null;
             }
         }
 

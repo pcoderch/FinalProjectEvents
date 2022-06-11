@@ -6,10 +6,12 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,7 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.pp2ex.finalprojectevents.API.BitMapImage;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.pp2ex.finalprojectevents.API.MethodsAPI;
 import com.pp2ex.finalprojectevents.API.VolleySingleton;
 import com.pp2ex.finalprojectevents.DataStructures.Message;
@@ -40,31 +42,89 @@ import java.util.Map;
 public class InsideChatActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ArrayList<Message> messages;
-    private ChatsAdaptor adapter;
-    private static String userName;
+    private MessageAdaptor adapter;
+    private TextView userName;
+    private EditText messageToSend;
+    private Button sendMessage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.list_chats);
-        int id = getIntent().getIntExtra("id", 0);
-        userName = getIntent().getStringExtra("name");
-        recyclerView = findViewById(R.id.chatsList);
+        setContentView(R.layout.list_one_chat);
         messages = new ArrayList<>();
-        adapter = new ChatsAdaptor(messages);
+        userName = findViewById(R.id.chatOtherUserName);
+        messageToSend = findViewById(R.id.sendMessage);
+        sendMessage = findViewById(R.id.sendMessageButton);
+        int id = getIntent().getIntExtra("id", 0);
+        userName.setText(getIntent().getStringExtra("name"));
+        recyclerView = findViewById(R.id.MessagesInChat);
+        messages = new ArrayList<>();
+        adapter = new MessageAdaptor(messages);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         getMessages(id);
+        final Handler handler = new Handler();
+        sendMessage.setOnClickListener(v -> {
+            String content = messageToSend.getText().toString();
+            if (!content.isEmpty()) {
+                sendMessageToChat(content, User.getAuthenticatedUser().getId(), id);
+            } else {
+                Toast.makeText(InsideChatActivity.this, R.string.empty_message, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        final Runnable r = new Runnable() {
+            public void run() {
+                getMessages(id);
+                handler.postDelayed(this, 100);
+            }
+        };
+        handler.post(r);
+    }
+
+
+    private JSONObject insertJsonBody(String content, int senderId, int receiverId) {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("content", content);
+            jsonObject.put("user_id_send", senderId);
+            jsonObject.put("user_id_recived", receiverId);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonObject;
+    }
+
+    private void sendMessageToChat(String content, int senderId, int receiverId) {
+        String url = MethodsAPI.URL_MESSAGES;
+        JSONObject jsonBody = insertJsonBody(content, senderId, receiverId);
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonBody, response -> {
+            Toast.makeText(InsideChatActivity.this, R.string.message_sent, Toast.LENGTH_SHORT).show();
+            messageToSend.setText("");
+            getMessages(receiverId);
+        }, error -> {
+            Toast.makeText(InsideChatActivity.this, R.string.error, Toast.LENGTH_SHORT).show();
+        } ) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + User.getAuthenticatedUser().getToken());
+                return headers;
+            }
+        };
+        VolleySingleton.getInstance(InsideChatActivity.this).addToRequestQueue(request);
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private void addMessage(Message message) {
-        messages.add(message);
-        adapter.notifyDataSetChanged();
+        if(!messages.contains(message)){
+            messages.add(message);
+            adapter.notifyDataSetChanged();
+        }
     }
 
     private void getMessages(int idOfUser) {
         String url = MethodsAPI.getMessages(idOfUser);
-        messages = new ArrayList<>();
+        int messagesSize = messages.size();
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, response -> {
             for (int i = 0; i < response.length(); i++) {
                 System.out.println(response);
@@ -81,7 +141,9 @@ public class InsideChatActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-            updateUI();
+            if (messagesSize != messages.size()) {
+                updateUI();
+            }
         }, error -> {
             Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT).show();
         } ) {
@@ -96,29 +158,36 @@ public class InsideChatActivity extends AppCompatActivity {
     }
 
     private void updateUI() {
-        adapter = new ChatsAdaptor(chats);
-        for (int i = 0; i < chats.size(); i++) {
-            System.out.println(chats.get(i).getName());
+        recyclerView.scrollToPosition(messages.size() - 1);
+        adapter = new MessageAdaptor(messages);
+        for (int i = 0; i < messages.size(); i++) {
+            System.out.println(messages.get(i).getContent());
         }
         recyclerView.setAdapter(adapter);
     }
-    private class ChatsAdaptor extends RecyclerView.Adapter<FriendHolder> {
+    private class MessageAdaptor extends RecyclerView.Adapter<MessagesHolder> {
 
         private final ArrayList<Message> messageList;
+        private boolean sentByMe;
 
-        private ChatsAdaptor(ArrayList<Message> userList) {
+        private MessageAdaptor(ArrayList<Message> userList) {
             this.messageList = userList;
         }
 
         @NonNull
         @Override
-        public FriendHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            LayoutInflater layoutInflater = LayoutInflater.from(getApplicationContext());
-            return new FriendHolder(layoutInflater, parent);
+        public MessagesHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View typeOfMessage;
+            if (viewType == 1) { //sent by me
+                typeOfMessage = LayoutInflater.from(parent.getContext()).inflate(R.layout.element_my_message, parent, false);
+            } else { //sent by the other user
+                typeOfMessage = LayoutInflater.from(parent.getContext()).inflate(R.layout.element_her_message, parent, false);
+            }
+            return new MessagesHolder(typeOfMessage);
         }
 
         @Override
-        public void onBindViewHolder(FriendHolder holder, int position) {
+        public void onBindViewHolder(MessagesHolder holder, int position) {
             Message message = messageList.get(position);
             holder.bind(message);
         }
@@ -127,49 +196,34 @@ public class InsideChatActivity extends AppCompatActivity {
         public int getItemCount() {
             return messageList.size();
         }
+
+        @Override
+        public int getItemViewType(int position) {
+            return messageList.get(position).getSenderId() == User.getAuthenticatedUser().getId() ? 1 : 0;
+        }
     }
 
-    private class FriendHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    private class MessagesHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private Message message;
-        private final TextView nameOfUserTextView;
-        private final TextView lastMessageTextView;
+        private final TextView messageContent;
         private final TextView timestampTextView;
         private AsyncTask<String, Void, Bitmap> imageView;
 
-
-        public FriendHolder(LayoutInflater inflater, ViewGroup parent) {
-
-            super(inflater.inflate(R.layout.element_c, parent, false));
+        public MessagesHolder(View typeOfMessage) {
+            super(typeOfMessage);
             itemView.setOnClickListener(this);
-            nameOfUserTextView = itemView.findViewById(R.id.chatOtherUserName);
-            lastMessageTextView = itemView.findViewById(R.id.lastMessageTextViewChat);
-            timestampTextView = itemView.findViewById(R.id.timeTextViewChat);
+            messageContent = typeOfMessage.findViewById(R.id.messageContent);
+            timestampTextView = itemView.findViewById(R.id.messageTimestamp);
         }
 
         public void bind(Message message) {
             this.message = message;
-            nameOfUserTextView.setText(userName);
+            messageContent.setText(message.getContent());
+            timestampTextView.setText(getMessageTime(message.getTimestamp()));
         }
 
-        @Override
-        public void onClick(View view) {
-            Intent showProfile = new Intent(getApplicationContext(), ProfileActivity.class);
-            showProfile.putExtra("email", user.getEmail());
-            showProfile.putExtra("id", user.getId());
-            showProfile.putExtra("image", user.getImage());
-            startActivity(showProfile);
-        }
-
-        private String getContentMessage(String content) {
-            if (content.length() > 20) {
-                return content.substring(0, 19) + "...";
-            } else {
-                return content;
-            }
-        }
-
-        private String getLastMessageTime(String lastMessageOfAll) {
+        private String getMessageTime(String lastMessageOfAll) {
             if (lastMessageOfAll.equals("")) {
                 return "";
             } else {
@@ -177,44 +231,12 @@ public class InsideChatActivity extends AppCompatActivity {
             }
         }
 
-        private Drawable LoadImageFromWebOperations(String url) {
-            try {
-                InputStream is = (InputStream) new URL(url).getContent();
-                return Drawable.createFromStream(is, "src name");
-            } catch (Exception e) {
-                return null;
-            }
+        @Override
+        public void onClick(View view) {
+            System.out.println("Clicked");
         }
 
-        private void getLastMessage(int idOfUser) {
-            String url = MethodsAPI.getMessages(idOfUser);
-            JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, response -> {
-                if (response.length() == 0) {
-                    lastMessageTextView.setText("");
-                    timestampTextView.setText("");
-                } else {
-                    try {
-                        JSONObject jsonObject = response.getJSONObject(response.length() - 1);
-                        String content = jsonObject.getString("content");
-                        String time = jsonObject.getString("timeStamp");
-                        lastMessageTextView.setText(getContentMessage(content));
-                        timestampTextView.setText(getLastMessageTime(time));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-                }, error -> {
-                    Toast.makeText(getApplicationContext(), R.string.error, Toast.LENGTH_SHORT).show();
-                } ) {
-                    @Override
-                    public Map<String, String> getHeaders() throws AuthFailureError {
-                        HashMap<String, String> headers = new HashMap<>();
-                        headers.put("Authorization", "Bearer " + User.getAuthenticatedUser().getToken());
-                        return headers;
-                    }
-                };
-                VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
-            }
+
     }
 
 
