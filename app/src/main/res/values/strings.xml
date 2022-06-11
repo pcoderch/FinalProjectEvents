@@ -68,4 +68,6 @@
     <string name="request_accepted">Request Accepted</string>
     <string name="request_rejected">Friend Request Rejected</string>
     <string name="search">Search</string>
+    <string name="chat_userName">Pablo Perez</string>
+
 </resources>
