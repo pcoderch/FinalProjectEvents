@@ -5,7 +5,7 @@ public class MethodsAPI {
     public static String URL_LOGIN = URL_BASE + "login"; //@POST
     public static String URL_REGISTER = URL_BASE + "users"; //@POST
     public static String URL_GET_USER = URL_BASE + "users/search"; //@GET
-    public static String URL_CREATE_EVENT = URL_BASE + "events";  //@POST
+    public static String URL_EVENT = URL_BASE + "events";  //@POST
     public static String URL_EDIT_PROFILE = URL_BASE + "users"; //@PUT
     public static String URL_FRIENDS = URL_BASE + "friends"; //@GET
     public static String URL_FRIEND_REQUESTS = URL_FRIENDS + "/requests"; //@GET
@@ -45,4 +45,8 @@ public class MethodsAPI {
     }
 
     public static String getUserByString(String search) { return URL_GET_USER + "?s=" + search; }
+
+    public static String getEventById(int eventID) { return URL_EVENT + "/" + eventID; }
+
+    public static String getEventAssistances(int intentEventId) { return URL_EVENT + "/" + intentEventId + "/assistances"; }
 }

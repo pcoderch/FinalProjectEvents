@@ -60,7 +60,7 @@ public class CreateEventActivity extends AppCompatActivity {
             JSONObject eventJSON = newEvent.toJSON();
             System.out.println("Event JSON: " + eventJSON);
             System.out.println("User auth: " + User.getAuthenticatedUser().getToken());
-            String url = MethodsAPI.URL_CREATE_EVENT;
+            String url = MethodsAPI.URL_EVENT;
             System.out.println("URL: " + url);
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, eventJSON, new Response.Listener<JSONObject>() {
                 @Override

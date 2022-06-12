@@ -112,6 +112,7 @@
     <string name="TopicComment">Topic of the Comment</string>
     <string name="SearchEvent">Input Event</string>
     <string name="AllEvents">ALL EVENTS</string>
+    <string name="owner">OWNER</string>
 
 
 </resources>
