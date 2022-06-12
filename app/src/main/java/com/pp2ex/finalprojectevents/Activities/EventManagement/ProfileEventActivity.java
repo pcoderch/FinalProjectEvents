@@ -47,6 +47,7 @@ public class ProfileEventActivity extends AppCompatActivity {
     private int intentEventId;
     private int assistances;
     private boolean gotData;
+    private boolean alreadyJoined, notInTheEvent;
     private Event event;
     private EventAdaptor adapter;
     private TextView eventName;
@@ -90,7 +91,51 @@ public class ProfileEventActivity extends AppCompatActivity {
         event = new Event("calvo", "esto es una desc", "25/07", "25/08", 15, "image", "barcelona", "Furbo");
         getEventData(intentEventId);
         getEventAssistances(intentEventId);
-        //profileImage = new BitMapImage(findViewById(R.id.profileImage)).execute(event.getImage());
+
+        joinEvent.setOnClickListener(v -> {
+            joinTheEvent();
+        });
+
+        leaveEvent.setOnClickListener(v -> {
+            dropTheEvent();
+        });
+    }
+
+    private void joinTheEvent() {
+        String url = MethodsAPI.getEventAssistances(intentEventId);
+        System.out.println("URL: " + url);
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.POST, url, null, response -> {
+            Toast.makeText(this, R.string.joined, Toast.LENGTH_SHORT).show();
+            joinEvent.setText(R.string.joined);
+        }, error -> {
+            System.out.println("ERRORRRR get user data");
+            Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT).show();
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + User.getAuthenticatedUser().getToken());
+                return headers;
+            }
+        };
+        VolleySingleton.getInstance(this).addToRequestQueue(request);
+    }
+
+    private void dropTheEvent() {
+        String url = MethodsAPI.getEventAssistances(intentEventId);
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.DELETE, url, null, response -> {
+            Toast.makeText(this, R.string.dropped, Toast.LENGTH_SHORT).show();
+        }, error -> {
+            Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT).show();
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + User.getAuthenticatedUser().getToken());
+                return headers;
+            }
+        };
+        VolleySingleton.getInstance(this).addToRequestQueue(request);
     }
 
     @SuppressLint("SetTextI18n")
@@ -106,6 +151,7 @@ public class ProfileEventActivity extends AppCompatActivity {
         eventType.setText(event.getType());
         location.setText(event.getLocation());
         usersAttending.setText(assistances + "/" + event.getNumOfParticipants());
+        //profileImage = new BitMapImage(findViewById(R.id.profileImage)).execute(event.getImage());
         System.out.println("id of event: " + event.getId());
     }
 

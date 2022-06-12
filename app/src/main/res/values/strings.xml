@@ -114,6 +114,10 @@
     <string name="AllEvents">ALL EVENTS</string>
     <string name="owner">OWNER</string>
     <string name="numberRating">7</string>
+    <string name="joined">Joined!</string>
+    <string name="dropped">LEFT THE EVENT!</string>
+    <string name="alreadyJoined">You are already in the event!</string>
+    <string name="notInTheEvent">You can\'t drop of the event because you are not in!</string>
 
 
 </resources>

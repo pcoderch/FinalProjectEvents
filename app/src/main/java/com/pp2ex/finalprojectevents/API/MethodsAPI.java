@@ -1,5 +1,7 @@
 package com.pp2ex.finalprojectevents.API;
 
+import com.pp2ex.finalprojectevents.DataStructures.User;
+
 public class MethodsAPI {
     public static String URL_BASE = "http://puigmal.salle.url.edu/api/v2/";
     public static String URL_LOGIN = URL_BASE + "login"; //@POST
@@ -11,6 +13,7 @@ public class MethodsAPI {
     public static String URL_FRIEND_REQUESTS = URL_FRIENDS + "/requests"; //@GET
     public static String URL_MESSAGES = URL_BASE + "messages"; //@GET
     public static String URL_CHATS = URL_MESSAGES + "/users"; //@GET
+    public static String URL_ASSISTANCES = URL_BASE + "assistances"; //@GET
 
     public static String EventCount(int id) {
         return URL_REGISTER + "/" + id + "/assistances";
@@ -49,4 +52,9 @@ public class MethodsAPI {
     public static String getEventById(int eventID) { return URL_EVENT + "/" + eventID; }
 
     public static String getEventAssistances(int intentEventId) { return URL_EVENT + "/" + intentEventId + "/assistances"; }
+
+    public static String getAllUserEvents(int eventId, int userId) { return getEventAssistances(eventId) + "/" + userId; }
+
+    public static String deleteAssistance(int intentEventId, int userId) { return URL_ASSISTANCES + "/" + userId + "/" + intentEventId; }
+
 }
