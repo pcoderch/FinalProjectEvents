@@ -110,6 +110,8 @@
     <string name="dateComment">23/02/22</string>
     <string name="commentInsert">Insert your comment</string>
     <string name="TopicComment">Topic of the Comment</string>
+    <string name="SearchEvent">Input Event</string>
+    <string name="AllEvents">ALL EVENTS</string>
 
 
 </resources>
