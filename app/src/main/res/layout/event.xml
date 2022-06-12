@@ -264,7 +264,7 @@
                         android:id="@+id/descriptionEventProfile"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="20dp"
+                        android:paddingLeft="10dp"
                         android:paddingTop="10dp"
                         android:paddingRight="20dp"
                         android:text="@string/tagdescription"
@@ -291,30 +291,55 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 android:gravity="center_horizontal"
                 >
             <Button
                 android:id="@+id/joinEventButton"
-                android:layout_marginTop="45dp"
+                android:layout_marginTop="10dp"
                 android:layout_gravity="center_horizontal"
                 android:text="@string/joinEvent"
                 android:textStyle="bold"
                 android:textSize="17sp"
                 android:backgroundTint="@color/purple"
                 android:layout_width="wrap_content"
-                android:layout_marginEnd="30dp"
+                android:layout_marginEnd="10dp"
                 android:layout_height="wrap_content"/>
             <Button
                 android:id="@+id/dropEventButton"
                 android:layout_gravity="center_horizontal"
                 android:text="@string/dropEvent"
+                android:layout_marginTop="10dp"
                 android:textStyle="bold"
                 android:textSize="17sp"
                 android:backgroundTint="@color/purple"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="COMMENTS:"
+                    android:textSize="20dp"
+                    android:textColor="@color/purple"
+                    android:paddingLeft="20dp"
+                    android:layout_marginTop="30dp"
+                    android:textStyle="bold">
+
+                </TextView>
+            </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/commentsInEvent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp">
+
+            </androidx.recyclerview.widget.RecyclerView>
         </TableLayout>
     </ScrollView>
 </LinearLayout>

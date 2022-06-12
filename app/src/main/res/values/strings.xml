@@ -107,4 +107,9 @@
     <string name="TypeEvent2">Type:</string>
     <string name="tagdescription">Description:</string>
     <string name="descriptionfinal">La gente en tu evento pasará su precioso tiempo y gastará su dinero ganado con esfuerzo. ¿Qué les ofreces exactamente a cambio? ¿Por qué deberían asistir a tu evento? Tal vez ofrezcas una clase en una lengua extranjera, pero recuerda que tus participantes no están ahí solo para aprender Tagalog. Si, eso suena extraño en la superficie. “La gente tiene motivaciones más allá del skill inmediato o experiencia que buscan.</string>
+    <string name="dateComment">23/02/22</string>
+    <string name="commentInsert">Insert your comment</string>
+    <string name="TopicComment">Topic of the Comment</string>
+
+
 </resources>
