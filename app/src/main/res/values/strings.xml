@@ -17,7 +17,7 @@
     <string name="login">LOG IN</string>
     <string name="next">NEXT</string>
     <string name="create_event">CREATE EVENT</string>
-    <string name="event_name">Event Name</string>
+    <string name="event_name">EVENT NAME</string>
     <string name="event_description">Event Description</string>
     <string name="event_date">Event Date</string>
     <string name="event_location">Event Location</string>
@@ -94,5 +94,17 @@
     <string name="attendees">EVENT ATTENDEES</string>
     <string name="update_event">UPDATE EVENT</string>
     <string name="errorSendingRequest">You are already friends or you already sent a request</string>
-
+    <string name="EventID">ID EVENT</string>
+    <string name="OwnerID">ID OWNER</string>
+    <string name="numEventsID">3791</string>
+    <string name="participantsInEvent">200</string>
+    <string name="IDOwner">2812</string>
+    <string name="StartDate">23/02/2021</string>
+    <string name="EndDate">25/07/2021</string>
+    <string name="locationEvent">C/ Mi casa num.7, 02932, Barcelona</string>
+    <string name="ratingEvent">4.5/5</string>
+    <string name="eventType">Sport</string>
+    <string name="TypeEvent2">Type:</string>
+    <string name="tagdescription">Description:</string>
+    <string name="descriptionfinal">La gente en tu evento pasará su precioso tiempo y gastará su dinero ganado con esfuerzo. ¿Qué les ofreces exactamente a cambio? ¿Por qué deberían asistir a tu evento? Tal vez ofrezcas una clase en una lengua extranjera, pero recuerda que tus participantes no están ahí solo para aprender Tagalog. Si, eso suena extraño en la superficie. “La gente tiene motivaciones más allá del skill inmediato o experiencia que buscan.</string>
 </resources>

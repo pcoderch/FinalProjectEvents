@@ -20,5 +20,6 @@
     <color name="grey_claro">#D3D1D1</color>
     <color name="purpleClean">#774df2</color>
     <color name="yellow_claro">#FAE770</color>
+    <color name="transparent">#00FFFFFF</color>
 
 </resources>

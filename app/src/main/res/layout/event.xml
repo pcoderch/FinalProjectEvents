@@ -13,17 +13,17 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="350dp"
-            android:background="@drawable/gradientbackground"
+            android:background="@drawable/eventbackground"
             android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/eventImage"
                 android:contentDescription="@string/event_name"
-                android:layout_width="150dp"
+                android:layout_width="250dp"
                 android:layout_height="150dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="45dp"
-                android:src="@drawable/hola" />
+                android:src="@drawable/event" />
             <TextView
                 android:id="@+id/profileName"
                 android:layout_marginTop="10dp"
@@ -31,7 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/event_name"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textStyle="bold"
                 android:textSize="21sp"/>
         </LinearLayout>
@@ -56,17 +56,18 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/Events"
+                        android:text="@string/EventID"
                         android:textColor="@color/black"
+                        android:textStyle="bold"
                         android:textSize="20sp"/>
 
                     <TextView
-                        android:id="@+id/eventsNumber"
+                        android:id="@+id/eventsID"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingTop="10dp"
-                        android:text="@string/numEventsBeenTo"
-                        android:textColor="@color/azul_claro"
+                        android:text="@string/numEventsID"
+                        android:textColor="@color/purple"
                         android:textSize="20sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -80,17 +81,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/Users"
+                        android:textStyle="bold"
                         android:textColor="@color/black"
                         android:textSize="20sp"/>
                     <TextView
-                        android:id="@+id/usersNumber"
+                        android:id="@+id/participantsInEventNumber"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/UserConnections"
+                        android:text="@string/participantsInEvent"
                         android:textStyle="bold"
                         android:textSize="20sp"
                         android:paddingTop="10dp"
-                        android:textColor="@color/azul_claro"/>
+                        android:textColor="@color/purple"/>
                 </LinearLayout>
                 <LinearLayout
                     android:gravity="center"
@@ -101,103 +103,218 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/Owns"
+                        android:text="@string/OwnerID"
+                        android:textStyle="bold"
                         android:textColor="@color/black"
                         android:textSize="20sp"/>
                     <TextView
                         android:id="@+id/ownsNumber"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/numEventsOwns"
+                        android:text="@string/IDOwner"
                         android:textStyle="bold"
                         android:textSize="20sp"
                         android:paddingTop="10dp"
-                        android:textColor="@color/azul_claro"/>
+                        android:textColor="@color/purple"/>
                 </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="360dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center"
-        android:layout_marginTop="45dp">
-        <LinearLayout
-            android:orientation="horizontal"
-            android:paddingLeft="25dp"
-            android:paddingRight="25dp"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:ignore="UseCompoundDrawables">
-            <ImageView
-                android:contentDescription="@string/email"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:src="@drawable/ic_baseline_email_24"/>
-            <TextView
-                android:id="@+id/showEmailProfile"
-                android:layout_width="wrap_content"
+            android:stretchColumns="1">
+            <LinearLayout
+                android:layout_width="360dp"
                 android:layout_height="wrap_content"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:text="@string/email"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:layout_gravity="center_vertical"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_marginTop="30dp"
-            android:orientation="horizontal"
-            android:paddingLeft="25dp"
-            android:paddingRight="25dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            tools:ignore="UseCompoundDrawables">
-            <ImageView
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:src="@drawable/ic_baseline_location_on_24"/>
-            <TextView
-                android:id="@+id/goToChatProfile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:text="@string/goChat"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-                android:layout_gravity="center_vertical"/>
-        </LinearLayout>
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:layout_marginTop="45dp">
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:paddingLeft="25dp"
+                    android:paddingRight="25dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:ignore="UseCompoundDrawables">
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/ic_baseline_date_range_24"/>
+                    <TextView
+                        android:id="@+id/DateStartEvent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:text="@string/StartDate"
+                        android:textColor="@color/black"
+                        android:textSize="20dp"
 
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="30dp"
-        android:layout_gravity="center_horizontal"
-        >
-    <Button
-        android:id="@+id/addConnectionButton"
-        android:layout_marginTop="45dp"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/joinEvent"
-        android:textStyle="bold"
-        android:textSize="17sp"
-        android:backgroundTint="@color/azul_claro"
-        android:layout_width="wrap_content"
-        android:layout_marginEnd="30dp"
-        android:layout_height="wrap_content"/>
-    <Button
-        android:id="@+id/addConnectionButton"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/dropEvent"
-        android:textStyle="bold"
-        android:textSize="17sp"
-        android:backgroundTint="@color/azul_claro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-    </LinearLayout>
+                        android:layout_gravity="center_vertical"/>
+                    <TextView
+                        android:id="@+id/DateEndEvent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:text="@string/EndDate"
+                        android:textSize="20dp"
+                        android:textColor="@color/black"
+                        android:layout_gravity="center_vertical"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginTop="30dp"
+                    android:orientation="horizontal"
+                    android:paddingLeft="25dp"
+                    android:paddingRight="25dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:ignore="UseCompoundDrawables">
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/ic_baseline_location_on_24"/>
+                    <TextView
+                        android:id="@+id/locationEvent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:text="@string/locationEvent"
+                        android:textColor="@color/black"
+
+                        android:textSize="20dp"
+                        android:layout_gravity="center_vertical"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_marginTop="30dp"
+                    android:orientation="horizontal"
+                    android:paddingLeft="25dp"
+                    android:paddingRight="25dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:ignore="UseCompoundDrawables">
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/ic_baseline_star_24"/>
+                    <TextView
+                        android:id="@+id/ratingEvent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:text="@string/ratingEvent"
+                        android:textColor="@color/black"
+
+                        android:textSize="20dp"
+                        android:layout_gravity="center_vertical"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="30dp"
+                    android:orientation="horizontal"
+                    android:paddingLeft="25dp"
+                    android:paddingRight="25dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:ignore="UseCompoundDrawables">
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/ic_baseline_music_note_24"/>
+                    <TextView
+                        android:id="@+id/typeEvent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:text="@string/TypeEvent2"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:textSize="20dp"
+                        android:layout_gravity="center_vertical"/>
+                    <TextView
+                        android:id="@+id/EventType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="20dp"
+                        android:text="@string/eventType"
+                        android:textColor="@color/black"
+                        android:textSize="20dp"
+                        android:layout_gravity="center_vertical"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:background="@drawable/perfilador"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:orientation="vertical"
+                    android:paddingLeft="25dp"
+                    android:paddingRight="25dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:ignore="UseCompoundDrawables">
+
+                    <TextView
+                        android:id="@+id/descriptionEventProfile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="20dp"
+                        android:paddingTop="10dp"
+                        android:paddingRight="20dp"
+                        android:text="@string/tagdescription"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:textSize="20dp"
+                        android:layout_gravity="center_vertical"/>
+                    <TextView
+                        android:id="@+id/EventDescription"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingBottom="10dp"
+                        android:text="@string/descriptionfinal"
+                        android:textColor="@color/black"
+                        android:textSize="20dp"
+                        android:layout_gravity="center_vertical"/>
+                </LinearLayout>
+
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="30dp"
+                android:gravity="center_horizontal"
+                >
+            <Button
+                android:id="@+id/joinEventButton"
+                android:layout_marginTop="45dp"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/joinEvent"
+                android:textStyle="bold"
+                android:textSize="17sp"
+                android:backgroundTint="@color/purple"
+                android:layout_width="wrap_content"
+                android:layout_marginEnd="30dp"
+                android:layout_height="wrap_content"/>
+            <Button
+                android:id="@+id/dropEventButton"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/dropEvent"
+                android:textStyle="bold"
+                android:textSize="17sp"
+                android:backgroundTint="@color/purple"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            </LinearLayout>
+        </TableLayout>
+    </ScrollView>
 </LinearLayout>
