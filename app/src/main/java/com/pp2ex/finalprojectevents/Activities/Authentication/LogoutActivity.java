@@ -1,4 +1,4 @@
-package com.pp2ex.finalprojectevents.Activities;
+package com.pp2ex.finalprojectevents.Activities.Authentication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
+import com.pp2ex.finalprojectevents.Activities.MainActivity;
 import com.pp2ex.finalprojectevents.R;
 
 public class LogoutActivity extends AppCompatActivity {

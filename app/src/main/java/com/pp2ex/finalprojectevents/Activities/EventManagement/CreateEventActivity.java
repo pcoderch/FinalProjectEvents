@@ -1,4 +1,4 @@
-package com.pp2ex.finalprojectevents.Activities;
+package com.pp2ex.finalprojectevents.Activities.EventManagement;
 
 import androidx.appcompat.app.AppCompatActivity;
 

@@ -15,34 +15,34 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
         <activity
-            android:name=".Activities.InsideChatActivity"
+            android:name=".Activities.Chat.InsideChatActivity"
             android:exported="false" />
         <activity
-            android:name=".Activities.ChatActivity"
+            android:name=".Activities.Chat.ChatActivity"
             android:exported="false" />
         <activity
-            android:name=".Activities.FriendRequestActivity"
+            android:name=".Activities.SocialFeatures.FriendRequestActivity"
             android:exported="false" />
         <activity
-            android:name=".Activities.FriendsActivity"
+            android:name=".Activities.SocialFeatures.FriendsActivity"
             android:exported="false" />
         <activity
-            android:name=".Activities.ProfileActivity"
+            android:name=".Activities.Authentication.ProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".Activities.EditProfileActivity"
+            android:name=".Activities.Authentication.EditProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".Activities.CreateEventActivity"
+            android:name=".Activities.EventManagement.CreateEventActivity"
             android:exported="false" />
         <activity
-            android:name=".Activities.LogoutActivity"
+            android:name=".Activities.Authentication.LogoutActivity"
             android:exported="false" />
         <activity
-            android:name=".Activities.SignInActivity"
+            android:name=".Activities.Authentication.SignInActivity"
             android:exported="false" />
         <activity
-            android:name=".Activities.SignUpActivity"
+            android:name=".Activities.Authentication.SignUpActivity"
             android:exported="false" />
         <activity
             android:name=".Activities.MainMenuActivity"

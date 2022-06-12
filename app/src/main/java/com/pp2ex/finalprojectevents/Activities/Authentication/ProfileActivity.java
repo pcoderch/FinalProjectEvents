@@ -1,4 +1,4 @@
-package com.pp2ex.finalprojectevents.Activities;
+package com.pp2ex.finalprojectevents.Activities.Authentication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,11 +17,11 @@ import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.pp2ex.finalprojectevents.API.BitMapImage;
 import com.pp2ex.finalprojectevents.API.MethodsAPI;
 import com.pp2ex.finalprojectevents.API.VolleySingleton;
+import com.pp2ex.finalprojectevents.Activities.Chat.ChatActivity;
 import com.pp2ex.finalprojectevents.DataStructures.User;
 import com.pp2ex.finalprojectevents.R;
 
@@ -30,7 +31,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -40,10 +40,15 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView owns;
     private TextView name;
     private TextView email;
+    private TextView goToChat;
     private String emailToShow;
     private Button addConnection;
+    private ImageView chatImage;
     private ArrayList<User> friends;
+    private String emailInt;
+    private String imageURL;
     private boolean isFriend;
+    private int id;
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -51,40 +56,72 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.profile);
         Intent intent = getIntent();
-        String emailInt = intent.getStringExtra("email");
-        int id = intent.getIntExtra("id", 0);
-        String imageURL = intent.getStringExtra("image");
+        emailInt = intent.getStringExtra("email");
+        id = intent.getIntExtra("id", 0);
+        imageURL = intent.getStringExtra("image");
         isFriend = false;
         friends = new ArrayList<>();
-        profilePicture = new BitMapImage(findViewById(R.id.profileImage)).execute(imageURL);
         eventsCount = findViewById(R.id.eventsNumber);
         friendsCount = findViewById(R.id.usersNumber);
         owns = findViewById(R.id.ownsNumber);
         email = findViewById(R.id.showEmailProfile);
-        TextView goToChat = findViewById(R.id.goToChatProfile);
+        goToChat = findViewById(R.id.goToChatProfile);
         name = findViewById(R.id.profileName);
         addConnection = findViewById(R.id.addConnectionButton);
+        chatImage = findViewById(R.id.chatImage);
+        if (id == 0) {
+            id = User.getAuthenticatedUser().getId();
+            emailInt = User.getAuthenticatedUser().getEmail();
+            imageURL = User.getAuthenticatedUser().getImage();
+            addConnection.setText(R.string.editProfile);
+            goToChat.setVisibility(View.GONE);
+            chatImage.setVisibility(View.GONE);
+        }
+        profilePicture = new BitMapImage(findViewById(R.id.profileImage)).execute(imageURL);
         getUserData(emailInt);
         getEventsCount(id);
         getFriendsCount(id);
         getOwns(id);
         getFriends(id);
+        int finalId = id;
         addConnection.setOnClickListener(v -> {
-            if(isFriend) {
-                Toast.makeText(ProfileActivity.this, R.string.alreadyFriends, Toast.LENGTH_SHORT).show();
+            if (finalId == User.getAuthenticatedUser().getId()) {
+                Intent editProfile = new Intent(ProfileActivity.this, EditProfileActivity.class);
+                startActivity(editProfile);
             } else {
-                sendFriendRequest(id);
+                if(isFriend) {
+                    Toast.makeText(ProfileActivity.this, R.string.alreadyFriends, Toast.LENGTH_SHORT).show();
+                } else {
+                    sendFriendRequest(finalId);
+                }
             }
         });
         goToChat.setOnClickListener(v -> {
             Intent intent1 = new Intent(ProfileActivity.this, ChatActivity.class);
-            intent1.putExtra("id", id);
+            intent1.putExtra("id", finalId);
             startActivity(intent1);
         });
         email.setOnClickListener(v -> {
             email.setText(emailToShow);
         });
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        int id = getIntent().getIntExtra("id", 0);
+        if (id == 0) {
+            updateProfile();
+        }
+    }
+
+    private void updateProfile() {
+        System.out.println("is updating");
+        emailInt = User.getAuthenticatedUser().getEmail();
+        imageURL = User.getAuthenticatedUser().getImage();
+        profilePicture = new BitMapImage(findViewById(R.id.profileImage)).execute(imageURL);
+    }
+
 
     private void removeFriend(int id) {
         System.out.println("Id: " + id);

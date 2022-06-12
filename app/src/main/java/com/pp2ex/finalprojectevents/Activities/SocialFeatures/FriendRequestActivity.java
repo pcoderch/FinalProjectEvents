@@ -1,17 +1,14 @@
-package com.pp2ex.finalprojectevents.Activities;
+package com.pp2ex.finalprojectevents.Activities.SocialFeatures;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +24,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.pp2ex.finalprojectevents.API.BitMapImage;
 import com.pp2ex.finalprojectevents.API.MethodsAPI;
 import com.pp2ex.finalprojectevents.API.VolleySingleton;
+import com.pp2ex.finalprojectevents.Activities.Authentication.ProfileActivity;
 import com.pp2ex.finalprojectevents.DataStructures.User;
 import com.pp2ex.finalprojectevents.R;
 

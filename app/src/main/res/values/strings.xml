@@ -82,5 +82,6 @@
     <string name="newImage">Image URL</string>
     <string name="empty_message">Message can\'t be empty</string>
     <string name="message_sent">Message sent</string>
+    <string name="editProfile">EDIT PROFILE</string>
 
 </resources>

@@ -1,17 +1,15 @@
 package com.pp2ex.finalprojectevents.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.ListAdapter;
 
+import com.pp2ex.finalprojectevents.Activities.Authentication.SignInActivity;
+import com.pp2ex.finalprojectevents.Activities.Authentication.SignUpActivity;
 import com.pp2ex.finalprojectevents.R;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {

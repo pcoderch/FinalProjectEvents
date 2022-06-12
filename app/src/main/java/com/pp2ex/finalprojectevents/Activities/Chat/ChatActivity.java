@@ -1,9 +1,8 @@
-package com.pp2ex.finalprojectevents.Activities;
+package com.pp2ex.finalprojectevents.Activities.Chat;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -30,8 +29,6 @@ import com.pp2ex.finalprojectevents.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;

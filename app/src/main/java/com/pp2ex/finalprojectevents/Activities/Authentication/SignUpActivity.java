@@ -1,4 +1,4 @@
-package com.pp2ex.finalprojectevents.Activities;
+package com.pp2ex.finalprojectevents.Activities.Authentication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -8,11 +8,11 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.Response;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.pp2ex.finalprojectevents.API.MethodsAPI;
 import com.pp2ex.finalprojectevents.API.VolleySingleton;
+import com.pp2ex.finalprojectevents.Activities.MainActivity;
 import com.pp2ex.finalprojectevents.DataStructures.User;
 import com.pp2ex.finalprojectevents.R;
 

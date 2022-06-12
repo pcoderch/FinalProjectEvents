@@ -1,4 +1,4 @@
-package com.pp2ex.finalprojectevents.Activities;
+package com.pp2ex.finalprojectevents.Activities.Authentication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +10,7 @@ import com.pp2ex.finalprojectevents.API.VolleySingleton;
 import com.pp2ex.finalprojectevents.DataStructures.User;
 import com.pp2ex.finalprojectevents.R;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -51,6 +52,7 @@ public class EditProfileActivity extends AppCompatActivity {
                 System.out.println("JSON :" + jsonBody);
                 String url = MethodsAPI.URL_EDIT_PROFILE;
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, jsonBody, response -> {
+                    updateDataAuthUser();
                     System.out.println("response: " + response);
                     Toast.makeText(getApplicationContext(), "Profile updated successfully", Toast.LENGTH_LONG).show();
                     finish();
@@ -74,6 +76,11 @@ public class EditProfileActivity extends AppCompatActivity {
         back.setOnClickListener(v -> finish());
     }
 
+    private void updateDataAuthUser() {
+        User user = new User(User.getAuthenticatedUser().getId(), enterFirstName.getText().toString(), enterLastName.getText().toString(), enterEmail.getText().toString(), enterPassword.getText().toString(), enterImage.getText().toString());
+        User.setAuthenticatedUser(user);
+    }
+
     private JSONObject getInfoInJson(String firstName, String lastName, String email, String password, String image) {
         JSONObject jsonBody = new JSONObject();
         if (!firstName.equals(User.getAuthenticatedUser().getName())) {
@@ -85,7 +92,7 @@ public class EditProfileActivity extends AppCompatActivity {
         }
         if (!lastName.equals(User.getAuthenticatedUser().getLastName())) {
             try {
-                jsonBody.put("lastName", lastName);
+                jsonBody.put("last_name", lastName);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -97,17 +104,17 @@ public class EditProfileActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-        if (image.equals(User.getAuthenticatedUser().getImage())) {
+        try {
+            jsonBody.put("password", password);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (!image.equals(User.getAuthenticatedUser().getImage())) {
             try {
                 jsonBody.put("image", image);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
-        try {
-            jsonBody.put("password", password);
-        } catch (Exception e) {
-            e.printStackTrace();
         }
         return jsonBody;
     }

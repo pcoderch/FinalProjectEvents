@@ -1,4 +1,4 @@
-package com.pp2ex.finalprojectevents.Activities;
+package com.pp2ex.finalprojectevents.Activities.Authentication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -10,13 +10,13 @@ import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.pp2ex.finalprojectevents.API.MethodsAPI;
 import com.pp2ex.finalprojectevents.API.VolleySingleton;
+import com.pp2ex.finalprojectevents.Activities.Chat.ChatActivity;
+import com.pp2ex.finalprojectevents.Activities.MainActivity;
 import com.pp2ex.finalprojectevents.DataStructures.User;
 import com.pp2ex.finalprojectevents.R;
 
@@ -101,7 +101,7 @@ public class SignInActivity extends AppCompatActivity{
                         goProfile.putExtra("email", "adrian@openevents.com");
                         goProfile.putExtra("id", 1283);
                         startActivity(goProfile);*/
-                        Intent goFriends = new Intent(SignInActivity.this, ChatActivity.class);
+                        Intent goFriends = new Intent(SignInActivity.this, ProfileActivity.class);
                         startActivity(goFriends);
                     } }, error -> {
                     Toast.makeText(SignInActivity.this, "Error: " + error, Toast.LENGTH_SHORT).show();

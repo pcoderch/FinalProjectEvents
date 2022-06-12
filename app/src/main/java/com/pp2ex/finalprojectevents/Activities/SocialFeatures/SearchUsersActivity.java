@@ -1,4 +1,14 @@
-package com.pp2ex.finalprojectevents.Activities;
+package com.pp2ex.finalprojectevents.Activities.SocialFeatures;
+
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,54 +18,45 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.pp2ex.finalprojectevents.API.MethodsAPI;
 import com.pp2ex.finalprojectevents.API.VolleySingleton;
+import com.pp2ex.finalprojectevents.Activities.Authentication.ProfileActivity;
 import com.pp2ex.finalprojectevents.DataStructures.User;
 import com.pp2ex.finalprojectevents.R;
-
-import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-public class FriendsActivity extends AppCompatActivity {
+public class SearchUsersActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private ArrayList<User> friends;
+    private ArrayList<User> friendRequests;
     private FriendsAdaptor adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.list_my_friends);
-        recyclerView = findViewById(R.id.myConnectionsList);
-        friends = new ArrayList<>();
-        adapter = new FriendsAdaptor(friends);
+        setContentView(R.layout.list_follower_request);
+        recyclerView = findViewById(R.id.listFriendsRequest);
+        friendRequests = new ArrayList<>();
+        adapter = new FriendsAdaptor(friendRequests);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        getFriends();
+        getFriendRequests();
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private void addUser(User user) {
         System.out.println("Adding user" + user.getEmail());
-        friends.add(user);
+        friendRequests.add(user);
         adapter.notifyDataSetChanged();
     }
 
-    private void getFriends() {
-        String url = MethodsAPI.URL_FRIENDS;
-        friends = new ArrayList<>();
+    private void getFriendRequests() {
+        String url = MethodsAPI.URL_FRIEND_REQUESTS;
+        friendRequests = new ArrayList<>();
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, response -> {
             for (int i = 0; i < response.length(); i++) {
                 System.out.println(response);
@@ -87,9 +88,9 @@ public class FriendsActivity extends AppCompatActivity {
     }
 
     private void updateUI() {
-        adapter = new FriendsAdaptor(friends);
-        for (int i = 0; i < friends.size(); i++) {
-            System.out.println(friends.get(i).getName());
+        adapter = new FriendsAdaptor(friendRequests);
+        for (int i = 0; i < friendRequests.size(); i++) {
+            System.out.println(friendRequests.get(i).getName());
         }
         recyclerView.setAdapter(adapter);
     }
@@ -123,21 +124,66 @@ public class FriendsActivity extends AppCompatActivity {
     private class FriendHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private User user;
-        private final TextView nameTextView;
-        private final TextView emailTextView;
-
+        private final TextView nameTextViewRequest;
+        private final TextView emailTextViewRequest;
+        private final ImageButton acceptButton;
+        private final ImageButton rejectButton;
 
         public FriendHolder(LayoutInflater inflater, ViewGroup parent) {
-            super(inflater.inflate(R.layout.element_my_friend, parent, false));
+            super(inflater.inflate(R.layout.element_request, parent, false));
             itemView.setOnClickListener(this);
-            nameTextView = itemView.findViewById(R.id.nameTextView);
-            emailTextView = itemView.findViewById(R.id.emailTextView);
+            nameTextViewRequest = itemView.findViewById(R.id.nameTextViewRequest);
+            emailTextViewRequest = itemView.findViewById(R.id.emailTextViewRequest);
+            acceptButton = itemView.findViewById(R.id.acceptRequest);
+            rejectButton = itemView.findViewById(R.id.cancelrequest);
         }
 
         public void bind(User user) {
             this.user = user;
-            nameTextView.setText(user.getName());
-            emailTextView.setText(user.getEmail());
+            nameTextViewRequest.setText(user.getName());
+            emailTextViewRequest.setText(user.getEmail());
+            acceptButton.setOnClickListener(v -> {
+                acceptRequest(user.getId());
+            });
+            rejectButton.setOnClickListener(v -> {
+                rejectRequest(user.getId());
+            });
+        }
+
+        private void rejectRequest(int id) {
+            String url = MethodsAPI.answerRequest(id);
+            StringRequest request = new StringRequest(Request.Method.DELETE, url, response -> {
+                Toast.makeText(getApplicationContext(), R.string.request_rejected, Toast.LENGTH_SHORT).show();
+                getFriendRequests();
+            }, error -> {
+                Toast.makeText(getApplicationContext(), R.string.error, Toast.LENGTH_SHORT).show();
+            } ) {
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    HashMap<String, String> headers = new HashMap<>();
+                    headers.put("Authorization", "Bearer " + User.getAuthenticatedUser().getToken());
+                    return headers;
+                }
+            };
+            VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
+        }
+
+        private void acceptRequest(int id) {
+            String url = MethodsAPI.answerRequest(id);
+            StringRequest request = new StringRequest(Request.Method.PUT, url, response -> {
+                Toast.makeText(getApplicationContext(), R.string.request_accepted, Toast.LENGTH_SHORT).show();
+                getFriendRequests();
+            }, error -> {
+                Toast.makeText(getApplicationContext(), R.string.error, Toast.LENGTH_SHORT).show();
+            } ) {
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    HashMap<String, String> headers = new HashMap<>();
+                    headers.put("Authorization", "Bearer " + User.getAuthenticatedUser().getToken());
+                    return headers;
+                }
+            };
+            VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
         }
 
         @Override
@@ -145,7 +191,6 @@ public class FriendsActivity extends AppCompatActivity {
             Intent showProfile = new Intent(getApplicationContext(), ProfileActivity.class);
             showProfile.putExtra("email", user.getEmail());
             showProfile.putExtra("id", user.getId());
-            showProfile.putExtra("image", user.getImage());
             startActivity(showProfile);
         }
 
