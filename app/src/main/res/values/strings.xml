@@ -87,7 +87,7 @@
     <string name="message_sent">Message sent</string>
     <string name="editProfile">EDIT PROFILE</string>
     <string name="allUsers">ALL USERS</string>
-    <string name="search_user_to_request">Input a User's Name</string>
+    <string name="search_user_to_request">Input a Users Name</string>
     <string name="request">CONNECT</string>
     <string name="joinEvent">JOIN</string>
     <string name="dropEvent">DROP</string>

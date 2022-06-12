@@ -101,7 +101,7 @@ public class SignInActivity extends AppCompatActivity{
                         goProfile.putExtra("email", "adrian@openevents.com");
                         goProfile.putExtra("id", 1283);
                         startActivity(goProfile);*/
-                        Intent goFriends = new Intent(SignInActivity.this, ProfileActivity.class);
+                        Intent goFriends = new Intent(SignInActivity.this, ChatActivity.class);
                         startActivity(goFriends);
                     } }, error -> {
                     Toast.makeText(SignInActivity.this, "Error: " + error, Toast.LENGTH_SHORT).show();
