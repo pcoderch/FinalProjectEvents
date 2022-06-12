@@ -54,7 +54,10 @@
     <string name="followRequest">REQUESTS</string>
     <string name="chatsList">ALL CHATS</string>
     <string name="disconnect">DISCONNECT</string>
+    <string name="message_from_her">Hola, que tal estas? Me encantaria venir a tu evento!</string>
     <string name="borrarChat">ERRASE CHAT</string>
+    <string name="text_fromher_time">8:00</string>
+    <string name="dateConvo">6/06/2022</string>
     <string name="lastmessage">Insert Last Message</string>
     <string name="pending">Pending</string>
     <string name="error">Error!</string>
@@ -83,5 +86,12 @@
     <string name="empty_message">Message can\'t be empty</string>
     <string name="message_sent">Message sent</string>
     <string name="editProfile">EDIT PROFILE</string>
+    <string name="allUsers">ALL USERS</string>
+    <string name="search_user_to_request">Input a User's Name</string>
+    <string name="request">CONNECT</string>
+    <string name="joinEvent">JOIN</string>
+    <string name="dropEvent">DROP</string>
+    <string name="attendees">EVENT ATTENDEES</string>
+    <string name="update_event">UPDATE EVENT</string>
 
 </resources>
