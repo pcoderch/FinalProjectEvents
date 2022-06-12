@@ -93,5 +93,6 @@
     <string name="dropEvent">DROP</string>
     <string name="attendees">EVENT ATTENDEES</string>
     <string name="update_event">UPDATE EVENT</string>
+    <string name="errorSendingRequest">You are already friends or you already sent a request</string>
 
 </resources>

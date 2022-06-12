@@ -22,6 +22,7 @@ import com.pp2ex.finalprojectevents.API.BitMapImage;
 import com.pp2ex.finalprojectevents.API.MethodsAPI;
 import com.pp2ex.finalprojectevents.API.VolleySingleton;
 import com.pp2ex.finalprojectevents.Activities.Chat.ChatActivity;
+import com.pp2ex.finalprojectevents.Activities.Chat.InsideChatActivity;
 import com.pp2ex.finalprojectevents.DataStructures.User;
 import com.pp2ex.finalprojectevents.R;
 
@@ -97,8 +98,9 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
         goToChat.setOnClickListener(v -> {
-            Intent intent1 = new Intent(ProfileActivity.this, ChatActivity.class);
+            Intent intent1 = new Intent(ProfileActivity.this, InsideChatActivity.class);
             intent1.putExtra("id", finalId);
+            intent1.putExtra("name", name.getText().toString());
             startActivity(intent1);
         });
         email.setOnClickListener(v -> {

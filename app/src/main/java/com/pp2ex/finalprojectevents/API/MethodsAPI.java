@@ -43,4 +43,6 @@ public class MethodsAPI {
     public static String getMessages(int id) {
         return URL_MESSAGES + "/" + id;
     }
+
+    public static String getUserByString(String search) { return URL_GET_USER + "?s=" + search; }
 }

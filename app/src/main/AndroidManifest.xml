@@ -21,6 +21,9 @@
             android:name=".Activities.Chat.ChatActivity"
             android:exported="false" />
         <activity
+            android:name=".Activities.SocialFeatures.SearchUsersActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activities.SocialFeatures.FriendRequestActivity"
             android:exported="false" />
         <activity
