@@ -15,10 +15,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.pp2ex.finalprojectevents.API.MethodsAPI;
 import com.pp2ex.finalprojectevents.API.VolleySingleton;
-import com.pp2ex.finalprojectevents.Activities.Chat.ChatActivity;
 import com.pp2ex.finalprojectevents.Activities.EventManagement.ProfileEventActivity;
 import com.pp2ex.finalprojectevents.Activities.MainActivity;
-import com.pp2ex.finalprojectevents.Activities.SocialFeatures.SearchUsersActivity;
 import com.pp2ex.finalprojectevents.DataStructures.User;
 import com.pp2ex.finalprojectevents.R;
 
@@ -104,7 +102,7 @@ public class SignInActivity extends AppCompatActivity{
                         goProfile.putExtra("id", 1283);
                         startActivity(goProfile);*/
                         Intent goFriends = new Intent(SignInActivity.this, ProfileEventActivity.class);
-                        goFriends.putExtra("id", 683);
+                        goFriends.putExtra("id", 553);
                         startActivity(goFriends);
                     } }, error -> {
                     Toast.makeText(SignInActivity.this, "Error: " + error, Toast.LENGTH_SHORT).show();

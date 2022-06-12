@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,14 +40,15 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class ProfileEventActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private int intentEventId;
     private int assistances;
+    private boolean gotData;
     private Event event;
-    //private EventAdaptor adapter;
-    private AsyncTask<String, Void, Bitmap> profileImage;
+    private EventAdaptor adapter;
     private TextView eventName;
     private TextView eventID;
     private TextView eventDescription;
@@ -57,7 +59,10 @@ public class ProfileEventActivity extends AppCompatActivity {
     private TextView rating;
     private TextView eventType;
     private TextView location;
+    private Button joinEvent;
+    private Button leaveEvent;
     private ArrayList<Comment> comments;
+    private AsyncTask<String, Void, Bitmap> profileImage;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -67,94 +72,52 @@ public class ProfileEventActivity extends AppCompatActivity {
         intentEventId = getIntent().getIntExtra("id", 0);
         recyclerView = findViewById(R.id.commentsInEvent);
         comments = new ArrayList<>();
-        //adapter = new EventAdaptor(comments);
+        adapter = new EventAdaptor(comments);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         eventName = findViewById(R.id.profileName);
+        eventDescription = findViewById(R.id.EventDescription);
         eventID = findViewById(R.id.eventsID);
         usersAttending = findViewById(R.id.participantsInEventNumber);
         ownerName = findViewById(R.id.ownsNumber);
         startDate = findViewById(R.id.DateStartEvent);
         endDate = findViewById(R.id.DateEndEvent);
         rating = findViewById(R.id.ratingEvent);
-        eventType = findViewById(R.id.typeEvent);
+        eventType = findViewById(R.id.EventType);
         location = findViewById(R.id.locationEvent);
+        joinEvent = findViewById(R.id.joinEventButton);
+        leaveEvent = findViewById(R.id.dropEventButton);
+        gotData = false;
+        event = new Event("calvo", "esto es una desc", "25/07", "25/08", 15, "image", "barcelona", "Furbo");
         getEventData(intentEventId);
         getEventAssistances(intentEventId);
+        //profileImage = new BitMapImage(findViewById(R.id.profileImage)).execute(event.getImage());
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void initializeData() {
         event.setRating(calculateRating());
         eventName.setText(event.getName());
-        eventID.setText(String.valueOf(event.getId()));
+        eventID.setText(String.valueOf(intentEventId));
         usersAttending.setText(String.valueOf(assistances));
-        ownerName.setText(event.getOwnerId());
         startDate.setText(event.getStartDate());
         endDate.setText(event.getEndDate());
+        eventDescription.setText(event.getDescription());
         rating.setText(String.valueOf(event.getRating()));
         eventType.setText(event.getType());
         location.setText(event.getLocation());
         usersAttending.setText(assistances + "/" + event.getNumOfParticipants());
-        profileImage = new BitMapImage((ImageView) findViewById(R.id.IconImageView)).execute(event.getImage());
-    }
-
-    private int calculateRating() {
-        assistances = 0;
-        for (Comment c : comments) {
-            assistances += c.getRating();
-        }
-        //return assistances / comments.size();
-        return assistances == 0 ? 0 : assistances / comments.size();
-    }
-
-    private void getEventAssistances(int intentEventId) {
-        String url = MethodsAPI.getEventAssistances(intentEventId);
-        System.out.println("URL GET ASSISTANCES: " + url);
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, response -> {
-            for (int i = 0; i < response.length(); i++) {
-                System.out.println(response);
-                try {
-                    JSONObject jsonObject = response.getJSONObject(i);
-                    int id = jsonObject.getInt("id");
-                    String name = jsonObject.getString("name");
-                    String last_name = jsonObject.getString("last_name");
-                    String email = jsonObject.getString("email");
-                    int rating = jsonObject.getInt("puntuation");
-                    String comment = jsonObject.getString("commentary");
-                    Comment commentToAdd = new Comment(id, name, last_name, email, rating, comment);
-                    addComment(commentToAdd);
-                    assistances = response.length();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-            System.out.println("not entering the loop");
-        }, error -> {
-            Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT).show();
-        }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<>();
-                headers.put("Authorization", "Bearer " + User.getAuthenticatedUser().getToken());
-                return headers;
-            }
-        };
-        VolleySingleton.getInstance(this).addToRequestQueue(request);
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    private void addComment(Comment commentToAdd) {
-        if (commentToAdd.getComment() != null) {
-            comments.add(commentToAdd);
-            //adapter.notifyDataSetChanged();
-        }
+        System.out.println("id of event: " + event.getId());
     }
 
     private void getEventData(int eventID) {
         String url = MethodsAPI.getEventById(eventID);
         System.out.println("URL GET EVENT: " + url);
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, response -> {
+            System.out.println("aaaaa" + response);
             for (int i = 0; i < response.length(); i++) {
                 System.out.println(response);
                 try {
                     JSONObject jsonObject = response.getJSONObject(i);
-                    int id = jsonObject.getInt("id");
                     String name = jsonObject.getString("name");
                     int owner_id = jsonObject.getInt("owner_id");
                     String image = jsonObject.getString("image");
@@ -164,9 +127,10 @@ public class ProfileEventActivity extends AppCompatActivity {
                     String end_date = jsonObject.getString("eventEnd_date");
                     int n_participators = jsonObject.getInt("n_participators");
                     String type = jsonObject.getString("type");
-                    event = new Event(name, description, start_date, end_date, n_participators, image, location, type);
-                    event.setOwnerId(owner_id);
-                    event.setId(id);
+                    event = new Event(name, description, dateFormat(start_date), dateFormat(end_date), n_participators, image, location, type);
+                    ownerName.setText(String.valueOf(owner_id));
+                    setEvent();
+                    initializeData();
                 } catch (JSONException e) {
                     System.out.println("Error json get user data: " + e.getMessage());
                     e.printStackTrace();
@@ -187,11 +151,78 @@ public class ProfileEventActivity extends AppCompatActivity {
         VolleySingleton.getInstance(this).addToRequestQueue(request);
     }
 
+    private String dateFormat(String date) {
+        try {
+            return date.substring(0, 10);
+        } catch (Exception e) {
+            return "unknown";
+        }
+    }
 
-    /*private void updateUI() {
+    private void setEvent() {
+        gotData = true;
+    }
+
+    private int calculateRating() {
+        int assistancesRating = 0;
+        int count = 0;
+        for (Comment c : comments) {
+            if (c.getRating()!=null && !Objects.equals(c.getRating(), "null")) {
+                assistancesRating += Integer.parseInt(c.getRating());
+                count++;
+            }
+        }
+        return assistancesRating == 0 ? 0 : assistancesRating / count;
+    }
+
+    private void getEventAssistances(int intentEventId) {
+        String url = MethodsAPI.getEventAssistances(intentEventId);
+        System.out.println("URL GET ASSISTANCES: " + url);
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, response -> {
+            assistances = response.length();
+            System.out.println("response length: " + response.length());
+            for (int i = 0; i < response.length(); i++) {
+                System.out.println(response);
+                try {
+                    JSONObject jsonObject = response.getJSONObject(i);
+                    int id = jsonObject.getInt("id");
+                    String name = jsonObject.getString("name");
+                    String last_name = jsonObject.getString("last_name");
+                    String email = jsonObject.getString("email");
+                    String rating = jsonObject.getString("puntuation");
+                    String comment = jsonObject.getString("comentary");
+                    Comment commentToAdd = new Comment(id, name, last_name, email, rating, comment);
+                    addComment(commentToAdd);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            updateUI();
+        }, error -> {
+            Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT).show();
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + User.getAuthenticatedUser().getToken());
+                return headers;
+            }
+        };
+        VolleySingleton.getInstance(this).addToRequestQueue(request);
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private void addComment(Comment commentToAdd) {
+        if (commentToAdd.getComment() != null && !commentToAdd.getComment().equals("null")) {
+            comments.add(commentToAdd);
+            adapter.notifyDataSetChanged();
+        }
+    }
+
+    private void updateUI() {
         adapter = new EventAdaptor(comments);
-        for (int i = 0; i < usersSearch.size(); i++) {
-            System.out.println(usersSearch.get(i).getName());
+        for (int i = 0; i < comments.size(); i++) {
+            System.out.println(comments.get(i).getComment());
         }
         recyclerView.setAdapter(adapter);
     }
@@ -225,40 +256,38 @@ public class ProfileEventActivity extends AppCompatActivity {
 
     private class EventHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private Comment commnent;
+        private Comment comment;
         private boolean isFriend;
         private boolean alreadySentRequest;
-        private final TextView nameTextViewRequest;
-        private final TextView emailTextViewRequest;
+        private ImageView profileImage;
+        private final TextView nameTextViewComment;
+        private final TextView ratingTextViewComment;
+        private final EditText commentCommentEditText;
+
         private AsyncTask<String, Void, Bitmap> imageView;
 
         public EventHolder(LayoutInflater inflater, ViewGroup parent) {
-            super(inflater.inflate(R.layout.element_user_i_can_request, parent, false));
+            super(inflater.inflate(R.layout.element_comment, parent, false));
             itemView.setOnClickListener(this);
-            nameTextViewRequest = itemView.findViewById(R.id.nameTextView);
-            emailTextViewRequest = itemView.findViewById(R.id.emailTextView);
-            connectButton = itemView.findViewById(R.id.connectButton);
+            nameTextViewComment = itemView.findViewById(R.id.nameTextViewComment);
+            ratingTextViewComment = itemView.findViewById(R.id.ratingComment);
+            commentCommentEditText = itemView.findViewById(R.id.CommentCommentView);
         }
 
-        @SuppressLint("ResourceAsColor")
+        @SuppressLint({"ResourceAsColor", "SetTextI18n"})
         public void bind(Comment comment) {
-            this.user = user;
-            isFriend = false;
-            alreadySentRequest = false;
-            friends = new ArrayList<>();
-            friendRequests = new ArrayList<>();
-            nameTextViewRequest.setText(user.getName());
-            emailTextViewRequest.setText(user.getEmail());
+            this.comment = comment;
+            nameTextViewComment.setText(comment.getName() + " " + comment.getLast_name());
+            ratingTextViewComment.setText(String.valueOf(comment.getRating()));
+            commentCommentEditText.setText(comment.getComment());
+        }
 
 
         @Override
         public void onClick(View view) {
-            Intent showProfile = new Intent(getApplicationContext(), ProfileActivity.class);
-            showProfile.putExtra("email", user.getEmail());
-            showProfile.putExtra("id", user.getId());
-            startActivity(showProfile);
+            System.out.println("Clicked");
         }
 
-    }*/
+    }
 
 }

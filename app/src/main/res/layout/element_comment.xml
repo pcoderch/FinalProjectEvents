@@ -50,14 +50,16 @@
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold"/>
-
-                <EditText
-                    android:id="@+id/topicCommentView"
+                <TextView
+                    android:id="@+id/ratingComment"
                     android:layout_width="match_parent"
-                    android:layout_height="35dp"
-                    android:text="@string/TopicComment"
-                    android:inputType="text"
-                    android:textSize="13sp" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:text="@string/ratingEvent"
+                    android:textColor="@color/black"
+                    android:textSize="13sp"
+                    android:textStyle="bold"/>
+
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -69,16 +71,6 @@
                 android:paddingRight="14dp"
                 android:orientation="horizontal"
                 tools:ignore="RelativeOverlap">
-
-                <TextView
-                    android:id="@+id/dateCommentView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="2dp"
-                    android:text="@string/dateComment"
-                    android:textColor="@color/purple"
-                    android:textStyle="bold"
-                    android:textSize="18sp"/>
             </LinearLayout>
 
         </RelativeLayout>

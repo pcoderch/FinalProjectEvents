@@ -113,6 +113,7 @@
     <string name="SearchEvent">Input Event</string>
     <string name="AllEvents">ALL EVENTS</string>
     <string name="owner">OWNER</string>
+    <string name="numberRating">7</string>
 
 
 </resources>
