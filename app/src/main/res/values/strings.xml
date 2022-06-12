@@ -54,7 +54,10 @@
     <string name="followRequest">REQUESTS</string>
     <string name="chatsList">ALL CHATS</string>
     <string name="disconnect">DISCONNECT</string>
+    <string name="message_from_her">Hola, que tal estas? Me encantaria venir a tu evento!</string>
     <string name="borrarChat">ERRASE CHAT</string>
+    <string name="text_fromher_time">8:00</string>
+    <string name="dateConvo">6/06/2022</string>
     <string name="lastmessage">Insert Last Message</string>
     <string name="pending">Pending</string>
     <string name="error">Error!</string>
@@ -69,18 +72,12 @@
     <string name="request_rejected">Friend Request Rejected</string>
     <string name="search">Search</string>
     <string name="chat_userName">Pablo Perez</string>
-    <string name="chat_date">10 june</string>
-    <string name="user_icon">User Icon</string>
-    <string name="message">Message</string>
-    <string name="hourOfSend">8:00</string>
-    <string name="userNameChat">John Grady Cole</string>
-    <string name="myMessageText">This is a Message</string>
-    <string name="sendHourMe">10:00</string>
-    <string name="write_message">Write message</string>
-    <string name="send_message">Send</string>
-    <string name="timeChat">10:00</string>
-    <string name="newImage">Image URL</string>
-    <string name="empty_message">Message can\'t be empty</string>
-    <string name="message_sent">Message sent</string>
+    <string name="allUsers">ALL USERS</string>
+    <string name="search_user_to_request">Input a User's Name</string>
+    <string name="request">CONNECT</string>
+    <string name="joinEvent">JOIN</string>
+    <string name="dropEvent">DROP</string>
+    <string name="attendees">EVENT ATTENDEES</string>
+    <string name="update_event">UPDATE EVENT</string>
 
 </resources>
