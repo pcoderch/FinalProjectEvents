@@ -193,7 +193,7 @@ public class SearchEventsActivity extends AppCompatActivity {
         public EventHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.element_event, parent, false));
             itemView.setOnClickListener(this);
-            nameTextViewRequest = itemView.findViewById(R.id.nameTextView);
+            nameTextViewRequest = itemView.findViewById(R.id.nameEventEventView);
             descTextView = itemView.findViewById(R.id.descriptionTextView);
             ratingTextView = itemView.findViewById(R.id.ratingTextView);
         }
