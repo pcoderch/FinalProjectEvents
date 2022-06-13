@@ -56,7 +56,6 @@ public class InsideChatActivity extends AppCompatActivity {
         int id = getIntent().getIntExtra("id", 0);
         userName.setText(getIntent().getStringExtra("name"));
         recyclerView = findViewById(R.id.MessagesInChat);
-        messages = new ArrayList<>();
         adapter = new MessageAdaptor(messages);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         getMessages(id);
@@ -69,11 +68,11 @@ public class InsideChatActivity extends AppCompatActivity {
                 Toast.makeText(InsideChatActivity.this, R.string.empty_message, Toast.LENGTH_SHORT).show();
             }
         });
-
+        //TODO: STOP THREAD IN BACK BUTTON PRESS
         final Runnable r = new Runnable() {
             public void run() {
                 getMessages(id);
-                handler.postDelayed(this, 100);
+                handler.postDelayed(this, 950);
             }
         };
         handler.post(r);
@@ -122,6 +121,7 @@ public class InsideChatActivity extends AppCompatActivity {
     private void getMessages(int idOfUser) {
         String url = MethodsAPI.getMessages(idOfUser);
         int messagesSize = messages.size();
+        messages = new ArrayList<>();
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, response -> {
             for (int i = 0; i < response.length(); i++) {
                 System.out.println(response);
@@ -233,8 +233,6 @@ public class InsideChatActivity extends AppCompatActivity {
             System.out.println("Clicked");
         }
 
-
     }
-
 
 }

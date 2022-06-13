@@ -105,11 +105,10 @@ public class ProfileEventActivity extends AppCompatActivity {
         String url = MethodsAPI.getEventAssistances(intentEventId);
         System.out.println("URL: " + url);
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.POST, url, null, response -> {
-            Toast.makeText(this, R.string.joined, Toast.LENGTH_SHORT).show();
             joinEvent.setText(R.string.joined);
         }, error -> {
             System.out.println("ERRORRRR get user data");
-            Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT).show();
+            joinEvent.setText(R.string.joined);
         }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
@@ -126,7 +125,7 @@ public class ProfileEventActivity extends AppCompatActivity {
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.DELETE, url, null, response -> {
             Toast.makeText(this, R.string.dropped, Toast.LENGTH_SHORT).show();
         }, error -> {
-            Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT).show();
+            System.out.println("error");
         }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
@@ -174,7 +173,6 @@ public class ProfileEventActivity extends AppCompatActivity {
                     int n_participators = jsonObject.getInt("n_participators");
                     String type = jsonObject.getString("type");
                     event = new Event(name, description, dateFormat(start_date), dateFormat(end_date), n_participators, image, location, type);
-                    ownerName.setText(String.valueOf(owner_id));
                     setEvent();
                     initializeData();
                 } catch (JSONException e) {
@@ -238,6 +236,9 @@ public class ProfileEventActivity extends AppCompatActivity {
                     String rating = jsonObject.getString("puntuation");
                     String comment = jsonObject.getString("comentary");
                     Comment commentToAdd = new Comment(id, name, last_name, email, rating, comment);
+                    if (i == 0) {
+                        ownerName.setText(name);
+                    }
                     addComment(commentToAdd);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -250,7 +251,7 @@ public class ProfileEventActivity extends AppCompatActivity {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<>();
-                headers.put("Authorization", "Bearer " + User.getAuthenticatedUser().getToken());
+                 headers.put("Authorization", "Bearer " + User.getAuthenticatedUser().getToken());
                 return headers;
             }
         };

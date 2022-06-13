@@ -118,6 +118,9 @@
     <string name="dropped">LEFT THE EVENT!</string>
     <string name="alreadyJoined">You are already in the event!</string>
     <string name="notInTheEvent">You can\'t drop of the event because you are not in!</string>
+    <string name="keyword">Input keyword</string>
+    <string name="location">Input location</string>
+    <string name="inputDate">Input date (Format YYYY-MM-DD)</string>
 
 
 </resources>

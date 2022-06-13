@@ -15,7 +15,9 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.pp2ex.finalprojectevents.API.MethodsAPI;
 import com.pp2ex.finalprojectevents.API.VolleySingleton;
+import com.pp2ex.finalprojectevents.Activities.Chat.ChatActivity;
 import com.pp2ex.finalprojectevents.Activities.EventManagement.ProfileEventActivity;
+import com.pp2ex.finalprojectevents.Activities.EventManagement.SearchEventsActivity;
 import com.pp2ex.finalprojectevents.Activities.MainActivity;
 import com.pp2ex.finalprojectevents.DataStructures.User;
 import com.pp2ex.finalprojectevents.R;
@@ -101,7 +103,7 @@ public class SignInActivity extends AppCompatActivity{
                         goProfile.putExtra("email", "adrian@openevents.com");
                         goProfile.putExtra("id", 1283);
                         startActivity(goProfile);*/
-                        Intent goFriends = new Intent(SignInActivity.this, ProfileEventActivity.class);
+                        Intent goFriends = new Intent(SignInActivity.this, SearchEventsActivity.class);
                         goFriends.putExtra("id", 553);
                         startActivity(goFriends);
                     } }, error -> {
