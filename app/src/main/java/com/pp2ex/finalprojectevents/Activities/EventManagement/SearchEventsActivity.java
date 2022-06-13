@@ -42,24 +42,41 @@ public class SearchEventsActivity extends AppCompatActivity {
     private ArrayList<Event> eventsSearch;
     private EventAdaptor adapter;
     private Button searchButton;
+    private Button searchBestButton;
+    private Button searchAllButton;
+    private boolean bestEvent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_all_events);
+        bestEvent = false;
         recyclerView = findViewById(R.id.AllEventsView);
         eventsSearch = new ArrayList<>();
         adapter = new EventAdaptor(eventsSearch);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         searchButton = findViewById(R.id.searchButton);
+        searchBestButton = findViewById(R.id.searchButtonBest);
+        searchAllButton = findViewById(R.id.searchButtonAll);
         searchButton.setOnClickListener(v -> {
+            bestEvent = false;
             String[] search = new String[3];
             search[0] = ((TextView)findViewById(R.id.searchEventName)).getText().toString();
             search[1] = ((TextView)findViewById(R.id.searchEventLocation)).getText().toString();
             search[2] = ((TextView)findViewById(R.id.searchEventDate)).getText().toString();
             String url = getUrl(search);
             if(!search[0].isEmpty() || !search[1].isEmpty() || !search[2].isEmpty()) {
-                searchEvents(url, search);
+                searchEvents(url);
             }
+        });
+        searchBestButton.setOnClickListener(v -> {
+            bestEvent = true;
+            String url = MethodsAPI.URL_EVENTS_BEST;
+            searchEvents(url);
+        });
+        searchAllButton.setOnClickListener(v -> {
+            bestEvent = false;
+            String url = MethodsAPI.URL_EVENT;
+            searchEvents(url);
         });
     }
 
@@ -87,20 +104,13 @@ public class SearchEventsActivity extends AppCompatActivity {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private void addUser(Event event) {
-        System.out.println("Adding user" + event.getName());
-        eventsSearch.add(event);
-        adapter.notifyDataSetChanged();
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    private void addEventToSearched(Event event, String search, String date) {
+    private void addEventToSearched(Event event) {
         System.out.println("Adding user to searched" + event.getName());
         eventsSearch.add(event);
         adapter.notifyDataSetChanged();
     }
 
-    private void searchEvents(String url, String[] search) {
+    private void searchEvents(String url) {
         eventsSearch = new ArrayList<>();
         System.out.println("Searching users with url: " + url);
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, response -> {
@@ -111,7 +121,10 @@ public class SearchEventsActivity extends AppCompatActivity {
                     Event eventToAdd = new Event(event.getString("name"), event.getString("description"), event.getString("eventStart_date"), event.getString("eventEnd_date"), event.getInt("n_participators"), event.getString("image"), event.getString("location"), event.getString("type"));
                     eventToAdd.setId(event.getInt("id"));
                     System.out.println("The event is: " + eventToAdd.getName());
-                    addEventToSearched(eventToAdd, search[2], event.getString("date"));
+                    if (bestEvent) {
+                        eventToAdd.setRating(event.getInt("avg_score"));
+                    }
+                    addEventToSearched(eventToAdd);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -169,6 +182,7 @@ public class SearchEventsActivity extends AppCompatActivity {
         private Event event;
         private final TextView nameTextViewRequest;
         private final TextView descTextView;
+        private final TextView ratingTextView;
         private AsyncTask<String, Void, Bitmap> imageView;
 
         public EventHolder(LayoutInflater inflater, ViewGroup parent) {
@@ -176,6 +190,7 @@ public class SearchEventsActivity extends AppCompatActivity {
             itemView.setOnClickListener(this);
             nameTextViewRequest = itemView.findViewById(R.id.nameTextView);
             descTextView = itemView.findViewById(R.id.descriptionTextView);
+            ratingTextView = itemView.findViewById(R.id.ratingTextView);
         }
 
         @SuppressLint("ResourceAsColor")
@@ -183,6 +198,11 @@ public class SearchEventsActivity extends AppCompatActivity {
             this.event = event;
             nameTextViewRequest.setText(event.getName());
             descTextView.setText(cutDesc(event.getDescription()));
+            ratingTextView.setVisibility(View.GONE);
+            if (bestEvent) {
+                ratingTextView.setVisibility(View.VISIBLE);
+                ratingTextView.setText(String.valueOf(event.getRating()));
+            }
             //imageView = new BitMapImage((ImageView) itemView.findViewById(R.id.IconImageView)).execute(event.getImage());
         }
 

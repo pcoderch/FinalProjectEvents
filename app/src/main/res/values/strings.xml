@@ -120,7 +120,11 @@
     <string name="notInTheEvent">You can\'t drop of the event because you are not in!</string>
     <string name="keyword">Input keyword</string>
     <string name="location">Input location</string>
-    <string name="inputDate">Input date (Format YYYY-MM-DD)</string>
+    <string name="inputDate">Input date (YYYY-MM-DD)</string>
+    <string name="searchBest">GET BEST EVENTS</string>
+    <string name="searchAll">GET ALL EVENTS</string>
+    <string name="searchInput">GET EVENTS BY INPUT</string>
+    <string name="score">9</string>
 
 
 </resources>

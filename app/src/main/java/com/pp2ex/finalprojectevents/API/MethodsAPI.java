@@ -16,6 +16,7 @@ public class MethodsAPI {
     public static String URL_CHATS = URL_MESSAGES + "/users"; //@GET
     public static String URL_ASSISTANCES = URL_BASE + "assistances"; //@GET
     public static final String URL_EVENTS_SEARCH = URL_EVENT + "/search"; //@GET
+    public static final String URL_EVENTS_BEST = URL_EVENT + "/best"; //@GET
 
     public static String EventCount(int id) {
         return URL_REGISTER + "/" + id + "/assistances";
