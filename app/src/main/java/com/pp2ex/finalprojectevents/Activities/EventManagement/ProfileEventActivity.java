@@ -46,6 +46,7 @@ public class ProfileEventActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private int intentEventId;
     private int assistances;
+    private String imageUser;
     private boolean gotData;
     private boolean alreadyJoined, notInTheEvent;
     private Event event;
@@ -150,7 +151,7 @@ public class ProfileEventActivity extends AppCompatActivity {
         eventType.setText(event.getType());
         location.setText(event.getLocation());
         usersAttending.setText(assistances + "/" + event.getNumOfParticipants());
-        //profileImage = new BitMapImage(findViewById(R.id.profileImage)).execute(event.getImage());
+        profileImage = new BitMapImage(findViewById(R.id.eventImage)).execute(event.getImage());
         System.out.println("id of event: " + event.getId());
     }
 
@@ -236,6 +237,11 @@ public class ProfileEventActivity extends AppCompatActivity {
                     String rating = jsonObject.getString("puntuation");
                     String comment = jsonObject.getString("comentary");
                     Comment commentToAdd = new Comment(id, name, last_name, email, rating, comment);
+                    String image = "";
+                    do {
+                        image = getImageOfUser(name);
+                    } while(image.isEmpty());
+                    commentToAdd.setImage(getImageOfUser(name));
                     if (i == 0) {
                         ownerName.setText(name);
                     }
@@ -256,6 +262,37 @@ public class ProfileEventActivity extends AppCompatActivity {
             }
         };
         VolleySingleton.getInstance(this).addToRequestQueue(request);
+    }
+
+    private String getImageOfUser(String name) {
+        String url = MethodsAPI.getUserByString(name);
+        System.out.println("URL GET USER: " + url);
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, response -> {
+            System.out.println("aaaaa" + response);
+            for (int i = 0; i < response.length(); i++) {
+                System.out.println(response);
+                try {
+                    JSONObject jsonObject = response.getJSONObject(i);
+                    imageUser = jsonObject.getString("image");
+                } catch (JSONException e) {
+                    System.out.println("Error json get user data: " + e.getMessage());
+                    e.printStackTrace();
+                }
+            }
+            System.out.println("not entering the loop user data");
+        }, error -> {
+            System.out.println("ERRORRRR get user data");
+            Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT).show();
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + User.getAuthenticatedUser().getToken());
+                return headers;
+            }
+        };
+        VolleySingleton.getInstance(this).addToRequestQueue(request);
+        return imageUser;
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -306,7 +343,7 @@ public class ProfileEventActivity extends AppCompatActivity {
         private Comment comment;
         private boolean isFriend;
         private boolean alreadySentRequest;
-        private ImageView profileImage;
+        private AsyncTask<String, Void, Bitmap> profileImage;
         private final TextView nameTextViewComment;
         private final TextView ratingTextViewComment;
         private final EditText commentCommentEditText;
@@ -327,6 +364,7 @@ public class ProfileEventActivity extends AppCompatActivity {
             nameTextViewComment.setText(comment.getName() + " " + comment.getLast_name());
             ratingTextViewComment.setText(String.valueOf(comment.getRating()));
             commentCommentEditText.setText(comment.getComment());
+            profileImage  = new BitMapImage(findViewById(R.id.iconImageViewComment)).execute(event.getImage());
         }
 
 

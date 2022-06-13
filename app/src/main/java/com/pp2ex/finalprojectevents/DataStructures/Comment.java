@@ -7,6 +7,7 @@ public class Comment {
     private String email;
     private String rating;
     private String comment;
+    private String image;
 
     public Comment(int id, String name, String last_name, String email, String rating, String comment) {
         this.id = id;
@@ -24,6 +25,7 @@ public class Comment {
     public String getEmail() { return email; }
     public String getRating() { return rating; }
     public String getComment() { return comment; }
+    public String getImage() { return image; }
 
     // Setters
     public void setId(int id) { this.id = id; }
@@ -32,5 +34,6 @@ public class Comment {
     public void setEmail(String email) { this.email = email; }
     public void setRating (String rating) { this.rating = rating; }
     public void setComment(String comment) { this.comment = comment; }
+    public void setImage(String image) { this.image = image; }
 
 }

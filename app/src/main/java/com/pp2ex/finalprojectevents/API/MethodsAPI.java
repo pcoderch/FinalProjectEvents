@@ -22,9 +22,7 @@ public class MethodsAPI {
         return URL_REGISTER + "/" + id + "/assistances";
     }
 
-    public static String getUserData(int id) {
-        return URL_GET_USER + "";
-    }
+    public static String getUserData(int id) {return URL_GET_USER + "/" + id; }
 
     public static String getFriendsCount(int id) {
         return URL_REGISTER + "/" + id + "/friends";

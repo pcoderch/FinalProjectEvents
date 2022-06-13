@@ -203,7 +203,7 @@ public class SearchEventsActivity extends AppCompatActivity {
                 ratingTextView.setVisibility(View.VISIBLE);
                 ratingTextView.setText(String.valueOf(event.getRating()));
             }
-            //imageView = new BitMapImage((ImageView) itemView.findViewById(R.id.IconImageView)).execute(event.getImage());
+            imageView = new BitMapImage((ImageView) itemView.findViewById(R.id.IconImageView)).execute(event.getImage());
         }
 
         private String cutDesc(String description) {
