@@ -48,6 +48,7 @@ public class SearchUsersActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_all_users_in_app);
+        final ImageButton backButton = findViewById(R.id.arrowBackListAllUsers);
         recyclerView = findViewById(R.id.myConnectionsList);
         usersSearch = new ArrayList<>();
         adapter = new UsersAdaptor(usersSearch);
@@ -58,6 +59,9 @@ public class SearchUsersActivity extends AppCompatActivity {
             if(!search.isEmpty()) {
                 searchUsers(search);
             }
+        });
+        backButton.setOnClickListener(v -> {
+            finish();
         });
     }
 

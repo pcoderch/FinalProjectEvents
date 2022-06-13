@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,6 +58,7 @@ public class SearchEventsActivity extends AppCompatActivity {
         searchButton = findViewById(R.id.searchButton);
         searchBestButton = findViewById(R.id.searchButtonBest);
         searchAllButton = findViewById(R.id.searchButtonAll);
+        final ImageButton backButton = findViewById(R.id.arrowBackAllEvents);
         searchButton.setOnClickListener(v -> {
             bestEvent = false;
             String[] search = new String[3];
@@ -67,6 +69,9 @@ public class SearchEventsActivity extends AppCompatActivity {
             if(!search[0].isEmpty() || !search[1].isEmpty() || !search[2].isEmpty()) {
                 searchEvents(url);
             }
+        });
+        backButton.setOnClickListener(v -> {
+            finish();
         });
         searchBestButton.setOnClickListener(v -> {
             bestEvent = true;

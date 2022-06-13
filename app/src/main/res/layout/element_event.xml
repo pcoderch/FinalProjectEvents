@@ -25,29 +25,29 @@
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:layout_alignParentStart="true"
+                android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_gravity="center"
                 android:paddingLeft="14dp"
                 android:paddingRight="14dp"
-                app:srcCompat="@drawable/hola"
-                android:layout_alignParentLeft="true"/>
+                app:srcCompat="@drawable/hola" />
             <LinearLayout
                 android:id="@+id/LinearLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_marginStart="4dp"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="10dp"
                 android:layout_toEndOf="@+id/IconImageView"
                 android:orientation="vertical"
                 android:layout_marginLeft="4dp"
                 android:layout_toRightOf="@+id/IconImageView">
                 <TextView
-                    android:id="@+id/nameTextView"
+                    android:id="@+id/nameEventEventView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="2dp"
-                    android:text="@string/firstName"
+                    android:text="@string/event_name"
                     android:textColor="@color/black"
                     android:textSize="24dp"
                     android:textStyle="bold"/>
@@ -55,7 +55,7 @@
                     android:id="@+id/descriptionTextView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="@string/email"
+                    android:text="@string/eventType"
                     android:textSize="18dp"/>
             </LinearLayout>
 
@@ -67,10 +67,10 @@
                 android:layout_gravity="center"
                 android:paddingLeft="14dp"
                 android:paddingRight="14dp"
-                android:orientation="horizontal">
+                android:orientation="vertical">
                 <TextView
                     android:id="@+id/ratingTextView"
-                    android:layout_width="40dp"
+                    android:layout_width="50dp"
                     android:layout_height="40dp"
                     android:layout_marginBottom="2dp"
                     android:layout_marginEnd="23dp"

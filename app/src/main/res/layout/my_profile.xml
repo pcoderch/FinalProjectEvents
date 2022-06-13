@@ -17,7 +17,7 @@
             android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/profileImage"
+                android:id="@+id/profileImageMyProfile"
                 android:contentDescription="@string/firstName"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
@@ -25,7 +25,7 @@
                 android:layout_marginTop="45dp"
                 android:src="@drawable/hola" />
             <TextView
-                android:id="@+id/profileName"
+                android:id="@+id/profileNameMyProfile"
                 android:layout_marginTop="10dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
@@ -61,7 +61,7 @@
                         android:textSize="20sp"/>
 
                     <TextView
-                        android:id="@+id/eventsNumber"
+                        android:id="@+id/eventsNumberMyProfile"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingTop="10dp"
@@ -83,7 +83,7 @@
                         android:textColor="@color/black"
                         android:textSize="20sp"/>
                     <TextView
-                        android:id="@+id/usersNumber"
+                        android:id="@+id/usersNumberMyProfile"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/UserConnections"
@@ -105,7 +105,7 @@
                         android:textColor="@color/black"
                         android:textSize="20sp"/>
                     <TextView
-                        android:id="@+id/ownsNumber"
+                        android:id="@+id/ownsNumberMyProfile"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/numEventsOwns"
@@ -137,7 +137,7 @@
                 android:layout_height="36dp"
                 android:src="@drawable/ic_baseline_email_24"/>
             <TextView
-                android:id="@+id/showEmailProfile"
+                android:id="@+id/showEmailMyProfile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
@@ -162,7 +162,7 @@
                 android:contentDescription="@string/goChat"
                 android:src="@drawable/ic_baseline_forum_24"/>
             <TextView
-                android:id="@+id/goToChatProfile"
+                android:id="@+id/goToChatMyProfile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingLeft="20dp"
@@ -181,7 +181,7 @@
         android:layout_gravity="center_horizontal"
         android:orientation="horizontal">
         <Button
-            android:id="@+id/BackFromProfile"
+            android:id="@+id/BackFromMYProfile"
             android:layout_marginTop="45dp"
             android:layout_gravity="center_horizontal"
             android:text="@string/back"
@@ -190,13 +190,12 @@
             android:backgroundTint="@color/azul_claro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-
         </Button>
         <Button
-            android:id="@+id/addConnectionButton"
+            android:id="@+id/editMyProfile"
             android:layout_marginTop="45dp"
             android:layout_gravity="center_horizontal"
-            android:text="@string/addConnection"
+            android:text="@string/edit_profile_title"
             android:textStyle="bold"
             android:textSize="17sp"
             android:layout_marginLeft="30dp"
@@ -205,13 +204,6 @@
             android:layout_height="wrap_content"/>
         />
     </LinearLayout>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="@string/addfriend">
-        </TextView>
-
 
 
 </LinearLayout>

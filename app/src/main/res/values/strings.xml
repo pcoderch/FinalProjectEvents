@@ -127,6 +127,10 @@
     <string name="score">9</string>
     <string name="join">JOIN</string>
     <string name="getAttendants">GET ATTENDANTS</string>
+    <string name="myEvents">MY EVENTS</string>
+    <string name="back">BACK</string>
+    <string name="EditEvent">EDIT</string>
+    <string name="addfriend">Connect to add the user to your friends list</string>
 
 
 </resources>

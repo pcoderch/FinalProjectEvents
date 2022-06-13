@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,12 +40,16 @@ public class AttendantsEventActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_who_attends_event);
+        final ImageButton backButton = findViewById(R.id.arrowEventAttendees);
         eventId = getIntent().getIntExtra("id", 0);
         recyclerView = findViewById(R.id.myConnectionsList);
         attendants = new ArrayList<>();
         adapter = new AttendantsAdaptor(attendants);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         getAttendants();
+        backButton.setOnClickListener(v -> {
+            finish();
+        });
     }
 
     @SuppressLint("NotifyDataSetChanged")

@@ -44,6 +44,7 @@ public class InsideChatActivity extends AppCompatActivity {
     private TextView userName;
     private EditText messageToSend;
     private Button sendMessage;
+    private Button backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +54,7 @@ public class InsideChatActivity extends AppCompatActivity {
         userName = findViewById(R.id.chatOtherUserName);
         messageToSend = findViewById(R.id.sendMessage);
         sendMessage = findViewById(R.id.sendMessageButton);
+        backButton = findViewById(R.id.backButtonOneChat);
         int id = getIntent().getIntExtra("id", 0);
         userName.setText(getIntent().getStringExtra("name"));
         recyclerView = findViewById(R.id.MessagesInChat);
@@ -67,6 +69,9 @@ public class InsideChatActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(InsideChatActivity.this, R.string.empty_message, Toast.LENGTH_SHORT).show();
             }
+        });
+        backButton.setOnClickListener(v -> {
+            finish();
         });
         //TODO: STOP THREAD IN BACK BUTTON PRESS
         final Runnable r = new Runnable() {

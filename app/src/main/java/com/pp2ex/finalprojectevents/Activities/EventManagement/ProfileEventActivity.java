@@ -64,6 +64,7 @@ public class ProfileEventActivity extends AppCompatActivity {
     private Button joinEvent;
     private Button leaveEvent;
     private Button getAttendants;
+    private Button backButton;
     private ArrayList<Comment> comments;
     private AsyncTask<String, Void, Bitmap> profileImage;
 
@@ -90,11 +91,12 @@ public class ProfileEventActivity extends AppCompatActivity {
         joinEvent = findViewById(R.id.joinEventButton);
         leaveEvent = findViewById(R.id.dropEventButton);
         getAttendants = findViewById(R.id.getAttendantsButton);
+        backButton = findViewById(R.id.backButtonEvent);
         gotData = false;
         event = new Event("name", "esto es una desc", "25/07", "25/08", 15, "image", "barcelona", "type");
         getEventData(intentEventId);
         getEventAssistances(intentEventId);
-        ;
+        backButton.setOnClickListener(v -> finish());
         joinEvent.setOnClickListener(v -> {
             joinTheEvent();
         });

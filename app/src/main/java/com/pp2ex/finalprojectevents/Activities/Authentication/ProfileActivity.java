@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,6 +51,7 @@ public class ProfileActivity extends AppCompatActivity {
     private String imageURL;
     private boolean isFriend;
     private int id;
+    private Button backButton;
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -70,6 +72,7 @@ public class ProfileActivity extends AppCompatActivity {
         name = findViewById(R.id.profileName);
         addConnection = findViewById(R.id.addConnectionButton);
         chatImage = findViewById(R.id.chatImage);
+        backButton = findViewById(R.id.BackFromProfile);
         if (id == 0) {
             id = User.getAuthenticatedUser().getId();
             emailInt = User.getAuthenticatedUser().getEmail();
@@ -105,6 +108,9 @@ public class ProfileActivity extends AppCompatActivity {
         });
         email.setOnClickListener(v -> {
             email.setText(emailToShow);
+        });
+        backButton.setOnClickListener(v -> {
+            finish();
         });
     }
 

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,20 +34,26 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ChatActivity extends AppCompatActivity {
+public class ChatActivity<ImageButton> extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ArrayList<User> chats;
     private ChatsAdaptor adapter;
+    private ImageButton backButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_chats);
         recyclerView = findViewById(R.id.chatsList);
+        final android.widget.ImageButton backButton = findViewById(R.id.arrowBackSignUp);
         chats = new ArrayList<>();
         adapter = new ChatsAdaptor(chats);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         getChats();
+
+        backButton.setOnClickListener(v -> {
+            finish();
+        });
     }
 
     @SuppressLint("NotifyDataSetChanged")

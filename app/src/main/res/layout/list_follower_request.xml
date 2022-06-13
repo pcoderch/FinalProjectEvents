@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
+    <ImageButton
+        android:id="@+id/arrowBack"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_width="85dp"
+        android:layout_height="67dp"
+        app:srcCompat="@drawable/backarrow_foreground"
+        android:contentDescription="@string/backArrow"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/followRequest"
-        android:textSize="30dp"
-        android:textColor="@color/black"
+        android:textSize="35dp"
+        android:textColor="@color/teal_flojo"
         android:textAlignment="center"
         android:layout_marginTop="30dp"
         android:textStyle="bold">

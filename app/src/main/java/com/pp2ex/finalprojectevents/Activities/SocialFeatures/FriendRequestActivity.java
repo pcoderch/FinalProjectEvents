@@ -43,6 +43,8 @@ public class FriendRequestActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_follower_request);
+        final ImageButton backButton = findViewById(R.id.arrowBack);
+        backButton.setOnClickListener(v -> finish());
         recyclerView = findViewById(R.id.listFriendsRequest);
         friendRequests = new ArrayList<>();
         adapter = new FriendsAdaptor(friendRequests);

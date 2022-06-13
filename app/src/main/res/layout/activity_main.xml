@@ -11,12 +11,12 @@
         android:layout_height="620dp">
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="630dp" >
 
             <ImageView
                 android:id="@+id/imageView1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="630dp"
                 android:layout_gravity="bottom|center"
                 android:scaleType="fitXY"
                 android:src="@drawable/startimage"
@@ -25,7 +25,7 @@
             <TextView
                 android:id="@+id/myImageViewText"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="630dp"
                 android:layout_alignStart="@id/imageView1"
                 android:layout_alignTop="@id/imageView1"
                 android:layout_alignEnd="@id/imageView1"
@@ -36,9 +36,9 @@
                 android:layout_marginBottom="1dp"
                 android:gravity="center"
                 android:text="@string/nameApp"
+                android:textColor="@color/black"
                 android:textSize="50sp"
-                android:textStyle="bold"
-                android:textColor="@color/black" />
+                android:textStyle="bold" />
         </RelativeLayout>
     </LinearLayout>
 

@@ -21,6 +21,7 @@
         <entry key="app/src/main/res/layout/element_comment.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/element_event.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/element_her_message.xml" value="0.2578125" />
+        <entry key="app/src/main/res/layout/element_my_evet.xml" value="0.1203125" />
         <entry key="app/src/main/res/layout/element_my_friend.xml" value="0.12537993920972645" />
         <entry key="app/src/main/res/layout/element_my_message.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/element_request.xml" value="0.12537993920972645" />
@@ -30,10 +31,12 @@
         <entry key="app/src/main/res/layout/list_all_users_in_app.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/list_chats.xml" value="0.3188735915534765" />
         <entry key="app/src/main/res/layout/list_follower_request.xml" value="0.12537993920972645" />
+        <entry key="app/src/main/res/layout/list_my_events.xml" value="0.11803444782168186" />
         <entry key="app/src/main/res/layout/list_my_friends.xml" value="0.12537993920972645" />
         <entry key="app/src/main/res/layout/list_one_chat.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/list_users.xml" value="0.29721443065698594" />
         <entry key="app/src/main/res/layout/list_who_attends_event.xml" value="0.2578125" />
+        <entry key="app/src/main/res/layout/my_profile.xml" value="0.24270833333333333" />
         <entry key="app/src/main/res/layout/profile.xml" value="0.19630192502532928" />
         <entry key="app/src/main/res/layout/sign_in.xml" value="0.12537993920972645" />
         <entry key="app/src/main/res/layout/update_event.xml" value="0.2578125" />
