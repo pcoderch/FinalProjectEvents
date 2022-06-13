@@ -58,4 +58,5 @@ public class MethodsAPI {
 
     public static String deleteAssistance(int intentEventId, int userId) { return URL_ASSISTANCES + "/" + userId + "/" + intentEventId; }
 
+    public static String getAttendants(int eventId) { return URL_EVENT + "/" + eventId + "/assistances"; }
 }

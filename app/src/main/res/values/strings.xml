@@ -125,6 +125,8 @@
     <string name="searchAll">GET ALL EVENTS</string>
     <string name="searchInput">GET EVENTS BY INPUT</string>
     <string name="score">9</string>
+    <string name="join">JOIN</string>
+    <string name="getAttendants">GET ATTENDANTS</string>
 
 
 </resources>

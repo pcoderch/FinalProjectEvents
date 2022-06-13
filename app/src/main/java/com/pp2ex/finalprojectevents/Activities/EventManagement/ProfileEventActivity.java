@@ -63,6 +63,7 @@ public class ProfileEventActivity extends AppCompatActivity {
     private TextView location;
     private Button joinEvent;
     private Button leaveEvent;
+    private Button getAttendants;
     private ArrayList<Comment> comments;
     private AsyncTask<String, Void, Bitmap> profileImage;
 
@@ -88,17 +89,23 @@ public class ProfileEventActivity extends AppCompatActivity {
         location = findViewById(R.id.locationEvent);
         joinEvent = findViewById(R.id.joinEventButton);
         leaveEvent = findViewById(R.id.dropEventButton);
+        getAttendants = findViewById(R.id.getAttendantsButton);
         gotData = false;
-        event = new Event("calvo", "esto es una desc", "25/07", "25/08", 15, "image", "barcelona", "Furbo");
+        event = new Event("name", "esto es una desc", "25/07", "25/08", 15, "image", "barcelona", "type");
         getEventData(intentEventId);
         getEventAssistances(intentEventId);
-
+        ;
         joinEvent.setOnClickListener(v -> {
             joinTheEvent();
         });
 
         leaveEvent.setOnClickListener(v -> {
             dropTheEvent();
+        });
+        getAttendants.setOnClickListener(v -> {
+            Intent goToAttendants = new Intent(ProfileEventActivity.this, AttendantsEventActivity.class);
+            goToAttendants.putExtra("id", intentEventId);
+            startActivity(goToAttendants);
         });
     }
 
@@ -125,7 +132,9 @@ public class ProfileEventActivity extends AppCompatActivity {
         String url = MethodsAPI.getEventAssistances(intentEventId);
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.DELETE, url, null, response -> {
             Toast.makeText(this, R.string.dropped, Toast.LENGTH_SHORT).show();
+            joinEvent.setText(R.string.join);
         }, error -> {
+            joinEvent.setText(R.string.join);
             System.out.println("error");
         }) {
             @Override
@@ -238,10 +247,8 @@ public class ProfileEventActivity extends AppCompatActivity {
                     String comment = jsonObject.getString("comentary");
                     Comment commentToAdd = new Comment(id, name, last_name, email, rating, comment);
                     String image = "";
-                    do {
-                        image = getImageOfUser(name);
-                    } while(image.isEmpty());
-                    commentToAdd.setImage(getImageOfUser(name));
+                    image = getImageOfUser(id);
+                    commentToAdd.setImage(image);
                     if (i == 0) {
                         ownerName.setText(name);
                     }
@@ -264,22 +271,18 @@ public class ProfileEventActivity extends AppCompatActivity {
         VolleySingleton.getInstance(this).addToRequestQueue(request);
     }
 
-    private String getImageOfUser(String name) {
-        String url = MethodsAPI.getUserByString(name);
+    private String getImageOfUser(int id) {
+        String url = MethodsAPI.getUserData(id);
         System.out.println("URL GET USER: " + url);
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, response -> {
-            System.out.println("aaaaa" + response);
-            for (int i = 0; i < response.length(); i++) {
-                System.out.println(response);
-                try {
-                    JSONObject jsonObject = response.getJSONObject(i);
-                    imageUser = jsonObject.getString("image");
-                } catch (JSONException e) {
-                    System.out.println("Error json get user data: " + e.getMessage());
-                    e.printStackTrace();
-                }
+        StringRequest request = new StringRequest(Request.Method.GET, url, response -> {
+            System.out.println("response: " + response);
+            try {
+                response.substring(0, response.indexOf("}") + 1);
+                JSONObject jsonObject = new JSONObject(response);
+                imageUser = jsonObject.getString("image");
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-            System.out.println("not entering the loop user data");
         }, error -> {
             System.out.println("ERRORRRR get user data");
             Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT).show();
@@ -364,7 +367,7 @@ public class ProfileEventActivity extends AppCompatActivity {
             nameTextViewComment.setText(comment.getName() + " " + comment.getLast_name());
             ratingTextViewComment.setText(String.valueOf(comment.getRating()));
             commentCommentEditText.setText(comment.getComment());
-            profileImage  = new BitMapImage(findViewById(R.id.iconImageViewComment)).execute(event.getImage());
+            //profileImage  = new BitMapImage(findViewById(R.id.iconImageViewComment)).execute(event.getImage());
         }
 
 
