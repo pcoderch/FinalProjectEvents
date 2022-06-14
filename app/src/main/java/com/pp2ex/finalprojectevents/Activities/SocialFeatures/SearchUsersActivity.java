@@ -21,7 +21,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
-import com.android.volley.Response;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.pp2ex.finalprojectevents.API.BitMapImage;
@@ -34,7 +33,6 @@ import com.pp2ex.finalprojectevents.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -58,6 +56,8 @@ public class SearchUsersActivity extends AppCompatActivity {
             String search = ((TextView)findViewById(R.id.searchUserEditText)).getText().toString();
             if(!search.isEmpty()) {
                 searchUsers(search);
+            } else {
+                Toast.makeText(this, R.string.enterNamePlease, Toast.LENGTH_SHORT).show();
             }
         });
         backButton.setOnClickListener(v -> {
@@ -75,7 +75,7 @@ public class SearchUsersActivity extends AppCompatActivity {
     @SuppressLint("NotifyDataSetChanged")
     private void addUserToSearched(User user, String search) {
         System.out.println("Adding user to searched" + user.getEmail());
-        if (verifySearch(user, search)) {
+        if (verifySearch(user, search) && user.getId() != User.getAuthenticatedUser().getId()) {
             usersSearch.add(user);
             adapter.notifyDataSetChanged();
         }
@@ -213,10 +213,12 @@ public class SearchUsersActivity extends AppCompatActivity {
             getFriends(user.getId());
             getFriendRequests();
             connectButton.setOnClickListener(v -> {
-                if (!isFriend && !alreadySentRequest) {
+                if (!user.isFriend() && !user.isRequested()) {
                     sendFriendRequest(user.getId());
+                } else if (user.isFriend()){
+                    Toast.makeText(getApplicationContext(), R.string.alreadyFriends, Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getApplicationContext(), R.string.errorSendingRequest, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), R.string.alreadySentRequestSt, Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -227,10 +229,10 @@ public class SearchUsersActivity extends AppCompatActivity {
 
         private void getFriendRequests() {
             String url = MethodsAPI.URL_FRIEND_REQUESTS;
-            friendRequests = new ArrayList<>();
+            System.out.println("Searching users requests with url: " + url);
             JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, response -> {
                 for (int i = 0; i < response.length(); i++) {
-                    System.out.println(response);
+                    System.out.println("requests" + response);
                     try {
                         JSONObject jsonObject = response.getJSONObject(i);
                         int id = jsonObject.getInt("id");
@@ -258,14 +260,14 @@ public class SearchUsersActivity extends AppCompatActivity {
             VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
         }
 
-        @SuppressLint("ResourceAsColor")
+        @SuppressLint({"ResourceAsColor", "UseCompatLoadingForColorStateLists"})
         private void updateIfAlreadySentRequest() {
             System.out.println("updating pending");
             for (int i = 0; i < friendRequests.size(); i++) {
                 if (friendRequests.get(i).getId() == user.getId()) {
                     connectButton.setText(R.string.pending);
-                    connectButton.setBackgroundColor(R.color.yellow_claro);
-                    alreadySentRequest = true;
+                    connectButton.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.yellow_claro));
+                    user.setRequested(true);
                 }
             }
         }
@@ -273,14 +275,15 @@ public class SearchUsersActivity extends AppCompatActivity {
         private void sendFriendRequest(int id) {
             String url = MethodsAPI.sendFriendRequest(id);
             System.out.println("URL: " + url);
-            @SuppressLint("ResourceAsColor") StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+            @SuppressLint({"ResourceAsColor", "UseCompatLoadingForColorStateLists"}) StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                     response -> {
                         System.out.println("Response friend request: " + response);
                         Toast.makeText(getApplicationContext(), R.string.requestSent, Toast.LENGTH_SHORT).show();
                         connectButton.setText(R.string.pending);
-                        connectButton.setBackgroundColor(R.color.yellow_claro);
+                        connectButton.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.yellow_claro));
+                        user.setRequested(true);
                     }, error -> {
-                Toast.makeText(getApplicationContext(), R.string.errorSendingRequest, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.alreadySentRequest, Toast.LENGTH_SHORT).show();
             } ) {
                 @Override
                 public Map<String, String> getHeaders() throws AuthFailureError {
@@ -292,30 +295,12 @@ public class SearchUsersActivity extends AppCompatActivity {
             VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(stringRequest);
         }
 
-        @SuppressLint({"ResourceAsColor", "UseCompatLoadingForDrawables"})
-        private void setIfNecessaryUpdate(int id) {
-            System.out.println("ID if necessary: " + id);
-            if(updateIfFriend(id)){
-                System.out.println("Is friend");
-                connectButton.setText(R.string.friends);
-                connectButton.setBackgroundColor(R.color.verde);
-                isFriend = true;
-            }
-        }
-
-        @SuppressLint("ResourceAsColor")
-        private boolean updateIfFriend(int id) {
-            for (User user : friends) {
-                System.out.println("idddd: " + user.getId());
-                if (user.getId() == id) {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        private void addFriendToList(User user) {
-            friends.add(user);
+        @SuppressLint("UseCompatLoadingForColorStateLists")
+        private void updateIsFriend() {
+            connectButton.setText(R.string.friends);
+            connectButton.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.verde));
+            user.setFriend(true);
+            user.setRequested(false);
         }
 
         private void getFriends(int idUserToShow) {
@@ -332,13 +317,13 @@ public class SearchUsersActivity extends AppCompatActivity {
                         String image = jsonObject.getString("image");
                         User user = new User(id, name, lastName, email, "", image);
                         System.out.println("added " + user);
-                        friends.add(user);
-                        addFriendToList(user);
+                        if (id == idUserToShow) {
+                            updateIsFriend();
+                        }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
-                setIfNecessaryUpdate(idUserToShow);
             }, error -> {
                 Toast.makeText(getApplicationContext(), R.string.error, Toast.LENGTH_SHORT).show();
             } ) {

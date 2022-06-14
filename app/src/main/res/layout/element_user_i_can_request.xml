@@ -74,7 +74,7 @@
                     android:layout_height="match_parent"
                     android:text="@string/request"
                     android:textStyle="bold"
-                    android:backgroundTint="@color/teal_flojo"
+                    android:backgroundTint="@color/azul_claro"
                     />
             </LinearLayout>
         </RelativeLayout>

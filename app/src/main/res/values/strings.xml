@@ -66,7 +66,7 @@
     <string name="removeFriend">REMOVE CONNECTION</string>
     <string name="removedFriend">Friend removed</string>
     <string name="errorRemovingFriend">Error removing friend!</string>
-    <string name="alreadyFriends">Already Friends!</string>
+    <string name="alreadyFriends">You are already Friends!</string>
     <string name="friends">FRIENDS</string>
     <string name="request_accepted">Request Accepted</string>
     <string name="request_rejected">Friend Request Rejected</string>
@@ -133,6 +133,9 @@
     <string name="addfriend">Connect to add the user to your friends list</string>
     <string name="alreadyJoinedEvent">You are already in the event!</string>
     <string name="noMoreParticipants">No more participants allowed</string>
+    <string name="enterNamePlease">Please enter a name</string>
+    <string name="alreadySentRequest">You have already sent a request</string>
+    <string name="alreadySentRequestSt">You have already sent a request</string>
 
 
 </resources>

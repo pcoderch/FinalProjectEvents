@@ -89,6 +89,11 @@ public class ProfileActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        if(id == User.getAuthenticatedUser().getId()){
+            addConnection.setText(R.string.editProfile);
+            chatImage.setVisibility(View.GONE);
+            goToChat.setVisibility(View.GONE);
+        }
         getUserData(emailInt);
         getEventsCount(id);
         getFriendsCount(id);
@@ -165,13 +170,13 @@ public class ProfileActivity extends AppCompatActivity {
         friends.add(user);
     }
 
-    @SuppressLint({"ResourceAsColor", "UseCompatLoadingForDrawables"})
+    @SuppressLint({"ResourceAsColor", "UseCompatLoadingForDrawables", "UseCompatLoadingForColorStateLists"})
     private void setIfNecessaryUpdate(int id) {
         System.out.println("ID if necessary: " + id);
         if(updateIfFriend(id)){
             System.out.println("Is friend");
             addConnection.setText(R.string.friends);
-            addConnection.setBackgroundColor(R.color.verde);
+            addConnection.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.verde));
             isFriend = true;
         }
     }
@@ -224,20 +229,14 @@ public class ProfileActivity extends AppCompatActivity {
     private void sendFriendRequest(int id) {
         String url = MethodsAPI.sendFriendRequest(id);
         System.out.println("URL: " + url);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+        @SuppressLint("UseCompatLoadingForColorStateLists") StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                 response -> {
-                    try {
-                        JSONObject jsonObject = new JSONObject(response);
-                        String message = jsonObject.getString("id");
-                        System.out.println("Response friend request: " + response);
-                        Toast.makeText(ProfileActivity.this, R.string.requestSent, Toast.LENGTH_SHORT).show();
-                        addConnection.setText(R.string.pending);
-                    } catch (JSONException e) {
-                        Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT).show();
-                        e.printStackTrace();
-                    }
+                    System.out.println("Response friend request: " + response);
+                    Toast.makeText(ProfileActivity.this, R.string.requestSent, Toast.LENGTH_SHORT).show();
+                    addConnection.setText(R.string.pending);
+                    addConnection.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.yellow_claro));
                 }, error -> {
-            Toast.makeText(ProfileActivity.this, R.string.error, Toast.LENGTH_SHORT).show();
+            Toast.makeText(ProfileActivity.this, R.string.alreadySentRequestSt, Toast.LENGTH_SHORT).show();
         } ) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {

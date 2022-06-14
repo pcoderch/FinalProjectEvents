@@ -14,6 +14,8 @@ public class User {
     private int eventsCount;
     private int friendsCount;
     private int owns;
+    private boolean isFriend;
+    private boolean isRequested;
     private static User authenticatedUser;
 
     public User(int id, String name, String lastName, String email, String password, String image) {
@@ -23,6 +25,8 @@ public class User {
         this.email = email;
         this.password = password;
         this.image = image;
+        this.isFriend = false;
+        this.isRequested = false;
     }
 
     public static User getUserFromJson(String response) throws JSONException {
@@ -64,6 +68,8 @@ public class User {
     public int getEventsCount() { return eventsCount; }
     public int getFriendsCount() { return friendsCount; }
     public int getOwns() { return owns; }
+    public boolean isFriend() { return isFriend; }
+    public boolean isRequested() { return isRequested; }
 
     //Setters
     public void setId(int id) { this.id = id; }
@@ -77,6 +83,8 @@ public class User {
     public void setEventsCount(int eventsCount) { this.eventsCount = eventsCount; }
     public void setFriendsCount(int friendsCount) { this.friendsCount = friendsCount; }
     public void setOwns(int owns) { this.owns = owns; }
+    public void setFriend(boolean isFriend) { this.isFriend = isFriend; }
+    public void setRequested(boolean isRequested) { this.isRequested = isRequested; }
 
     public boolean verifyEmailChar(String email) {
         return email.contains("@") && email.contains(".");

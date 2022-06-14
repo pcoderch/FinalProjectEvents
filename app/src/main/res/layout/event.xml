@@ -29,22 +29,23 @@
 
             <ImageView
                 android:id="@+id/eventImage"
-                android:contentDescription="@string/event_name"
                 android:layout_width="250dp"
                 android:layout_height="150dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="45dp"
+                android:contentDescription="@string/event_name"
                 android:src="@drawable/event" />
+
             <TextView
                 android:id="@+id/profileName"
-                android:layout_marginTop="10dp"
-                android:layout_gravity="center_horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
                 android:text="@string/event_name"
                 android:textColor="@color/white"
-                android:textStyle="bold"
-                android:textSize="21sp"/>
+                android:textSize="21sp"
+                android:textStyle="bold" />
         </LinearLayout>
         <androidx.cardview.widget.CardView
             android:layout_width="350dp"

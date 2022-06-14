@@ -3,7 +3,6 @@ package com.pp2ex.finalprojectevents.Activities.Chat;
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -15,7 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -36,6 +34,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class InsideChatActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -45,7 +46,7 @@ public class InsideChatActivity extends AppCompatActivity {
     private EditText messageToSend;
     private Button sendMessage;
     private Button backButton;
-
+    private boolean threadRunning;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,10 +59,10 @@ public class InsideChatActivity extends AppCompatActivity {
         int id = getIntent().getIntExtra("id", 0);
         userName.setText(getIntent().getStringExtra("name"));
         recyclerView = findViewById(R.id.MessagesInChat);
-        adapter = new MessageAdaptor(messages);
+        adapter =    new MessageAdaptor(messages);
+        threadRunning = true;
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         getMessages(id);
-        final Handler handler = new Handler();
         sendMessage.setOnClickListener(v -> {
             String content = messageToSend.getText().toString();
             if (!content.isEmpty()) {
@@ -70,17 +71,33 @@ public class InsideChatActivity extends AppCompatActivity {
                 Toast.makeText(InsideChatActivity.this, R.string.empty_message, Toast.LENGTH_SHORT).show();
             }
         });
-        backButton.setOnClickListener(v -> {
-            finish();
+        Thread thread = new Thread(() -> {
+            while (threadRunning) {
+                try {
+                    Thread.sleep(950);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                getMessages(id);
+            }
         });
-        //TODO: STOP THREAD IN BACK BUTTON PRESS
-        final Runnable r = new Runnable() {
+        thread.start();
+        /*ExecutorService executorService = Executors.newSingleThreadExecutor();
+        final Handler handler = new Handler();
+        Runnable r = new Runnable() {
             public void run() {
                 getMessages(id);
                 handler.postDelayed(this, 950);
             }
         };
-        handler.post(r);
+        Future<?> lr = executorService.submit(r);
+        handler.post(r);*/
+        backButton.setOnClickListener(v -> {
+            threadRunning = false;
+            finish();
+        });
+
+
     }
 
     private JSONObject insertJsonBody(String content, int senderId, int receiverId) {
