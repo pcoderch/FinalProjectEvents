@@ -60,4 +60,6 @@ public class MethodsAPI {
 
     public static String getAttendants(int eventId) { return URL_EVENT + "/" + eventId + "/assistances"; }
 
+    public static String getFutureEvents(int userId) { return URL_REGISTER + "/" + userId + "/assistances/future"; }
+
 }

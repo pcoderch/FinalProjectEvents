@@ -53,6 +53,9 @@
             android:name=".Activities.EventManagement.ProfileEventActivity"
             android:exported="false" />
         <activity
+            android:name=".Activities.EventManagement.AssistingEventsActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activities.EventManagement.EditEventActivity"
             android:exported="false" />
         <activity

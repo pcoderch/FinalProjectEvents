@@ -15,7 +15,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/myEvents"
+        android:text="@string/myCalendar"
         android:textSize="35sp"
         android:textColor="@color/teal_flojo"
         android:textAlignment="center"

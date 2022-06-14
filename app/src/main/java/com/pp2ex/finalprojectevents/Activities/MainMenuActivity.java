@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.pp2ex.finalprojectevents.Activities.Authentication.LogoutActivity;
 import com.pp2ex.finalprojectevents.Activities.Authentication.ProfileActivity;
 import com.pp2ex.finalprojectevents.Activities.Chat.ChatActivity;
+import com.pp2ex.finalprojectevents.Activities.EventManagement.AssistingEventsActivity;
 import com.pp2ex.finalprojectevents.Activities.EventManagement.CreateEventActivity;
 import com.pp2ex.finalprojectevents.Activities.EventManagement.SearchEventsActivity;
 import com.pp2ex.finalprojectevents.Activities.SocialFeatures.FriendRequestActivity;
@@ -30,6 +31,7 @@ public class MainMenuActivity extends AppCompatActivity {
         LinearLayout createEventLayout = findViewById(R.id.createEvent);
         LinearLayout searchEventsLayout = findViewById(R.id.searchEvents);
         LinearLayout requestsLayout = findViewById(R.id.requests);
+        LinearLayout calendar = findViewById(R.id.calendar);
         Button logoutButton = findViewById(R.id.logout);
 
         myProfileLayout.setOnClickListener(v -> {
@@ -61,6 +63,11 @@ public class MainMenuActivity extends AppCompatActivity {
         requestsLayout.setOnClickListener(v -> {
             Intent goToRequests = new Intent(MainMenuActivity.this, FriendRequestActivity.class);
             startActivity(goToRequests);
+        });
+
+        calendar.setOnClickListener(v -> {
+            Intent goToCalendar = new Intent(MainMenuActivity.this, AssistingEventsActivity.class);
+            startActivity(goToCalendar);
         });
 
         logoutButton.setOnClickListener(v -> {
