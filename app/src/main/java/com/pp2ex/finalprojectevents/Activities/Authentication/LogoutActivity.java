@@ -15,7 +15,6 @@ public class LogoutActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        super.onBackPressed();
         setContentView(R.layout.sign_out);
         final Button signOut = findViewById(R.id.buttonLogout);
         final Button cancel = findViewById(R.id.buttonCancel);

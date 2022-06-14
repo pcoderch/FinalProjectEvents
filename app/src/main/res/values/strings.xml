@@ -138,6 +138,14 @@
     <string name="alreadySentRequestSt">You have already sent a request</string>
     <string name="errorUpdatingEvent">Error updating event</string>
     <string name="eventUpdated">Event updated successfully</string>
+    <string name="z_everyone">EVERYONE</string>
+    <string name="z_request">REQUESTS</string>
+    <string name="z_logout">LOGOUT</string>
+    <string name="z_createvent">CREATE EVENT</string>
+    <string name="z_search">SEARCH EVENTS</string>
+    <string name="z_chats">CHATS</string>
+    <string name="z_myprofile">MY PROFILE</string>
+    <string name="Z_menu">HOME</string>
 
 
 </resources>

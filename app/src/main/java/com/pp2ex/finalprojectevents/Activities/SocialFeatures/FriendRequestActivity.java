@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -148,7 +149,8 @@ public class FriendRequestActivity extends AppCompatActivity {
             this.user = user;
             nameTextViewRequest.setText(user.getName());
             emailTextViewRequest.setText(user.getEmail());
-            profileImageView = new BitMapImage(findViewById(R.id.IconImageViewRequest)).execute(user.getImage());
+            System.out.println("get image: " + user.getImage());
+            profileImageView = new BitMapImage((ImageView) itemView.findViewById(R.id.IconImageViewRequest)).execute(user.getImage());
             acceptButton.setOnClickListener(v -> {
                 acceptRequest(user.getId());
             });

@@ -45,7 +45,7 @@ public class ChatActivity<ImageButton> extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_chats);
         recyclerView = findViewById(R.id.chatsList);
-        final android.widget.ImageButton backButton = findViewById(R.id.arrowBackSignUp);
+        final android.widget.ImageButton backButton = findViewById(R.id.arrowBackAllChats);
         chats = new ArrayList<>();
         adapter = new ChatsAdaptor(chats);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

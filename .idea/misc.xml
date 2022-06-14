@@ -12,6 +12,7 @@
         <entry key="..\:/Users/Rukii/Documents/pc/LaSalle/2nd Year/Pr Prog II/finalProject/FinalProjectEvents/app/src/main/res/layout/sign_in.xml" value="0.3374094202898551" />
         <entry key="..\:/Users/Rukii/Documents/pc/LaSalle/2nd Year/Pr Prog II/finalProject/FinalProjectEvents/app/src/main/res/layout/sign_out.xml" value="0.3374094202898551" />
         <entry key="..\:/Users/Rukii/Documents/pc/LaSalle/2nd Year/Pr Prog II/finalProject/FinalProjectEvents/app/src/main/res/layout/sign_up.xml" value="0.3374094202898551" />
+        <entry key="app/src/main/res/drawable/ic_baseline_person_add_24.xml" value="0.1695" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2341262817382813" />
         <entry key="app/src/main/res/layout/chat.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/create_event.xml" value="0.3471264367816092" />
@@ -37,6 +38,7 @@
         <entry key="app/src/main/res/layout/list_one_chat.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/list_users.xml" value="0.29721443065698594" />
         <entry key="app/src/main/res/layout/list_who_attends_event.xml" value="0.2578125" />
+        <entry key="app/src/main/res/layout/main_view.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/my_profile.xml" value="0.24270833333333333" />
         <entry key="app/src/main/res/layout/profile.xml" value="0.19630192502532928" />
         <entry key="app/src/main/res/layout/sign_in.xml" value="0.12537993920972645" />

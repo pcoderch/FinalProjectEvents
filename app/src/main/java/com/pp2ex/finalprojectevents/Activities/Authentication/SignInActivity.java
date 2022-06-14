@@ -20,6 +20,7 @@ import com.pp2ex.finalprojectevents.Activities.Chat.ChatActivity;
 import com.pp2ex.finalprojectevents.Activities.EventManagement.ProfileEventActivity;
 import com.pp2ex.finalprojectevents.Activities.EventManagement.SearchEventsActivity;
 import com.pp2ex.finalprojectevents.Activities.MainActivity;
+import com.pp2ex.finalprojectevents.Activities.MainMenuActivity;
 import com.pp2ex.finalprojectevents.Activities.SocialFeatures.SearchUsersActivity;
 import com.pp2ex.finalprojectevents.DataStructures.User;
 import com.pp2ex.finalprojectevents.R;
@@ -99,13 +100,8 @@ public class SignInActivity extends AppCompatActivity{
                             System.out.println("Error: " + e);
                             e.printStackTrace();
                         }
-                        /*Intent goProfile = new Intent(SignInActivity.this, ProfileActivity.class);
-                        goProfile.putExtra("email", "adrian@openevents.com");
-                        goProfile.putExtra("id", 1283);
-                        startActivity(goProfile);*/
-                        Intent goFriends = new Intent(SignInActivity.this, SearchEventsActivity.class);
-                        goFriends.putExtra("id", 553);
-                        startActivity(goFriends);
+                        Intent goMainView = new Intent(SignInActivity.this, MainMenuActivity.class);
+                        startActivity(goMainView);
                     } }, error -> {
                     Toast.makeText(SignInActivity.this, "Error: " + error, Toast.LENGTH_SHORT).show();
                 } ) {
