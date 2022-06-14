@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.widget.Button;
 
 import com.pp2ex.finalprojectevents.Activities.MainActivity;
+import com.pp2ex.finalprojectevents.DataStructures.User;
 import com.pp2ex.finalprojectevents.R;
 
 public class LogoutActivity extends AppCompatActivity {
@@ -20,11 +21,16 @@ public class LogoutActivity extends AppCompatActivity {
         final Button cancel = findViewById(R.id.buttonCancel);
 
         signOut.setOnClickListener(v -> {
+            logoutUser();
             Intent goMainMenu = new Intent(LogoutActivity.this, MainActivity.class);
             startActivity(goMainMenu);
         });
         cancel.setOnClickListener(v -> {
             finish();
         });
+    }
+
+    private void logoutUser() {
+        User.setAuthenticatedUser(null);
     }
 }

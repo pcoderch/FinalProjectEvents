@@ -40,6 +40,7 @@
         <entry key="app/src/main/res/layout/my_profile.xml" value="0.24270833333333333" />
         <entry key="app/src/main/res/layout/profile.xml" value="0.19630192502532928" />
         <entry key="app/src/main/res/layout/sign_in.xml" value="0.12537993920972645" />
+        <entry key="app/src/main/res/layout/sign_out.xml" value="0.2578125" />
         <entry key="app/src/main/res/layout/sign_up.xml" value="0.1203125" />
         <entry key="app/src/main/res/layout/update_event.xml" value="0.2578125" />
       </map>
