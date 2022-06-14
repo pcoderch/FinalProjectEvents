@@ -136,6 +136,8 @@
     <string name="enterNamePlease">Please enter a name</string>
     <string name="alreadySentRequest">You have already sent a request</string>
     <string name="alreadySentRequestSt">You have already sent a request</string>
+    <string name="errorUpdatingEvent">Error updating event</string>
+    <string name="eventUpdated">Event updated successfully</string>
 
 
 </resources>

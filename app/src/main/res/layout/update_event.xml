@@ -168,7 +168,7 @@
                 android:layout_marginTop="40dp"
                 android:layout_marginStart="70dp"
                 android:backgroundTint="@color/black"
-                android:text="@string/create_event_button">
+                android:text="@string/update_event">
             </Button>
 
         </LinearLayout>

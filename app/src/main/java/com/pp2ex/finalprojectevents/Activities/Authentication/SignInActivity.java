@@ -45,7 +45,6 @@ public class SignInActivity extends AppCompatActivity{
 
         enterEmail = (EditText) findViewById(R.id.et_email);
         enterPassword = (EditText) findViewById(R.id.et_password);
-        //TODO: check if email is already in use
         logIn.setOnClickListener(v -> {
             String email = enterEmail.getText().toString();
             String password = enterPassword.getText().toString();
@@ -104,7 +103,7 @@ public class SignInActivity extends AppCompatActivity{
                         goProfile.putExtra("email", "adrian@openevents.com");
                         goProfile.putExtra("id", 1283);
                         startActivity(goProfile);*/
-                        Intent goFriends = new Intent(SignInActivity.this, SearchUsersActivity.class);
+                        Intent goFriends = new Intent(SignInActivity.this, SearchEventsActivity.class);
                         goFriends.putExtra("id", 553);
                         startActivity(goFriends);
                     } }, error -> {

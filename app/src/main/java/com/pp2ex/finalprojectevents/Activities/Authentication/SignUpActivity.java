@@ -27,6 +27,7 @@ public class SignUpActivity extends AppCompatActivity{
     private EditText enterEmail;
     private EditText enterPassword;
     private EditText confirmPassword;
+    private EditText image;
     public User user;
 
     @Override
@@ -42,6 +43,7 @@ public class SignUpActivity extends AppCompatActivity{
         enterEmail = (EditText) findViewById(R.id.et_email);
         enterPassword = (EditText) findViewById(R.id.et_password);
         confirmPassword = (EditText) findViewById(R.id.et_confirm_password);
+        image = (EditText) findViewById(R.id.et_image_profile);
 
         createAccount.setOnClickListener(v -> {
             String firstName = enterFirstName.getText().toString();
@@ -49,14 +51,14 @@ public class SignUpActivity extends AppCompatActivity{
             String email = enterEmail.getText().toString();
             String password = enterPassword.getText().toString();
             String confirmedPassword = confirmPassword.getText().toString();
+            String imageToAdd = image.getText().toString();
             if (password.equals(confirmedPassword)) {
                 enterPassword.setTextColor(getResources().getColor(R.color.black));
                 confirmPassword.setTextColor(getResources().getColor(R.color.black));
-                //TODO: implement the image set here
                 String url = MethodsAPI.URL_REGISTER;
                 JSONObject jsonBody = null;
                 try {
-                    jsonBody = User.registerUserJson(firstName, lastName, email, password, "imagepp"); //TODO: change 'imagepp' to the image
+                    jsonBody = User.registerUserJson(firstName, lastName, email, password, imageToAdd);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

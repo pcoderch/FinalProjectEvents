@@ -182,7 +182,6 @@
         android:orientation="horizontal">
         <Button
             android:id="@+id/BackFromProfile"
-            android:layout_marginTop="45dp"
             android:layout_gravity="center_horizontal"
             android:text="@string/back"
             android:textStyle="bold"
@@ -194,18 +193,36 @@
         </Button>
         <Button
             android:id="@+id/addConnectionButton"
-            android:layout_marginTop="45dp"
             android:layout_gravity="center_horizontal"
             android:text="@string/addConnection"
             android:textStyle="bold"
             android:textSize="17sp"
-            android:layout_marginLeft="30dp"
+            android:layout_marginStart="30dp"
             android:backgroundTint="@color/azul_claro"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-        />
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/eventsButton"
+            android:layout_gravity="center"
+            android:text="@string/myEvents"
+            android:textStyle="bold"
+            android:textSize="17sp"
+            android:backgroundTint="@color/azul_claro"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        </Button>
+    </LinearLayout>
+
         <TextView
+            android:id="@+id/messageConnection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"

@@ -24,6 +24,7 @@ import com.pp2ex.finalprojectevents.API.MethodsAPI;
 import com.pp2ex.finalprojectevents.API.VolleySingleton;
 import com.pp2ex.finalprojectevents.Activities.Chat.ChatActivity;
 import com.pp2ex.finalprojectevents.Activities.Chat.InsideChatActivity;
+import com.pp2ex.finalprojectevents.Activities.EventManagement.ShowEventsActivity;
 import com.pp2ex.finalprojectevents.DataStructures.User;
 import com.pp2ex.finalprojectevents.R;
 
@@ -43,15 +44,17 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView name;
     private TextView email;
     private TextView goToChat;
+    private TextView messageConnection;
     private String emailToShow;
     private Button addConnection;
+    private Button myEvents;
+    private Button backButton;
     private ImageView chatImage;
     private ArrayList<User> friends;
     private String emailInt;
     private String imageURL;
     private boolean isFriend;
     private int id;
-    private Button backButton;
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -73,13 +76,18 @@ public class ProfileActivity extends AppCompatActivity {
         addConnection = findViewById(R.id.addConnectionButton);
         chatImage = findViewById(R.id.chatImage);
         backButton = findViewById(R.id.BackFromProfile);
-        if (id == 0) {
+        messageConnection = findViewById(R.id.messageConnection);
+        myEvents = findViewById(R.id.eventsButton);
+        myEvents.setVisibility(View.GONE);
+        if (id == User.getAuthenticatedUser().getId()) {
             id = User.getAuthenticatedUser().getId();
             emailInt = User.getAuthenticatedUser().getEmail();
             imageURL = User.getAuthenticatedUser().getImage();
             addConnection.setText(R.string.editProfile);
+            messageConnection.setVisibility(View.GONE);
             goToChat.setVisibility(View.GONE);
             chatImage.setVisibility(View.GONE);
+            myEvents.setVisibility(View.VISIBLE);
         }
         profilePicture = new BitMapImage(findViewById(R.id.profileImage)).execute(imageURL);
         try {
@@ -123,6 +131,11 @@ public class ProfileActivity extends AppCompatActivity {
         });
         backButton.setOnClickListener(v -> {
             finish();
+        });
+        myEvents.setOnClickListener(view -> {
+            Intent goShowEvents = new Intent(ProfileActivity.this, ShowEventsActivity.class);
+            goShowEvents.putExtra("id", finalId);
+            startActivity(goShowEvents);
         });
     }
 

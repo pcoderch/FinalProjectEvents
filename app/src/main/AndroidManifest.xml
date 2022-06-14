@@ -44,10 +44,16 @@
             android:name=".Activities.EventManagement.AttendantsEventActivity"
             android:exported="false" />
         <activity
+            android:name=".Activities.EventManagement.ShowEventsActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activities.EventManagement.SearchEventsActivity"
             android:exported="false" />
         <activity
             android:name=".Activities.EventManagement.ProfileEventActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Activities.EventManagement.EditEventActivity"
             android:exported="false" />
         <activity
             android:name=".Activities.Authentication.LogoutActivity"
