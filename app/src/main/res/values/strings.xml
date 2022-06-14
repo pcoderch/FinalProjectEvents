@@ -131,6 +131,8 @@
     <string name="back">BACK</string>
     <string name="EditEvent">EDIT</string>
     <string name="addfriend">Connect to add the user to your friends list</string>
+    <string name="alreadyJoinedEvent">You are already in the event!</string>
+    <string name="noMoreParticipants">No more participants allowed</string>
 
 
 </resources>

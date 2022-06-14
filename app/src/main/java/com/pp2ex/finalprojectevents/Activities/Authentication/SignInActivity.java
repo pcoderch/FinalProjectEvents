@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.Response;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.pp2ex.finalprojectevents.API.MethodsAPI;
@@ -72,7 +73,6 @@ public class SignInActivity extends AppCompatActivity{
                     }, error -> {
                         Toast.makeText(SignInActivity.this, R.string.loginError, Toast.LENGTH_SHORT).show();
                     });
-
             VolleySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
         });
 

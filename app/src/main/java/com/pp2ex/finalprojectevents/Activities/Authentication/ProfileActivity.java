@@ -82,6 +82,13 @@ public class ProfileActivity extends AppCompatActivity {
             chatImage.setVisibility(View.GONE);
         }
         profilePicture = new BitMapImage(findViewById(R.id.profileImage)).execute(imageURL);
+        try {
+            if (profilePicture.get() == null) {
+                profilePicture = new BitMapImage(findViewById(R.id.profileImage)).execute("https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         getUserData(emailInt);
         getEventsCount(id);
         getFriendsCount(id);

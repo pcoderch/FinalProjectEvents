@@ -3,6 +3,7 @@ package com.pp2ex.finalprojectevents.Activities.EventManagement;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -93,15 +94,30 @@ public class ProfileEventActivity extends AppCompatActivity {
         getAttendants = findViewById(R.id.getAttendantsButton);
         backButton = findViewById(R.id.backButtonEvent);
         gotData = false;
+        alreadyJoined = false;
         event = new Event("name", "esto es una desc", "25/07", "25/08", 15, "image", "barcelona", "type");
         getEventData(intentEventId);
-        getEventAssistances(intentEventId);
         backButton.setOnClickListener(v -> finish());
         joinEvent.setOnClickListener(v -> {
-            joinTheEvent();
+            System.out.println("already joined " + alreadyJoined);
+            if (!alreadyJoined && event.getNumOfParticipants() > assistances) {
+                joinTheEvent();
+                updateAlreadyJoined();
+                assistances = assistances == event.getNumOfParticipants() ? assistances : assistances + 1;
+                usersAttending.setText(Math.min(assistances, event.getNumOfParticipants()) + "/" + event.getNumOfParticipants());
+            } else if (event.getNumOfParticipants() <= assistances){
+                Toast.makeText(this, R.string.noMoreParticipants, Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, R.string.alreadyJoinedEvent, Toast.LENGTH_SHORT).show();
+            }
         });
 
         leaveEvent.setOnClickListener(v -> {
+            alreadyJoined = false;
+            if (!joinEvent.getText().toString().equals(getString(R.string.joinEvent))) {
+                assistances = assistances == 0 ? assistances : assistances - 1;
+                usersAttending.setText(Math.min(assistances, event.getNumOfParticipants()) + "/" + event.getNumOfParticipants());
+            }
             dropTheEvent();
         });
         getAttendants.setOnClickListener(v -> {
@@ -117,7 +133,6 @@ public class ProfileEventActivity extends AppCompatActivity {
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.POST, url, null, response -> {
             joinEvent.setText(R.string.joined);
         }, error -> {
-            System.out.println("ERRORRRR get user data");
             joinEvent.setText(R.string.joined);
         }) {
             @Override
@@ -133,11 +148,9 @@ public class ProfileEventActivity extends AppCompatActivity {
     private void dropTheEvent() {
         String url = MethodsAPI.getEventAssistances(intentEventId);
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.DELETE, url, null, response -> {
-            Toast.makeText(this, R.string.dropped, Toast.LENGTH_SHORT).show();
             joinEvent.setText(R.string.join);
         }, error -> {
             joinEvent.setText(R.string.join);
-            System.out.println("error");
         }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
@@ -154,23 +167,19 @@ public class ProfileEventActivity extends AppCompatActivity {
         event.setRating(calculateRating());
         eventName.setText(event.getName());
         eventID.setText(String.valueOf(intentEventId));
-        usersAttending.setText(String.valueOf(assistances));
         startDate.setText(event.getStartDate());
         endDate.setText(event.getEndDate());
         eventDescription.setText(event.getDescription());
-        rating.setText(String.valueOf(event.getRating()));
+        rating.setText(String.valueOf(event.getRating() == 0 ? "No rating" : event.getRating()));
         eventType.setText(event.getType());
         location.setText(event.getLocation());
-        usersAttending.setText(assistances + "/" + event.getNumOfParticipants());
+        usersAttending.setText(Math.min(assistances, event.getNumOfParticipants()) + "/" + event.getNumOfParticipants());
         profileImage = new BitMapImage(findViewById(R.id.eventImage)).execute(event.getImage());
-        System.out.println("id of event: " + event.getId());
     }
 
     private void getEventData(int eventID) {
         String url = MethodsAPI.getEventById(eventID);
-        System.out.println("URL GET EVENT: " + url);
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, response -> {
-            System.out.println("aaaaa" + response);
             for (int i = 0; i < response.length(); i++) {
                 System.out.println(response);
                 try {
@@ -188,13 +197,11 @@ public class ProfileEventActivity extends AppCompatActivity {
                     setEvent();
                     initializeData();
                 } catch (JSONException e) {
-                    System.out.println("Error json get user data: " + e.getMessage());
                     e.printStackTrace();
                 }
             }
-            System.out.println("not entering the loop user data");
+            getEventAssistances(intentEventId);
         }, error -> {
-            System.out.println("ERRORRRR get user data");
             Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT).show();
         }) {
             @Override
@@ -233,7 +240,6 @@ public class ProfileEventActivity extends AppCompatActivity {
 
     private void getEventAssistances(int intentEventId) {
         String url = MethodsAPI.getEventAssistances(intentEventId);
-        System.out.println("URL GET ASSISTANCES: " + url);
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, response -> {
             assistances = response.length();
             System.out.println("response length: " + response.length());
@@ -248,18 +254,20 @@ public class ProfileEventActivity extends AppCompatActivity {
                     String rating = jsonObject.getString("puntuation");
                     String comment = jsonObject.getString("comentary");
                     Comment commentToAdd = new Comment(id, name, last_name, email, rating, comment);
-                    String image = "";
-                    image = getImageOfUser(id);
-                    commentToAdd.setImage(image);
                     if (i == 0) {
                         ownerName.setText(name);
+                    }
+                    if (id == User.getAuthenticatedUser().getId()) {
+                        updateAlreadyJoined();
+                        joinEvent.setText(R.string.joined);
                     }
                     addComment(commentToAdd);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }
-            updateUI();
+            initializeData();
+            updateImages();
         }, error -> {
             Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT).show();
         }) {
@@ -273,46 +281,54 @@ public class ProfileEventActivity extends AppCompatActivity {
         VolleySingleton.getInstance(this).addToRequestQueue(request);
     }
 
-    private String getImageOfUser(int id) {
-        String url = MethodsAPI.getUserData(id);
-        System.out.println("URL GET USER: " + url);
-        StringRequest request = new StringRequest(Request.Method.GET, url, response -> {
-            System.out.println("response: " + response);
-            try {
-                response.substring(0, response.indexOf("}") + 1);
-                JSONObject jsonObject = new JSONObject(response);
-                imageUser = jsonObject.getString("image");
-            } catch (JSONException e) {
-                e.printStackTrace();
+    private void updateAlreadyJoined() {
+        alreadyJoined = true;
+    }
+
+    private void updateImages() {
+        for (Comment c : comments) {
+            if (c.getComment() != null && !Objects.equals(c.getComment(), "null")) {
+                String url = MethodsAPI.getUserData(c.getId());
+                StringRequest request = new StringRequest(Request.Method.GET, url, response -> {
+                    try {
+                        response = response.substring(1, response.indexOf("}") + 1);
+                        JSONObject jsonObject = new JSONObject(response);
+                        c.setImage(jsonObject.getString("image"));
+                        addImage(c);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }, error -> {
+                    Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT).show();
+                }) {
+                    @Override
+                    public Map<String, String> getHeaders() throws AuthFailureError {
+                        HashMap<String, String> headers = new HashMap<>();
+                        headers.put("Authorization", "Bearer " + User.getAuthenticatedUser().getToken());
+                        return headers;
+                    }
+                };
+                VolleySingleton.getInstance(this).addToRequestQueue(request);
             }
-        }, error -> {
-            System.out.println("ERRORRRR get user data");
-            Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT).show();
-        }) {
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<>();
-                headers.put("Authorization", "Bearer " + User.getAuthenticatedUser().getToken());
-                return headers;
-            }
-        };
-        VolleySingleton.getInstance(this).addToRequestQueue(request);
-        return imageUser;
+
+        }
+        updateUI();
     }
 
     @SuppressLint("NotifyDataSetChanged")
+    private void addImage(Comment c) {
+        comments.get(comments.indexOf(c)).setImage(c.getImage());
+        adapter.notifyDataSetChanged();
+    }
+
     private void addComment(Comment commentToAdd) {
         if (commentToAdd.getComment() != null && !commentToAdd.getComment().equals("null")) {
             comments.add(commentToAdd);
-            adapter.notifyDataSetChanged();
         }
     }
 
     private void updateUI() {
         adapter = new EventAdaptor(comments);
-        for (int i = 0; i < comments.size(); i++) {
-            System.out.println(comments.get(i).getComment());
-        }
         recyclerView.setAdapter(adapter);
     }
 
@@ -369,14 +385,19 @@ public class ProfileEventActivity extends AppCompatActivity {
             nameTextViewComment.setText(comment.getName() + " " + comment.getLast_name());
             ratingTextViewComment.setText(String.valueOf(comment.getRating()));
             commentCommentEditText.setText(comment.getComment());
-            //profileImage  = new BitMapImage(findViewById(R.id.iconImageViewComment)).execute(event.getImage());
+            try {
+                if (comment.getImage() == null || comment.getImage().equals("null")) {
+                    comment.setImage("https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            profileImage  = new BitMapImage((ImageView) itemView.findViewById(R.id.iconImageViewComment)).execute(comment.getImage());
         }
 
 
         @Override
-        public void onClick(View view) {
-            System.out.println("Clicked");
-        }
+        public void onClick(View view) {}
 
     }
 

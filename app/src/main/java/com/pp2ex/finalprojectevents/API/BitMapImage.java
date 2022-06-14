@@ -12,6 +12,7 @@ import java.io.InputStream;
 public class BitMapImage extends AsyncTask<String, Void, Bitmap> {
     @SuppressLint("StaticFieldLeak")
     ImageView bitMapImage;
+
     public BitMapImage(ImageView bmImage) {
         this.bitMapImage = bmImage;
     }

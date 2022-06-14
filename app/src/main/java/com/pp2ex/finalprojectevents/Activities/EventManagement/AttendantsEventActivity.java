@@ -2,11 +2,14 @@ package com.pp2ex.finalprojectevents.Activities.EventManagement;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,9 +21,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.pp2ex.finalprojectevents.API.BitMapImage;
 import com.pp2ex.finalprojectevents.API.MethodsAPI;
 import com.pp2ex.finalprojectevents.API.VolleySingleton;
 import com.pp2ex.finalprojectevents.Activities.Authentication.ProfileActivity;
+import com.pp2ex.finalprojectevents.DataStructures.User;
 import com.pp2ex.finalprojectevents.DataStructures.User;
 import com.pp2ex.finalprojectevents.R;
 
@@ -30,6 +36,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class AttendantsEventActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
@@ -52,11 +59,10 @@ public class AttendantsEventActivity extends AppCompatActivity {
         });
     }
 
-    @SuppressLint("NotifyDataSetChanged")
+
     private void addUser(User user) {
         System.out.println("Adding user" + user.getEmail());
         attendants.add(user);
-        adapter.notifyDataSetChanged();
     }
 
     private void getAttendants() {
@@ -77,7 +83,7 @@ public class AttendantsEventActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-            updateUI();
+            updateImages();
         }, error -> {
             Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT).show();
         } ) {
@@ -89,6 +95,44 @@ public class AttendantsEventActivity extends AppCompatActivity {
             }
         };
         VolleySingleton.getInstance(this).addToRequestQueue(request);
+    }
+
+    private void updateImages() {
+        for (User c : attendants) {
+            String url = MethodsAPI.getUserData(c.getId());
+            System.out.println("URL GET USER: " + url);
+            StringRequest request = new StringRequest(Request.Method.GET, url, response -> {
+                System.out.println("response: " + response);
+                try {
+                    response = response.substring(1, response.indexOf("}") + 1);
+                    JSONObject jsonObject = new JSONObject(response);
+                    c.setImage(jsonObject.getString("image"));
+                    System.out.println("image in API: " + c.getImage());
+                    addImage(c);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }, error -> {
+                System.out.println("ERRORRRR get user data");
+                Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT).show();
+            }) {
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    HashMap<String, String> headers = new HashMap<>();
+                    headers.put("Authorization", "Bearer " + User.getAuthenticatedUser().getToken());
+                    return headers;
+                }
+            };
+            VolleySingleton.getInstance(this).addToRequestQueue(request);
+
+        }
+        updateUI();
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private void addImage(User c) {
+        attendants.get(attendants.indexOf(c)).setImage(c.getImage());
+        adapter.notifyDataSetChanged();
     }
 
     private void updateUI() {
@@ -130,8 +174,7 @@ public class AttendantsEventActivity extends AppCompatActivity {
         private User user;
         private final TextView nameTextView;
         private final TextView emailTextView;
-        //private final ImageView imageView;
-
+        private AsyncTask<String, Void, Bitmap> profileImage;
 
         public AttendantsHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.element_attendee_event, parent, false));
@@ -144,6 +187,14 @@ public class AttendantsEventActivity extends AppCompatActivity {
             this.user = user;
             nameTextView.setText(user.getName());
             emailTextView.setText(user.getEmail());
+            profileImage = new BitMapImage((ImageView) itemView.findViewById(R.id.IconImageView)).execute(user.getImage());
+            try {
+                if (profileImage.get() == null) {
+                    profileImage = new BitMapImage((ImageView) itemView.findViewById(R.id.IconImageView)).execute("https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         @Override
