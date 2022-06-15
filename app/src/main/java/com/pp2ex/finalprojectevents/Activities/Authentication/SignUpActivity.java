@@ -13,6 +13,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.pp2ex.finalprojectevents.API.MethodsAPI;
 import com.pp2ex.finalprojectevents.API.VolleySingleton;
 import com.pp2ex.finalprojectevents.Activities.MainActivity;
+import com.pp2ex.finalprojectevents.Activities.MainMenuActivity;
 import com.pp2ex.finalprojectevents.DataStructures.User;
 import com.pp2ex.finalprojectevents.R;
 
@@ -71,8 +72,11 @@ public class SignUpActivity extends AppCompatActivity{
                                 enterEmail.setTextColor(getResources().getColor(R.color.black));
                                 System.out.println("Response: " + response);
                                 try {
+                                    User user = new User(Integer.parseInt(response.getString("id")), response.getString("name"), response.getString("last_name"), response.getString("email"), response.getString("password"), response.getString("image"));
                                     String token = response.getString("accessToken");
                                     System.out.println("token: " + token);
+                                    user.setToken(token);
+                                    User.setAuthenticatedUser(user);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -94,7 +98,7 @@ public class SignUpActivity extends AppCompatActivity{
             }
         });
         back.setOnClickListener(v -> {
-            Intent goMainMenu = new Intent(SignUpActivity.this, MainActivity.class);
+            Intent goMainMenu = new Intent(SignUpActivity.this, MainMenuActivity.class);
             startActivity(goMainMenu);
         });
     }

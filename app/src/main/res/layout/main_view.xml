@@ -241,37 +241,76 @@
         </LinearLayout>
 
     </LinearLayout>
-
         <LinearLayout
-            android:id="@+id/calendar"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_gravity="center"
-            android:elevation="10dp"
-            android:background="@color/white"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:textColor="@color/black"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:textAlignment="center"
-                android:text="@string/myCalendar"
-                android:textSize="25sp"
-                android:textStyle="bold">
-            </TextView>
-            <ImageView
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_gravity="center_horizontal"
-                android:src="@drawable/calendar">
-            </ImageView>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            >
 
+            <LinearLayout
+                android:id="@+id/friends"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
+                android:elevation="10dp"
+                android:background="@color/white"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textColor="@color/black"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:textAlignment="center"
+                    android:text="@string/friends"
+                    android:textSize="25dp"
+                    android:textStyle="bold">
+                </TextView>
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/community">
+                </ImageView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/calendar"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
+                android:elevation="10dp"
+                android:background="@color/white"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textColor="@color/black"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:textAlignment="center"
+                    android:text="@string/calendar"
+                    android:textSize="25dp"
+                    android:textStyle="bold">
+                </TextView>
+                <ImageView
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@drawable/calendar">
+                </ImageView>
+            </LinearLayout>
 
         </LinearLayout>
+
     <Button
         android:id="@+id/logout"
         android:layout_marginTop="20dp"

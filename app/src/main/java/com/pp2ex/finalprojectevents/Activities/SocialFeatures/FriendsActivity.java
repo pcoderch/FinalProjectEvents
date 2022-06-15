@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.pp2ex.finalprojectevents.API.BitMapImage;
 import com.pp2ex.finalprojectevents.API.MethodsAPI;
 import com.pp2ex.finalprojectevents.API.VolleySingleton;
 import com.pp2ex.finalprojectevents.Activities.Authentication.ProfileActivity;
@@ -16,11 +17,14 @@ import com.pp2ex.finalprojectevents.R;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -127,6 +131,7 @@ public class FriendsActivity extends AppCompatActivity {
         private User user;
         private final TextView nameTextView;
         private final TextView emailTextView;
+        private AsyncTask<String, Void, Bitmap> profileImage;
 
 
         public FriendHolder(LayoutInflater inflater, ViewGroup parent) {
@@ -140,6 +145,7 @@ public class FriendsActivity extends AppCompatActivity {
             this.user = user;
             nameTextView.setText(user.getName());
             emailTextView.setText(user.getEmail());
+            profileImage = new BitMapImage((ImageView) itemView.findViewById(R.id.IconImageView)).execute(user.getImage());
         }
 
         @Override

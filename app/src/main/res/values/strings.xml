@@ -152,6 +152,7 @@
     <string name="notInTheEventComment">You are not in the event, join to be able to post a comment!</string>
     <string name="commentAdded">Comment Added!</string>
     <string name="errorComment">Error posting the comment</string>
+    <string name="calendar">CALENDAR</string>
 
 
 </resources>

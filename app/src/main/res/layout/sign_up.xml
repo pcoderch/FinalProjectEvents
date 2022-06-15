@@ -120,7 +120,7 @@
         android:textSize="15sp"
         android:autofillHints=""
         android:backgroundTint="@color/black"
-        android:inputType="textPassword">
+        android:inputType="textLongMessage">
     </EditText>
 
     <Button
