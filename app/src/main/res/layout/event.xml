@@ -362,6 +362,44 @@
 
                 </TextView>
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+                <EditText
+                    android:id="@+id/addComment"
+                    android:layout_width="210dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="7dp"
+                    android:hint="@string/addComment"
+                    android:background="@drawable/perfilador"
+                    android:padding="15dp"
+                    android:textSize="15sp"
+                    android:autofillHints=""
+                    android:backgroundTint="@color/black"
+                    android:inputType="textPersonName">
+                </EditText>
+                <NumberPicker
+                    android:id="@+id/numberPicker"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginStart="5dp"
+                    android:scrollbarSize="20dp">
+                </NumberPicker>
+
+                <Button
+                    android:id="@+id/sendComment"
+                    android:layout_width="80dp"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:text="@string/send_message"
+                    android:layout_gravity="bottom"
+                    android:backgroundTint="@color/pink"
+                    >
+                </Button>
+
+            </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/commentsInEvent"

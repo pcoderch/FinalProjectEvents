@@ -147,6 +147,11 @@
     <string name="z_myprofile">MY PROFILE</string>
     <string name="Z_menu">HOME</string>
     <string name="myCalendar">MY CALENDAR</string>
+    <string name="addComment">Add comment</string>
+    <string name="cantComment">Your comment is empty</string>
+    <string name="notInTheEventComment">You are not in the event, join to be able to post a comment!</string>
+    <string name="commentAdded">Comment Added!</string>
+    <string name="errorComment">Error posting the comment</string>
 
 
 </resources>

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.pp2ex.finalprojectevents.API.BitMapImage;
 import com.pp2ex.finalprojectevents.API.MethodsAPI;
 import com.pp2ex.finalprojectevents.API.VolleySingleton;
@@ -62,10 +64,13 @@ public class ProfileEventActivity extends AppCompatActivity {
     private TextView rating;
     private TextView eventType;
     private TextView location;
+    private EditText addComment;
     private Button joinEvent;
     private Button leaveEvent;
     private Button getAttendants;
     private Button backButton;
+    private Button sendComment;
+    private NumberPicker numberPicker;
     private ArrayList<Comment> comments;
     private AsyncTask<String, Void, Bitmap> profileImage;
 
@@ -93,10 +98,24 @@ public class ProfileEventActivity extends AppCompatActivity {
         leaveEvent = findViewById(R.id.dropEventButton);
         getAttendants = findViewById(R.id.getAttendantsButton);
         backButton = findViewById(R.id.backButtonEvent);
+        addComment = findViewById(R.id.addComment);
+        sendComment = findViewById(R.id.sendComment);
+        numberPicker = findViewById(R.id.numberPicker);
+        numberPicker.setMinValue(0);
+        numberPicker.setMaxValue(10);
         gotData = false;
         alreadyJoined = false;
         event = new Event("name", "esto es una desc", "25/07", "25/08", 15, "image", "barcelona", "type");
         getEventData(intentEventId);
+        sendComment.setOnClickListener(v->{
+            if(addComment.getText().toString().isEmpty()){
+                Toast.makeText(this, R.string.cantComment, Toast.LENGTH_SHORT).show();
+            }else if (!alreadyJoined) {
+                Toast.makeText(this, R.string.notInTheEventComment, Toast.LENGTH_SHORT).show();
+            } else {
+                addCommentEvent();
+            }
+        });
         backButton.setOnClickListener(v -> finish());
         joinEvent.setOnClickListener(v -> {
             System.out.println("already joined " + alreadyJoined);
@@ -125,6 +144,45 @@ public class ProfileEventActivity extends AppCompatActivity {
             goToAttendants.putExtra("id", intentEventId);
             startActivity(goToAttendants);
         });
+    }
+
+    private void addCommentEvent() {
+        String url = MethodsAPI.getEventAssistances(intentEventId);
+        JSONObject jsonObject = addInfoToJsonBody();
+        System.out.println("url " + url);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, jsonObject, response -> {
+            System.out.println("response " + response);
+            Toast.makeText(this, R.string.commentAdded, Toast.LENGTH_SHORT).show();
+            addComment.setText("");
+            numberPicker.setValue(0);
+            initializeData();
+            getEventAssistances(intentEventId);
+        }, error -> {
+            Toast.makeText(this, R.string.commentAdded, Toast.LENGTH_SHORT).show();
+            addComment.setText("");
+            numberPicker.setValue(0);
+            initializeData();
+            getEventAssistances(intentEventId);
+        } ) {
+            @Override
+            public Map<String, String> getHeaders() {
+                Map<String, String> headers = new HashMap<>();
+                headers.put("Authorization", "Bearer " + User.getAuthenticatedUser().getToken());
+                return headers;
+            }
+        };
+        VolleySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
+    }
+
+    private JSONObject addInfoToJsonBody() {
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("comentary", addComment.getText().toString());
+            jsonObject.put("puntuation", numberPicker.getValue());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return jsonObject;
     }
 
     private void joinTheEvent() {
@@ -239,6 +297,7 @@ public class ProfileEventActivity extends AppCompatActivity {
     }
 
     private void getEventAssistances(int intentEventId) {
+        comments = new ArrayList<>();
         String url = MethodsAPI.getEventAssistances(intentEventId);
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, response -> {
             assistances = response.length();
