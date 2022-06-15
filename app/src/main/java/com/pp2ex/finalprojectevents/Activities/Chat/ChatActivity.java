@@ -67,7 +67,6 @@ public class ChatActivity<ImageButton> extends AppCompatActivity {
         chats = new ArrayList<>();
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, response -> {
             for (int i = 0; i < response.length(); i++) {
-                System.out.println(response);
                 try {
                     JSONObject jsonObject = response.getJSONObject(i);
                     int id = jsonObject.getInt("id");

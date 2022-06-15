@@ -55,20 +55,14 @@ public class SignInActivity extends AppCompatActivity{
                 jsonBody.put("email", email);
                 jsonBody.put("password", password);
             } catch (JSONException e) {
-                System.out.println("Error2: " + e);
                 e.printStackTrace();
             }
-            System.out.println("URL: " + url);
-            System.out.println("email: " + email + " password: " + password);
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                     (url, jsonBody, response -> {
-                        System.out.println("Response: " + response);
                         try {
                             String token = response.getString("accessToken");
-                            System.out.println("token: " + token);
                             setUser(token, email);
                         } catch (JSONException | AuthFailureError e) {
-                            System.out.println("Error: " + e);
                             e.printStackTrace();
                         }
                     }, error -> {
@@ -85,19 +79,16 @@ public class SignInActivity extends AppCompatActivity{
 
     public void setUser(String token, String email) throws AuthFailureError {
         String url = MethodsAPI.URL_GET_USER + "?s=" + email;
-        System.out.println("URL: " + url);
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        System.out.println("Response: " + response);
                         User user = null;
                         try {
                             user = User.getUserFromJson(response);
                             user.setToken(token);
                             User.setAuthenticatedUser(user);
                         } catch (JSONException e) {
-                            System.out.println("Error: " + e);
                             e.printStackTrace();
                         }
                         Intent goMainView = new Intent(SignInActivity.this, MainMenuActivity.class);

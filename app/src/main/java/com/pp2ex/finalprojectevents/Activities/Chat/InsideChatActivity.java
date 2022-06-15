@@ -82,22 +82,10 @@ public class InsideChatActivity extends AppCompatActivity {
             }
         });
         thread.start();
-        /*ExecutorService executorService = Executors.newSingleThreadExecutor();
-        final Handler handler = new Handler();
-        Runnable r = new Runnable() {
-            public void run() {
-                getMessages(id);
-                handler.postDelayed(this, 950);
-            }
-        };
-        Future<?> lr = executorService.submit(r);
-        handler.post(r);*/
         backButton.setOnClickListener(v -> {
             threadRunning = false;
             finish();
         });
-
-
     }
 
     private JSONObject insertJsonBody(String content, int senderId, int receiverId) {
@@ -146,7 +134,6 @@ public class InsideChatActivity extends AppCompatActivity {
         messages = new ArrayList<>();
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, response -> {
             for (int i = 0; i < response.length(); i++) {
-                System.out.println(response);
                 try {
                     JSONObject jsonObject = response.getJSONObject(i);
                     int id = jsonObject.getInt("id");
@@ -179,9 +166,6 @@ public class InsideChatActivity extends AppCompatActivity {
     private void updateUI() {
         recyclerView.scrollToPosition(messages.size() - 1);
         adapter = new MessageAdaptor(messages);
-        for (int i = 0; i < messages.size(); i++) {
-            System.out.println(messages.get(i).getContent());
-        }
         recyclerView.setAdapter(adapter);
     }
     private class MessageAdaptor extends RecyclerView.Adapter<MessagesHolder> {

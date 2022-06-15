@@ -49,11 +49,9 @@ public class EditProfileActivity extends AppCompatActivity {
                 enterPassword.setTextColor(getResources().getColor(R.color.black));
                 confirmPassword.setTextColor(getResources().getColor(R.color.black));
                 JSONObject jsonBody = getInfoInJson(firstName, lastName, email, password, image);
-                System.out.println("JSON :" + jsonBody);
                 String url = MethodsAPI.URL_EDIT_PROFILE;
                 JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, jsonBody, response -> {
                     updateDataAuthUser();
-                    System.out.println("response: " + response);
                     Toast.makeText(getApplicationContext(), "Profile updated successfully", Toast.LENGTH_LONG).show();
                     finish();
                 }, error -> {

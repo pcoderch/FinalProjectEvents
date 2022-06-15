@@ -70,11 +70,9 @@ public class SignUpActivity extends AppCompatActivity{
                                 enterPassword.setTextColor(getResources().getColor(R.color.black));
                                 confirmPassword.setTextColor(getResources().getColor(R.color.black));
                                 enterEmail.setTextColor(getResources().getColor(R.color.black));
-                                System.out.println("Response: " + response);
                                 try {
                                     User user = new User(Integer.parseInt(response.getString("id")), response.getString("name"), response.getString("last_name"), response.getString("email"), response.getString("password"), response.getString("image"));
                                     String token = response.getString("accessToken");
-                                    System.out.println("token: " + token);
                                     user.setToken(token);
                                     User.setAuthenticatedUser(user);
                                 } catch (JSONException e) {

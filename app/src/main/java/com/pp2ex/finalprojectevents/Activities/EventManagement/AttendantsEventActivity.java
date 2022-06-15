@@ -61,7 +61,6 @@ public class AttendantsEventActivity extends AppCompatActivity {
 
 
     private void addUser(User user) {
-        System.out.println("Adding user" + user.getEmail());
         attendants.add(user);
     }
 
@@ -100,20 +99,17 @@ public class AttendantsEventActivity extends AppCompatActivity {
     private void updateImages() {
         for (User c : attendants) {
             String url = MethodsAPI.getUserData(c.getId());
-            System.out.println("URL GET USER: " + url);
             StringRequest request = new StringRequest(Request.Method.GET, url, response -> {
                 System.out.println("response: " + response);
                 try {
                     response = response.substring(1, response.indexOf("}") + 1);
                     JSONObject jsonObject = new JSONObject(response);
                     c.setImage(jsonObject.getString("image"));
-                    System.out.println("image in API: " + c.getImage());
                     addImage(c);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
             }, error -> {
-                System.out.println("ERRORRRR get user data");
                 Toast.makeText(this, R.string.error, Toast.LENGTH_SHORT).show();
             }) {
                 @Override
@@ -137,9 +133,6 @@ public class AttendantsEventActivity extends AppCompatActivity {
 
     private void updateUI() {
         adapter = new AttendantsAdaptor(attendants);
-        for (int i = 0; i < attendants.size(); i++) {
-            System.out.println(attendants.get(i).getName());
-        }
         recyclerView.setAdapter(adapter);
     }
     private class AttendantsAdaptor extends RecyclerView.Adapter<AttendantsHolder> {
