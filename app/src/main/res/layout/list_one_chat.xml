@@ -78,7 +78,7 @@
             android:textSize="20sp"
             android:textColor="@color/black"
             android:imeOptions="actionSend"
-            android:inputType="textCapCharacters"
+            android:inputType="textLongMessage"
             android:maxLines="2"
             android:singleLine="true"
             android:gravity="center_vertical">
