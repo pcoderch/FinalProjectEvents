@@ -57,11 +57,8 @@ public class EditEventActivity extends AppCompatActivity {
             String eventCategory = enterEventCategory.getText().toString();
             String eventImage = enterEventImage.getText().toString();
             JSONObject jsonBody = getInfoInJson(eventName, eventDescription, eventCapacity, eventEndingDate, eventLocation, eventStartingDate, eventCategory, eventImage);
-            System.out.println("JSON :" + jsonBody);
             String url = MethodsAPI.getEventById(eventId);
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, jsonBody, response -> {
-                //Event event = new Event(enterEventName.getText().toString(), enterEventDescription.getText().toString(), enterEventStartingDate.getText().toString(), enterEventEndingDate.getText().toString(), Integer.parseInt(enterEventCapacity.getText().toString()), enterEventImage.getText().toString(), enterEventLocation.getText().toString(), enterEventCategory.getText().toString());
-                System.out.println("response: " + response);
                 Toast.makeText(getApplicationContext(), R.string.eventUpdated, Toast.LENGTH_LONG).show();
                 finish();
             }, error -> {
@@ -86,7 +83,6 @@ public class EditEventActivity extends AppCompatActivity {
         String url = MethodsAPI.getEventById(eventID);
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, response -> {
             for (int i = 0; i < response.length(); i++) {
-                System.out.println(response);
                 try {
                     JSONObject jsonObject = response.getJSONObject(i);
                     String name = jsonObject.getString("name");

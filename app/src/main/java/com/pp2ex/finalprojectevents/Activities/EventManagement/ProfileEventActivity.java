@@ -118,7 +118,6 @@ public class ProfileEventActivity extends AppCompatActivity {
         });
         backButton.setOnClickListener(v -> finish());
         joinEvent.setOnClickListener(v -> {
-            System.out.println("already joined " + alreadyJoined);
             if (!alreadyJoined && event.getNumOfParticipants() > assistances) {
                 joinTheEvent();
                 updateAlreadyJoined();
@@ -149,9 +148,7 @@ public class ProfileEventActivity extends AppCompatActivity {
     private void addCommentEvent() {
         String url = MethodsAPI.getEventAssistances(intentEventId);
         JSONObject jsonObject = addInfoToJsonBody();
-        System.out.println("url " + url);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url, jsonObject, response -> {
-            System.out.println("response " + response);
             Toast.makeText(this, R.string.commentAdded, Toast.LENGTH_SHORT).show();
             addComment.setText("");
             numberPicker.setValue(0);
@@ -187,7 +184,6 @@ public class ProfileEventActivity extends AppCompatActivity {
 
     private void joinTheEvent() {
         String url = MethodsAPI.getEventAssistances(intentEventId);
-        System.out.println("URL: " + url);
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.POST, url, null, response -> {
             joinEvent.setText(R.string.joined);
         }, error -> {
@@ -239,7 +235,6 @@ public class ProfileEventActivity extends AppCompatActivity {
         String url = MethodsAPI.getEventById(eventID);
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, response -> {
             for (int i = 0; i < response.length(); i++) {
-                System.out.println(response);
                 try {
                     JSONObject jsonObject = response.getJSONObject(i);
                     String name = jsonObject.getString("name");
@@ -301,9 +296,7 @@ public class ProfileEventActivity extends AppCompatActivity {
         String url = MethodsAPI.getEventAssistances(intentEventId);
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, response -> {
             assistances = response.length();
-            System.out.println("response length: " + response.length());
             for (int i = 0; i < response.length(); i++) {
-                System.out.println(response);
                 try {
                     JSONObject jsonObject = response.getJSONObject(i);
                     int id = jsonObject.getInt("id");

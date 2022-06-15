@@ -38,7 +38,6 @@ public class CreateEventActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         Objects.requireNonNull(getSupportActionBar()).hide();
         super.onCreate(savedInstanceState);
-        //super.onBackPressed();
         setContentView(R.layout.create_event);
         final Button createEvent = findViewById(R.id.create_event_button);
         final ImageButton goBack = findViewById(R.id.arrowBackCreateEvent);
@@ -58,18 +57,13 @@ public class CreateEventActivity extends AppCompatActivity {
         createEvent.setOnClickListener(v -> {
             Event newEvent = new Event(enterEventName.getText().toString(), enterEventDescription.getText().toString(),enterEventStartDate.getText().toString(), enterEventEndDate.getText().toString(), Integer.parseInt(enterEventCapacity.getText().toString()), enterEventLocation.getText().toString(), enterEventCategory.getText().toString(),  enterEventImage.getText().toString());
             JSONObject eventJSON = newEvent.toJSON();
-            System.out.println("Event JSON: " + eventJSON);
-            System.out.println("User auth: " + User.getAuthenticatedUser().getToken());
             String url = MethodsAPI.URL_EVENT;
-            System.out.println("URL: " + url);
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, eventJSON, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
-                    System.out.println("Response: " + response);
                     Toast.makeText(CreateEventActivity.this, R.string.create_event_success, Toast.LENGTH_SHORT).show();
                     finish();
                 }}, error -> {
-                    System.out.println("Error: " + error);
                     Toast.makeText(CreateEventActivity.this, R.string.create_event_fail, Toast.LENGTH_LONG).show();
                 } ) {
                     @Override

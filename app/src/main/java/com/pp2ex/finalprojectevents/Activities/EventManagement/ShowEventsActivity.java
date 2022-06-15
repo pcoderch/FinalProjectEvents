@@ -61,7 +61,6 @@ public class ShowEventsActivity extends AppCompatActivity {
     @SuppressLint("NotifyDataSetChanged")
     private void addEvent(Event event) {
         if (event.getOwnerId() == User.getAuthenticatedUser().getId()) {
-            System.out.println("Adding event" + event.getOwnerId());
             events.add(event);
             adapter.notifyDataSetChanged();
         }
@@ -69,18 +68,13 @@ public class ShowEventsActivity extends AppCompatActivity {
 
     private void getEvents() {
         String url = MethodsAPI.URL_EVENTS_BEST;
-        System.out.println("Searching EVENTS with url: " + url);
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, response -> {
             try {
-                System.out.println("weee");
                 for(int i = 0; i < response.length(); i++) {
                     JSONObject event = response.getJSONObject(i);
                     Event eventToAdd = new Event(event.getString("name"), event.getString("description"), event.getString("eventStart_date"), event.getString("eventEnd_date"), event.getInt("n_participators"), event.getString("image"), event.getString("location"), event.getString("type"));
-                    System.out.println("The event is: " + eventToAdd.getName());
                     eventToAdd.setId(event.getInt("id"));
                     eventToAdd.setOwnerId(event.getInt("owner_id"));
-                    System.out.println("Event owner id: " + eventToAdd.getOwnerId());
-                    //eventToAdd.setRating(event.getInt("avg_score"));
                     addEvent(eventToAdd);
                 }
             } catch (JSONException e) {
@@ -102,9 +96,6 @@ public class ShowEventsActivity extends AppCompatActivity {
 
     private void updateUI() {
         adapter = new MyEventsAdapter(events);
-        for (int i = 0; i < events.size(); i++) {
-            System.out.println(events.get(i).getName());
-        }
         recyclerView.setAdapter(adapter);
     }
     private class MyEventsAdapter extends RecyclerView.Adapter<MyEventHolder> {
@@ -165,7 +156,6 @@ public class ShowEventsActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             Intent showProfileEvent = new Intent(getApplicationContext(), ProfileEventActivity.class);
-            System.out.println("Event id after click: " + event.getId());
             showProfileEvent.putExtra("id", event.getId());
             startActivity(showProfileEvent);
         }

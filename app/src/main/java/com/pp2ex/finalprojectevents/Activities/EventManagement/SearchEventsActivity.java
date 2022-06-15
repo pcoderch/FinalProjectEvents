@@ -110,22 +110,18 @@ public class SearchEventsActivity extends AppCompatActivity {
 
     @SuppressLint("NotifyDataSetChanged")
     private void addEventToSearched(Event event) {
-        System.out.println("Adding user to searched" + event.getName());
         eventsSearch.add(event);
         adapter.notifyDataSetChanged();
     }
 
     private void searchEvents(String url) {
         eventsSearch = new ArrayList<>();
-        System.out.println("Searching users with url: " + url);
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, response -> {
             try {
-                System.out.println("weee");
                 for(int i = 0; i < response.length(); i++) {
                     JSONObject event = response.getJSONObject(i);
                     Event eventToAdd = new Event(event.getString("name"), event.getString("description"), event.getString("eventStart_date"), event.getString("eventEnd_date"), event.getInt("n_participators"), event.getString("image"), event.getString("location"), event.getString("type"));
                     eventToAdd.setId(event.getInt("id"));
-                    System.out.println("The event is: " + eventToAdd.getName());
                     if (bestEvent) {
                         eventToAdd.setRating(event.getInt("avg_score"));
                     }
@@ -150,9 +146,6 @@ public class SearchEventsActivity extends AppCompatActivity {
 
     private void updateUI() {
         adapter = new EventAdaptor(eventsSearch);
-        for (int i = 0; i < eventsSearch.size(); i++) {
-            System.out.println(eventsSearch.get(i).getName());
-        }
         recyclerView.setAdapter(adapter);
     }
     private class EventAdaptor extends RecyclerView.Adapter<EventHolder> {

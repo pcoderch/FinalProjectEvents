@@ -55,7 +55,6 @@ public class FriendRequestActivity extends AppCompatActivity {
 
     @SuppressLint("NotifyDataSetChanged")
     private void addUser(User user) {
-        System.out.println("Adding user" + user.getEmail());
         friendRequests.add(user);
         adapter.notifyDataSetChanged();
     }
@@ -65,7 +64,6 @@ public class FriendRequestActivity extends AppCompatActivity {
         friendRequests = new ArrayList<>();
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, response -> {
             for (int i = 0; i < response.length(); i++) {
-                System.out.println(response);
                 try {
                     JSONObject jsonObject = response.getJSONObject(i);
                     int id = jsonObject.getInt("id");
@@ -95,9 +93,6 @@ public class FriendRequestActivity extends AppCompatActivity {
 
     private void updateUI() {
         adapter = new FriendsAdaptor(friendRequests);
-        for (int i = 0; i < friendRequests.size(); i++) {
-            System.out.println(friendRequests.get(i).getName());
-        }
         recyclerView.setAdapter(adapter);
     }
     private class FriendsAdaptor extends RecyclerView.Adapter<FriendHolder> {
@@ -149,7 +144,6 @@ public class FriendRequestActivity extends AppCompatActivity {
             this.user = user;
             nameTextViewRequest.setText(user.getName());
             emailTextViewRequest.setText(user.getEmail());
-            System.out.println("get image: " + user.getImage());
             profileImageView = new BitMapImage((ImageView) itemView.findViewById(R.id.IconImageViewRequest)).execute(user.getImage());
             acceptButton.setOnClickListener(v -> {
                 acceptRequest(user.getId());

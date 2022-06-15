@@ -67,14 +67,12 @@ public class SearchUsersActivity extends AppCompatActivity {
 
     @SuppressLint("NotifyDataSetChanged")
     private void addUser(User user) {
-        System.out.println("Adding user" + user.getEmail());
         usersSearch.add(user);
         adapter.notifyDataSetChanged();
     }
 
     @SuppressLint("NotifyDataSetChanged")
     private void addUserToSearched(User user, String search) {
-        System.out.println("Adding user to searched" + user.getEmail());
         if (verifySearch(user, search) && user.getId() != User.getAuthenticatedUser().getId()) {
             usersSearch.add(user);
             adapter.notifyDataSetChanged();
@@ -88,7 +86,6 @@ public class SearchUsersActivity extends AppCompatActivity {
     private void searchUsers(String search) {
         usersSearch = new ArrayList<>();
         String url = MethodsAPI.getUserByString(search);
-        System.out.println("Searching users with url: " + url);
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, response -> {
             try {
                 for(int i = 0; i < response.length(); i++) {
@@ -118,7 +115,6 @@ public class SearchUsersActivity extends AppCompatActivity {
         usersSearch = new ArrayList<>();
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, response -> {
             for (int i = 0; i < response.length(); i++) {
-                System.out.println(response);
                 try {
                     JSONObject jsonObject = response.getJSONObject(i);
                     int id = jsonObject.getInt("id");
@@ -148,9 +144,6 @@ public class SearchUsersActivity extends AppCompatActivity {
 
     private void updateUI() {
         adapter = new UsersAdaptor(usersSearch);
-        for (int i = 0; i < usersSearch.size(); i++) {
-            System.out.println(usersSearch.get(i).getName());
-        }
         recyclerView.setAdapter(adapter);
     }
     private class UsersAdaptor extends RecyclerView.Adapter<FriendHolder> {
@@ -229,10 +222,8 @@ public class SearchUsersActivity extends AppCompatActivity {
 
         private void getFriendRequests() {
             String url = MethodsAPI.URL_FRIEND_REQUESTS;
-            System.out.println("Searching users requests with url: " + url);
             JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, response -> {
                 for (int i = 0; i < response.length(); i++) {
-                    System.out.println("requests" + response);
                     try {
                         JSONObject jsonObject = response.getJSONObject(i);
                         int id = jsonObject.getInt("id");
@@ -262,7 +253,6 @@ public class SearchUsersActivity extends AppCompatActivity {
 
         @SuppressLint({"ResourceAsColor", "UseCompatLoadingForColorStateLists"})
         private void updateIfAlreadySentRequest() {
-            System.out.println("updating pending");
             for (int i = 0; i < friendRequests.size(); i++) {
                 if (friendRequests.get(i).getId() == user.getId()) {
                     connectButton.setText(R.string.pending);
@@ -274,10 +264,8 @@ public class SearchUsersActivity extends AppCompatActivity {
 
         private void sendFriendRequest(int id) {
             String url = MethodsAPI.sendFriendRequest(id);
-            System.out.println("URL: " + url);
             @SuppressLint({"ResourceAsColor", "UseCompatLoadingForColorStateLists"}) StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
                     response -> {
-                        System.out.println("Response friend request: " + response);
                         Toast.makeText(getApplicationContext(), R.string.requestSent, Toast.LENGTH_SHORT).show();
                         connectButton.setText(R.string.pending);
                         connectButton.setBackgroundTintList(getApplicationContext().getResources().getColorStateList(R.color.yellow_claro));
@@ -307,7 +295,6 @@ public class SearchUsersActivity extends AppCompatActivity {
             String url = MethodsAPI.URL_FRIENDS;
             JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, response -> {
                 for (int i = 0; i < response.length(); i++) {
-                    System.out.println("myyyyFriend: " + response);
                     try {
                         JSONObject jsonObject = response.getJSONObject(i);
                         int id = jsonObject.getInt("id");
@@ -316,7 +303,6 @@ public class SearchUsersActivity extends AppCompatActivity {
                         String email = jsonObject.getString("email");
                         String image = jsonObject.getString("image");
                         User user = new User(id, name, lastName, email, "", image);
-                        System.out.println("added " + user);
                         if (id == idUserToShow) {
                             updateIsFriend();
                         }

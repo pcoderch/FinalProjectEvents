@@ -54,7 +54,6 @@ public class FriendsActivity extends AppCompatActivity {
 
     @SuppressLint("NotifyDataSetChanged")
     private void addUser(User user) {
-        System.out.println("Adding user" + user.getEmail());
         friends.add(user);
         adapter.notifyDataSetChanged();
     }
@@ -64,7 +63,6 @@ public class FriendsActivity extends AppCompatActivity {
         friends = new ArrayList<>();
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null, response -> {
             for (int i = 0; i < response.length(); i++) {
-                System.out.println(response);
                 try {
                     JSONObject jsonObject = response.getJSONObject(i);
                     int id = jsonObject.getInt("id");
@@ -94,9 +92,6 @@ public class FriendsActivity extends AppCompatActivity {
 
     private void updateUI() {
         adapter = new FriendsAdaptor(friends);
-        for (int i = 0; i < friends.size(); i++) {
-            System.out.println(friends.get(i).getName());
-        }
         recyclerView.setAdapter(adapter);
     }
     private class FriendsAdaptor extends RecyclerView.Adapter<FriendHolder> {
