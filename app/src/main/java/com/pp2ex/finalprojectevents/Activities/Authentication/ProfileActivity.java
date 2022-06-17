@@ -47,7 +47,6 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView messageConnection;
     private String emailToShow;
     private Button addConnection;
-    private Button myEvents;
     private Button backButton;
     private ImageView chatImage;
     private ArrayList<User> friends;
@@ -77,8 +76,6 @@ public class ProfileActivity extends AppCompatActivity {
         chatImage = findViewById(R.id.chatImage);
         backButton = findViewById(R.id.BackFromProfile);
         messageConnection = findViewById(R.id.messageConnection);
-        myEvents = findViewById(R.id.eventsButton);
-        myEvents.setVisibility(View.GONE);
         if (id == User.getAuthenticatedUser().getId()) {
             id = User.getAuthenticatedUser().getId();
             emailInt = User.getAuthenticatedUser().getEmail();
@@ -87,7 +84,6 @@ public class ProfileActivity extends AppCompatActivity {
             messageConnection.setVisibility(View.GONE);
             goToChat.setVisibility(View.GONE);
             chatImage.setVisibility(View.GONE);
-            myEvents.setVisibility(View.VISIBLE);
         }
         profilePicture = new BitMapImage(findViewById(R.id.profileImage)).execute(imageURL);
         try {
@@ -132,11 +128,6 @@ public class ProfileActivity extends AppCompatActivity {
         backButton.setOnClickListener(v -> {
             finish();
         });
-        myEvents.setOnClickListener(view -> {
-            Intent goShowEvents = new Intent(ProfileActivity.this, ShowEventsActivity.class);
-            goShowEvents.putExtra("id", finalId);
-            startActivity(goShowEvents);
-        });
     }
 
     @Override
@@ -156,7 +147,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
     private void removeFriend(int id) {
-        String url = MethodsAPI.removeFriend(id);
+        String url = MethodsAPI.removeFriend(id); //i couldn't find the api method to remove a friend
         @SuppressLint("ResourceAsColor") StringRequest request = new StringRequest(Request.Method.DELETE, url, response -> {
             Toast.makeText(ProfileActivity.this, R.string.removedFriend, Toast.LENGTH_SHORT).show();
             addConnection.setText(R.string.addConnection);

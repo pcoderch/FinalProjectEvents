@@ -203,28 +203,11 @@
             android:layout_height="wrap_content"/>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:orientation="horizontal">
-        <Button
-            android:id="@+id/eventsButton"
-            android:layout_gravity="center"
-            android:text="@string/myEvents"
-            android:textStyle="bold"
-            android:textSize="17sp"
-            android:backgroundTint="@color/azul_claro"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-        </Button>
-    </LinearLayout>
-
         <TextView
             android:id="@+id/messageConnection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:textAlignment="center"
             android:text="@string/addfriend">
         </TextView>

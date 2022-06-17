@@ -30,6 +30,12 @@ public class EditProfileActivity extends AppCompatActivity {
     private EditText enterPassword;
     private EditText confirmPassword;
     private EditText enterImage;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private String image;
+    private String password;
+    private String confirmedPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,12 +45,12 @@ public class EditProfileActivity extends AppCompatActivity {
         final ImageButton back = findViewById(R.id.arrowBackEditProfile);
         initializeTextFields();
         saveChanges.setOnClickListener(v -> {
-            String firstName = enterFirstName.getText().toString();
-            String lastName = enterLastName.getText().toString();
-            String email = enterEmail.getText().toString();
-            String image = enterImage.getText().toString();
-            String password = enterPassword.getText().toString();
-            String confirmedPassword = confirmPassword.getText().toString();
+            firstName = enterFirstName.getText().toString();
+            lastName = enterLastName.getText().toString();
+            email = enterEmail.getText().toString();
+            image = enterImage.getText().toString();
+            password = enterPassword.getText().toString();
+            confirmedPassword = confirmPassword.getText().toString();
             if (password.equals(confirmedPassword)) {
                 enterPassword.setTextColor(getResources().getColor(R.color.black));
                 confirmPassword.setTextColor(getResources().getColor(R.color.black));
@@ -75,7 +81,7 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     private void updateDataAuthUser() {
-        User user = new User(User.getAuthenticatedUser().getId(), enterFirstName.getText().toString(), enterLastName.getText().toString(), enterEmail.getText().toString(), enterPassword.getText().toString(), enterImage.getText().toString());
+        User user = new User(User.getAuthenticatedUser().getId(), firstName, lastName, email, password, image);
         User.setAuthenticatedUser(user);
     }
 
